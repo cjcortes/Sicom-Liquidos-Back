@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot' version "$springBootVersion"
+}
+
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
+}
+
+build {
+    finalizedBy unpack
+}
+
+dependencies {
+    implementation project(':infrastructure:domain-config')
+    implementation project(':infrastructure:web')
+    implementation project(':infrastructure:sql-repository')
+    implementation project(':infrastructure:security')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
