@@ -14,7 +14,6 @@ public class JWTAuthentication implements Authentication {
     DecodedJWT token;
     Boolean authenticated;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();

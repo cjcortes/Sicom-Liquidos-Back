@@ -25,7 +25,7 @@ public class JWTAuthenticationConverter implements ServerAuthenticationConverter
     public Mono<Authentication> convert(ServerWebExchange exchange) {
         return Mono.justOrEmpty(resolveTokenFromAuthorizationHeader(exchange.getRequest().getHeaders()))
                 .map(JWT::decode)
-                .onErrorMap(JWTDecodeException.class, this::invalidTokenError)
+                .onErrorMap(Exception.class, this::invalidTokenError)
                 .map(decodedJWT -> new JWTAuthentication(decodedJWT, false));
     }
 

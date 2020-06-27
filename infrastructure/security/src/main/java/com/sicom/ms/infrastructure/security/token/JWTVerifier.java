@@ -21,7 +21,7 @@ public class JWTVerifier {
     public Mono<JWTAuthentication> verify(JWTAuthentication authentication) {
         return Mono.just(authentication.getToken())
                 .map(verifier::verify)
-                .onErrorMap(JWTVerificationException.class, this::invalidTokenError)
+                .onErrorMap(Exception.class, this::invalidTokenError)
                 .map(decodedJWT -> new JWTAuthentication(decodedJWT, true));
     }
 
