@@ -5,9 +5,14 @@ import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/security")
@@ -22,10 +27,14 @@ public class SecurityController {
     }
 
     @GetMapping("/oe")
-    public Mono<String> oe(Principal principal) {
+    public Flux<String> oe(Principal principal) {
         if (principal != null) {
             System.out.println(principal.getName());
         }
-        return Mono.just("Oe");
+        List<String> data = new ArrayList<>();
+        data.add("Value");
+        data.add("Value");
+        data.add("Value");
+        return Flux.fromIterable(data);
     }
 }

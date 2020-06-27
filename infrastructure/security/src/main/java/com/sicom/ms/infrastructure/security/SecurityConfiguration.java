@@ -30,7 +30,9 @@ public class SecurityConfiguration {
                 .authorizeExchange()
                 .pathMatchers(
                         "/",
-                        "/security/login")
+                        "/security/login",
+                        "/security/oe"
+                        )
                 .permitAll()
                 .anyExchange().authenticated()
                 .and()

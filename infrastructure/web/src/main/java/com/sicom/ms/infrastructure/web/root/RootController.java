@@ -8,13 +8,8 @@ import reactor.core.publisher.Mono;
 public class RootController {
 
     @GetMapping
-    public Mono<String> rootGet() {
-        return Mono.just("Root!");
-    }
-
-    @GetMapping("/parameters/")
-    public Mono<String> parametersGet() {
-        return Mono.just("Root!");
+    public Mono<String> root() {
+        return Mono.just("OK");
     }
 
 }
