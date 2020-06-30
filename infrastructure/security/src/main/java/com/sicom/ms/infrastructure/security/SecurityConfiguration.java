@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .pathMatchers(
                         "/",
                         "/security/login",
-                        "/security/oe"
+                        "/security/refresh-token"
                         )
                 .permitAll()
                 .anyExchange().authenticated()
