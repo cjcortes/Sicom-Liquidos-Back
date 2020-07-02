@@ -1,0 +1,31 @@
+plugins {
+    id 'org.asciidoctor.jvm.convert' version "$asciiDoctorVersion"
+}
+
+configurations {
+    asciidoctorExt
+}
+
+dependencies {
+    implementation project(':domain:model')
+    implementation project(':domain:usecase')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    dependsOn test
+
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
+}

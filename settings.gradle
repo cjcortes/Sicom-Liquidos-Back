@@ -1,0 +1,9 @@
+rootProject.name = 'SICOM MS'
+
+include 'domain:model',
+        'domain:usecase',
+        'infrastructure:domain-config',
+        'infrastructure:web',
+        'infrastructure:sql-repository',
+        'infrastructure:security',
+        'applications:api'
