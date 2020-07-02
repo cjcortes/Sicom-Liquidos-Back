@@ -9,14 +9,19 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class UsersGatewayAdapter extends BaseGatewayAdapter<User, UserData, String> implements UsersGateway {
+public class UsersGatewayAdapter extends BaseGatewayAdapter<User, UserData, Integer> implements UsersGateway {
 
-    public UsersGatewayAdapter(ObjectConverter<User, UserData> converter) {
+    private final UsersRepository usersRepository;
+
+    public UsersGatewayAdapter(UsersRepository usersRepository, ObjectConverter<User, UserData> converter) {
         super(converter);
+        this.usersRepository = usersRepository;
     }
 
     @Override
     public Mono<User> login(LoginRequest request) {
-        return Mono.just(User.builder().id("123").name("Prueba").build());
+        return Mono.just(request)
+                .map(loginRequest -> usersRepository.login(loginRequest.getUser(), loginRequest.getPassword(), 123))
+                .map(this::toEntity);
     }
 }

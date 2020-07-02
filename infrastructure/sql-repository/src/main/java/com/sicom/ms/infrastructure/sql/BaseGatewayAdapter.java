@@ -2,13 +2,14 @@ package com.sicom.ms.infrastructure.sql;
 
 import lombok.RequiredArgsConstructor;
 //import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public class BaseGatewayAdapter<E, D, I> {
 
-//    private final ReactiveMongoRepository<D, I> repository;
+//    private final JpaRepository<D, I> repository;
     private final ObjectConverter<E, D> converter;
 
 
