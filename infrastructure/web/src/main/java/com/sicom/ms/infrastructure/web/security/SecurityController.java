@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/security")
+@RequestMapping("/api/security")
 @RequiredArgsConstructor
 public class SecurityController {
 

@@ -7,8 +7,14 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class User {
 
-    String id;
+    int code;
+    String user;
     String name;
+    String userState;
+    String sicomAgent;
+    String agentSate;
+    String agentType;
+    String profile;
     String token;
 
 }

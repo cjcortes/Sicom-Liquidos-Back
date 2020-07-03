@@ -12,5 +12,6 @@ public class JWTProperties {
     private String issuer;
     private String secret;
     private String audience;
+    private int expires;
 
 }

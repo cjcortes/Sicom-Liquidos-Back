@@ -26,7 +26,7 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
 
     @Override
     public Mono<User> generateToken(User user) {
-        return Mono.just(user).map(user1 -> user1.toBuilder().token(create(user1.getId())).build());
+        return Mono.just(user).map(user1 -> user1.toBuilder().token(create(user1.getCode())).build());
     }
 
     @Override
@@ -35,14 +35,18 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
                 .map(decodedJWT -> refreshToken.toBuilder().token(create(decodedJWT.getSubject())).build());
     }
 
+    private String create(int userId) {
+        return create(String.valueOf(userId));
+    }
+
     private String create(String userId) {
         return JWT.create()
-                .withSubject(userId)
+                .withSubject(String.valueOf(userId))
                 .withJWTId(randomUUID())
                 .withIssuer(jwtProperties.getIssuer())
                 .withAudience(jwtProperties.getAudience())
                 .withIssuedAt(timeProvider.currentDate())
-                .withExpiresAt(timeProvider.currentDatePlus(24, ChronoUnit.HOURS))
+                .withExpiresAt(timeProvider.currentDatePlus(jwtProperties.getExpires(), ChronoUnit.HOURS))
                 .sign(jwtAlgorithm.getAlgorithm());
     }
 

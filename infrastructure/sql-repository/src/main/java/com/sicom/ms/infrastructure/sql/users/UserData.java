@@ -5,8 +5,13 @@ import lombok.Data;
 @Data
 public class UserData {
 
-    String id;
+    int code;
+    String user;
     String name;
-    String token;
+    String userState;
+    String sicomAgent;
+    String agentSate;
+    String agentType;
+    String profile;
 
 }
