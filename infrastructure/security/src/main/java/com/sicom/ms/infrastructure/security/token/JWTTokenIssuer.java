@@ -42,8 +42,7 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
                 .withIssuer(jwtProperties.getIssuer())
                 .withAudience(jwtProperties.getAudience())
                 .withIssuedAt(timeProvider.currentDate())
-//                .withExpiresAt(timeProvider.currentDatePlus(24, ChronoUnit.HOURS))
-                .withExpiresAt(timeProvider.currentDatePlus(5, ChronoUnit.SECONDS))
+                .withExpiresAt(timeProvider.currentDatePlus(24, ChronoUnit.HOURS))
                 .sign(jwtAlgorithm.getAlgorithm());
     }
 
