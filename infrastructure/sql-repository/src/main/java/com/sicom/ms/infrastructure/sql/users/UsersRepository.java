@@ -27,6 +27,8 @@ public class UsersRepository {
         storedProcedureQuery.registerStoredProcedureParameter("strClave", String.class, ParameterMode.IN);
         storedProcedureQuery.registerStoredProcedureParameter("curUsuario", Class.class, ParameterMode.REF_CURSOR);
 
+        System.out.println(loginRequest.getUser());
+        System.out.println(loginRequest.getPassword());
 
         storedProcedureQuery.setParameter("strLogin", loginRequest.getUser());
         storedProcedureQuery.setParameter("intSistema", 181);
@@ -36,10 +38,10 @@ public class UsersRepository {
 
         System.out.println(storedProcedureQuery.hasMoreResults());
         UserData result = new UserData();
-        if (storedProcedureQuery.hasMoreResults()) {
-            List results = storedProcedureQuery.getResultList();
-            results.forEach(System.out::println);
-        }
+//        if (storedProcedureQuery.hasMoreResults()) {
+//            List results = storedProcedureQuery.getResultList();
+//            results.forEach(System.out::println);
+//        }
 
         return result;
     }
