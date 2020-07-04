@@ -21,7 +21,7 @@ public class UsersGatewayAdapter extends BaseGatewayAdapter<User, UserData, Inte
     @Override
     public Mono<User> login(LoginRequest request) {
         return Mono.just(request)
-                .map(usersRepository::login)
+                .flatMap(usersRepository::login)
                 .map(this::toEntity);
     }
 }

@@ -1,10 +1,12 @@
 package com.sicom.ms.infrastructure.sql.users;
 
+import com.sicom.ms.domain.model.error.UnauthorizedException;
 import com.sicom.ms.domain.model.users.LoginRequest;
+import com.sicom.ms.domain.model.users.User;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 
@@ -18,31 +20,20 @@ public class UsersRepository {
     }
 
 
-    public UserData login(LoginRequest loginRequest) {
+    public Mono<UserData> login(LoginRequest loginRequest) {
 
-        StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("SEG_MOVIL_PKG_IDENTIFICACION.SEG_MOVIL_USU_IGUAL_LOGIN");
-
-        storedProcedureQuery.registerStoredProcedureParameter("strLogin", String.class, ParameterMode.IN);
-        storedProcedureQuery.registerStoredProcedureParameter("intSistema", Integer.class, ParameterMode.IN);
-        storedProcedureQuery.registerStoredProcedureParameter("strClave", String.class, ParameterMode.IN);
-        storedProcedureQuery.registerStoredProcedureParameter("curUsuario", Class.class, ParameterMode.REF_CURSOR);
-
-        System.out.println(loginRequest.getUser());
-        System.out.println(loginRequest.getPassword());
+        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("login.procedure");
 
         storedProcedureQuery.setParameter("strLogin", loginRequest.getUser());
         storedProcedureQuery.setParameter("intSistema", 181);
         storedProcedureQuery.setParameter("strClave", loginRequest.getPassword());
 
-        storedProcedureQuery.execute();
+        List result = storedProcedureQuery.getResultList();
 
-        System.out.println(storedProcedureQuery.hasMoreResults());
-        UserData result = new UserData();
-//        if (storedProcedureQuery.hasMoreResults()) {
-//            List results = storedProcedureQuery.getResultList();
-//            results.forEach(System.out::println);
-//        }
+        if (result.size() > 0) {
+            return Mono.just((UserData) result.get(0));
+        }
 
-        return result;
+        throw new UnauthorizedException("user.error.invalid", "user or password invalid");
     }
 }
