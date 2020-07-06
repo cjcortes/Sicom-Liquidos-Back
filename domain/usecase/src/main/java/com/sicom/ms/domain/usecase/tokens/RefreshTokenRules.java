@@ -10,6 +10,6 @@ import static com.sicom.ms.domain.usecase.validations.common.GeneralRulesFactory
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RefreshTokenRules {
     public static final Rules<RefreshToken> REFRESH_TOKEN_RULES = Rules.of(
-            cannotBeNull(RefreshToken::getToken, "refreshToken", "Token")
+            cannotBeNull(RefreshToken::getToken, "refreshToken", "token")
     );
 }
