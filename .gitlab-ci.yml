@@ -1,0 +1,122 @@
+image: openjdk:14
+
+#variables:
+#  CONTAINER_IMAGE: gcr.io/hibot-env/external-hibot
+#  K8S_DEPLOYMENT: external-api
+#  DOCKER_HOST: tcp://docker:2375
+#  DOCKER_DRIVER: overlay2
+#  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+#  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
+
+stages:
+  - build
+#  - package
+#  - deploy
+
+gradle-build:
+  stage: build
+  script:
+    - ./gradlew build
+  cache:
+    key: gradle
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+  artifacts:
+    paths:
+      - "applications/api/build/dependency"
+
+#docker-build:
+#  image: docker:stable
+#  stage: package
+#  services:
+#    - docker:dind
+#  script:
+#    - sh bin/build-image.sh "$CONTAINER_IMAGE" "$CI_PIPELINE_ID" "$GOOGLE_KEY"
+
+#deploy:dev:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh dev-cluster dev "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: development
+#  when: manual
+#
+#deploy:qa:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh dev-cluster qa "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: qa
+#  when: manual
+#
+#deploy:hbt:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh ndm-cluster hbt "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: hbt
+#  only:
+#    - master
+#  when: manual
+#
+#deploy:tp:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh tp-cluster tp "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: tp
+#  only:
+#    - master
+#  when: manual
+#
+#deploy:adm:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh ndm-cluster adm "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: adm
+#  only:
+#    - master
+#  when: manual
+#
+#deploy:wpc:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh ndm-cluster wpc "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: wpc
+#  only:
+#    - master
+#  when: manual
+#
+#deploy:mvt:
+#  image: juanpmarin/gcloud-fluxctl
+#  stage: deploy
+#  dependencies: []
+#  script:
+#    - echo "$GOOGLE_KEY" > key.json
+#    - bin/update-release.sh ndm-cluster mvt "$K8S_DEPLOYMENT" "$CONTAINER_IMAGE" "$CI_PIPELINE_ID"
+#  environment:
+#    name: mvt
+#  only:
+#    - master
+#  when: manual
