@@ -1,7 +1,6 @@
 package com.sicom.ms.infrastructure.security.token;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.sicom.ms.domain.model.error.UnauthorizedException;

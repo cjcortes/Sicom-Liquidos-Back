@@ -1,10 +1,8 @@
 package com.sicom.ms.infrastructure.security.token;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.sicom.ms.domain.model.common.TimeProvider;
 import com.sicom.ms.domain.model.common.UUIDOperations;
-import com.sicom.ms.domain.model.error.UnauthorizedException;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
 import com.sicom.ms.domain.model.users.SecurityGateway;
 import com.sicom.ms.domain.model.users.User;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.temporal.ChronoUnit;
-
 
 @Service
 @RequiredArgsConstructor

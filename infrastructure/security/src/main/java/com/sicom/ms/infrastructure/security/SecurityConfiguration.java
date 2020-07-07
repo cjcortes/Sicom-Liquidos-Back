@@ -11,7 +11,6 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 
-
 @EnableWebFluxSecurity
 @EnableConfigurationProperties({
         JWTProperties.class
@@ -32,7 +31,7 @@ public class SecurityConfiguration {
                         "/",
                         "/api/security/login",
                         "/api/security/refresh-token"
-                        )
+                )
                 .permitAll()
                 .anyExchange().authenticated()
                 .and()
