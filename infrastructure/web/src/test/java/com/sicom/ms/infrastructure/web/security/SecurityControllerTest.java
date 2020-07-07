@@ -50,7 +50,7 @@ public class SecurityControllerTest {
     private static final String AGENT_STATE_DESCRIPTION = "Estado del Agente SICOM";
     private static final String AGENT_TYPE_DESCRIPTION = "Tipo de Agente";
     private static final String PROFILE_DESCRIPTION = "Perfil del usuario";
-    private static final String TOKEN_DESCRIPTION = "Token de sessión";
+    private static final String TOKEN_DESCRIPTION = "Token de sesión";
 
     private static final FieldDescriptor[] USER_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("code")
@@ -157,7 +157,7 @@ public class SecurityControllerTest {
                 .expectBody(RefreshToken.class)
                 .isEqualTo(refreshToken)
                 .consumeWith(document(
-                        "refres-token",
+                        "refresh-token",
                         requestFields(fieldWithPath("token")
                                 .type(JsonFieldType.STRING)
                                 .description(TOKEN_DESCRIPTION)),

@@ -1,6 +1,5 @@
 buildscript {
     ext {
-        set('springCloudVersion', 'Hoxton.SR5')
         set('springBootVersion', '2.3.1.RELEASE')
         set('springDependencyManagementVersion', '1.0.9.RELEASE')
         set('gradleDependencyUpdatesVersion', '0.28.0')

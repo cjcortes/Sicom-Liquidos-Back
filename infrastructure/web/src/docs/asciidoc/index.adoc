@@ -1,0 +1,25 @@
+= Referencia del API de SICOM
+:operation-http-request-title: Ejemplo de petición
+:operation-http-response-title: Ejemplo de respuesta
+:operation-request-fields-title: Campos de la petición
+:operation-response-fields-title: Campos de la respuesta
+
+[[resources]]
+[[resources_security]]
+== Seguridad
+
+Se puede hacer login y refrescar token.
+
+[[resources_login]]
+=== Login
+
+Se hace una petición `POST` para iniciar sesión.
+
+operation::login[snippets='request-fields,http-request,response-fields,http-response']
+
+[[resources_refresh_token]]
+=== Refrescar token
+
+Se hace una petición `POST` para refrescar un token.
+
+operation::refresh-token[snippets='request-fields,http-request,response-fields,http-response']
