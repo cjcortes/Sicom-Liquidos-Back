@@ -10,7 +10,7 @@ image: openjdk:14
 
 stages:
   - build
-#  - package
+  - package
 #  - deploy
 
 gradle-build:
@@ -26,13 +26,10 @@ gradle-build:
     paths:
       - "applications/api/build/dependency"
 
-#docker-build:
-#  image: docker:stable
-#  stage: package
-#  services:
-#    - docker:dind
-#  script:
-#    - sh bin/build-image.sh "$CONTAINER_IMAGE" "$CI_PIPELINE_ID" "$GOOGLE_KEY"
+docker-build:
+  stage: package
+  script:
+    - docker-compose build app
 
 #deploy:dev:
 #  image: juanpmarin/gcloud-fluxctl
