@@ -27,9 +27,12 @@ gradle-build:
       - "applications/api/build/dependency"
 
 docker-build:
+  image: docker/compose
   stage: package
+  services:
+    - docker:dind
   script:
-    - docker-compose build app
+    - sh bin/build-image.sh
 
 #deploy:dev:
 #  image: juanpmarin/gcloud-fluxctl
