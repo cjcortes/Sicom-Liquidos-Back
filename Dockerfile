@@ -5,7 +5,7 @@ ENV TZ=UTC
 
 WORKDIR /app
 
-EXPOSE 8080
+EXPOSE 80
 
 COPY applications/api/build/dependency/BOOT-INF/lib lib
 COPY applications/api/build/dependency/META-INF META-INF
