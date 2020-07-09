@@ -58,6 +58,6 @@ public class OrderTypesGatewayAdapterTest {
                 .expectNextSequence(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("strUsuario", request);
+        verify(storedProcedureQuery).setParameter("strUsuario", String.valueOf(request));
     }
 }
