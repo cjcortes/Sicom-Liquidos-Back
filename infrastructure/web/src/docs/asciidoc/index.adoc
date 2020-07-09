@@ -24,14 +24,14 @@ Se hace una petición `POST` para refrescar un token.
 
 operation::refresh-token[snippets='request-fields,http-request,response-fields,http-response']
 
-[[resources_orders]]
-== Ordenes
+[[resources_order_types]]
+== Tipos de ordenes
 
 Se pueden consultar los tipos de ordenes.
 
-[[resources_orders_types]]
-=== Tipos de ordenes
+[[resources_get_order_types]]
+=== Obeter Tipos de ordenes
 
 Se hace una petición `GET` para obtener los tipos de ordenes.
 
-operation::refresh-token[snippets='http-request,response-fields,http-response']
+operation::order-types[snippets='http-request,response-fields,http-response']
