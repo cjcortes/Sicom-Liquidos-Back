@@ -37,7 +37,7 @@ public class LoginUserUseCaseTest {
     private LoginUserUseCase loginUserUseCase;
 
     @Test
-    void loginShouldThrowBarExceptionIfRequestIsInvalid() {
+    void loginShouldThrowBadExceptionIfRequestIsInvalid() {
         var request = LoginRequest.builder().build();
 
         assertThatThrownBy(() -> loginUserUseCase.login(request))
