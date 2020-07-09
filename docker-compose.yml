@@ -4,6 +4,7 @@ services:
     restart: always
     container_name: app-sicom
     image: "app-sicom:${CI_PIPELINE_ID}"
-    build: ./
+    build: .
+    network_mode: "host"
     ports:
       - "80:8080"
