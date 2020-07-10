@@ -23,27 +23,30 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
 
     @Override
     public Mono<User> generateToken(User user) {
-        return Mono.just(user).map(user1 -> user1.toBuilder().token(create(user1.getCode())).build());
+        return Mono.just(user).map(user1 -> user1.toBuilder()
+                .token(create(user1.getCode(),
+                        user1.getSicomAgent()))
+                .build());
     }
 
     @Override
     public Mono<RefreshToken> refreshToken(RefreshToken refreshToken) {
         return jwtVerifier.verify(refreshToken.getToken())
-                .map(decodedJWT -> refreshToken.toBuilder().token(create(decodedJWT.getSubject())).build());
+                .map(decodedJWT -> refreshToken.toBuilder()
+                        .token(create(decodedJWT.getClaim("code").asInt(),
+                                decodedJWT.getClaim("sicomAgent").asString()))
+                        .build());
     }
 
-    private String create(int userId) {
-        return create(String.valueOf(userId));
-    }
-
-    private String create(String userId) {
+    private String create(int code, String sicomAgent) {
         return JWT.create()
-                .withSubject(String.valueOf(userId))
                 .withJWTId(randomUUID())
                 .withIssuer(jwtProperties.getIssuer())
                 .withAudience(jwtProperties.getAudience())
                 .withIssuedAt(timeProvider.currentDate())
                 .withExpiresAt(timeProvider.currentDatePlus(jwtProperties.getExpires(), ChronoUnit.HOURS))
+                .withClaim("code", code)
+                .withClaim("sicomAgent", sicomAgent)
                 .sign(jwtAlgorithm.getAlgorithm());
     }
 

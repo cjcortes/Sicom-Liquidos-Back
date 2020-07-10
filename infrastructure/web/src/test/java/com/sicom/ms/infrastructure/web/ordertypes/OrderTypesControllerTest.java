@@ -1,5 +1,6 @@
 package com.sicom.ms.infrastructure.web.ordertypes;
 
+import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.orders.OrderType;
 import com.sicom.ms.domain.usecase.ordertypes.GetAllOrderTypesUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
@@ -18,11 +19,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.security.Principal;
 import java.util.Arrays;
+import java.util.Map;
 
 import static com.sicom.ms.infrastructure.web.TestConstants.PREFIXED_TOKEN;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -54,6 +58,9 @@ public class OrderTypesControllerTest {
     @MockBean
     private GetAllOrderTypesUseCase getAllOrderTypesUseCase;
 
+    @MockBean
+    private AuthenticationGateway authenticationGateway;
+
     private WebTestClient webTestClient;
 
     @BeforeEach
@@ -77,8 +84,13 @@ public class OrderTypesControllerTest {
                         .build()
         );
 
-        when(getAllOrderTypesUseCase.getAll(anyInt()))
+        Map<String, Object> claims = Map.of("code", 1);
+
+        when(getAllOrderTypesUseCase.getAll(1))
                 .thenReturn(Flux.fromIterable(ordersTypes));
+
+        when(authenticationGateway.getClaims(any()))
+                .thenReturn(Mono.just(claims));
 
         webTestClient.get()
                 .uri("/api/order-types")
@@ -91,6 +103,6 @@ public class OrderTypesControllerTest {
                         responseFields(ORDER_TYPE_DESCRIPTOR)
                 ));
 
-        verify(getAllOrderTypesUseCase).getAll(anyInt());
+        verify(getAllOrderTypesUseCase).getAll(1);
     }
 }

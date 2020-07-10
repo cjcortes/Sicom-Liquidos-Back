@@ -15,7 +15,6 @@ public class JWTAuthenticationGatewayAdapter implements AuthenticationGateway {
 
     public static final Map<String, Function<Claim, Object>> CLAIMS = Map.of(
             "code", claim -> claim == null ? 0 : claim.asInt(),
-            "user", claim -> claim == null ? "0" : claim.asString(),
             "sicomAgent", claim -> claim == null ? "0" : claim.asString()
     );
 
