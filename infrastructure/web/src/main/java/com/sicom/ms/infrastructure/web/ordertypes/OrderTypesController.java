@@ -1,5 +1,6 @@
 package com.sicom.ms.infrastructure.web.ordertypes;
 
+import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.orders.OrderType;
 import com.sicom.ms.domain.usecase.ordertypes.GetAllOrderTypesUseCase;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,12 @@ import java.security.Principal;
 public class OrderTypesController {
 
     private final GetAllOrderTypesUseCase getAllOrderTypesUseCase;
+    private final AuthenticationGateway authenticationGateway;
 
     @GetMapping
     public Flux<OrderType> getAll(Principal principal) {
-        int userCode = -1;
-        if (principal != null) {
-            userCode = Integer.parseInt(principal.getName());
-        }
-        return getAllOrderTypesUseCase.getAll(userCode);
+        return authenticationGateway.getClaims(principal)
+                .flatMapMany(claims -> getAllOrderTypesUseCase.getAll((int) claims.get("code")));
     }
 
 }

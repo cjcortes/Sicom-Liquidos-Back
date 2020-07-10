@@ -10,10 +10,10 @@ dependencies {
     implementation project(':domain:model')
     implementation project(':domain:usecase')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
-    testImplementation 'org.springframework.security:spring-security-test'
 }
 
 ext {

@@ -66,14 +66,14 @@ public class OrderTypesControllerTest {
     void getOrdersTypesShouldReturnOrdersTypesFromUseCase() {
         var ordersTypes = Arrays.asList(
                 OrderType.builder()
-                        .code(123)
-                        .name("Order 1")
-                        .description("Descripcion 1")
+                        .code(1)
+                        .name("S")
+                        .description("SIMPLE")
                         .build(),
                 OrderType.builder()
-                        .code(456)
-                        .name("Order 2")
-                        .description("Descripcion 2")
+                        .code(2)
+                        .name("M")
+                        .description("MULTIPLE")
                         .build()
         );
 
