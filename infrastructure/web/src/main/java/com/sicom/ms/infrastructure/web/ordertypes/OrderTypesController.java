@@ -1,7 +1,7 @@
 package com.sicom.ms.infrastructure.web.ordertypes;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.orders.OrderType;
+import com.sicom.ms.domain.model.ordertypes.OrderType;
 import com.sicom.ms.domain.usecase.ordertypes.GetAllOrderTypesUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

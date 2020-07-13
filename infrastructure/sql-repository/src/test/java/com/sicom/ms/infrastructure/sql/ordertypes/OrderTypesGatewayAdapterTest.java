@@ -1,12 +1,6 @@
 package com.sicom.ms.infrastructure.sql.ordertypes;
 
-import com.sicom.ms.domain.model.error.UnauthorizedException;
-import com.sicom.ms.domain.model.orders.OrderType;
-import com.sicom.ms.domain.model.users.LoginRequest;
-import com.sicom.ms.domain.model.users.User;
-import com.sicom.ms.infrastructure.sql.users.UserConverter;
-import com.sicom.ms.infrastructure.sql.users.UserData;
-import com.sicom.ms.infrastructure.sql.users.UsersGatewayAdapter;
+import com.sicom.ms.domain.model.ordertypes.OrderType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,9 +10,7 @@ import reactor.test.StepVerifier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;

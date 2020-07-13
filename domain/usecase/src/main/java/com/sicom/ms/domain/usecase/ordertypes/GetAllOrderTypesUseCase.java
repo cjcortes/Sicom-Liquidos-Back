@@ -1,7 +1,7 @@
 package com.sicom.ms.domain.usecase.ordertypes;
 
-import com.sicom.ms.domain.model.orders.OrderType;
-import com.sicom.ms.domain.model.orders.OrderTypesGateway;
+import com.sicom.ms.domain.model.ordertypes.OrderType;
+import com.sicom.ms.domain.model.ordertypes.OrderTypesGateway;
 import com.sicom.ms.domain.usecase.validations.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;

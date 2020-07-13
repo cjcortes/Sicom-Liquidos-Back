@@ -1,4 +1,4 @@
-package com.sicom.ms.domain.model.orders;
+package com.sicom.ms.domain.model.ordertypes;
 
 import lombok.Builder;
 import lombok.Value;

@@ -1,7 +1,7 @@
 package com.sicom.ms.infrastructure.sql.ordertypes;
 
-import com.sicom.ms.domain.model.orders.OrderType;
-import com.sicom.ms.domain.model.orders.OrderTypesGateway;
+import com.sicom.ms.domain.model.ordertypes.OrderType;
+import com.sicom.ms.domain.model.ordertypes.OrderTypesGateway;
 import com.sicom.ms.infrastructure.sql.BaseGatewayAdapter;
 import com.sicom.ms.infrastructure.sql.ObjectConverter;
 import org.springframework.stereotype.Repository;
@@ -20,7 +20,6 @@ public class OrderTypesGatewayAdapter extends BaseGatewayAdapter<OrderType, Orde
         super(converter);
         this.entityManager = entityManager;
     }
-
 
     @Override
     public Flux<OrderType> getAll(int userCode) {

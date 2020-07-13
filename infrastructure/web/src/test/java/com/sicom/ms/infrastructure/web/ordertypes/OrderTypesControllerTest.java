@@ -1,7 +1,7 @@
 package com.sicom.ms.infrastructure.web.ordertypes;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.orders.OrderType;
+import com.sicom.ms.domain.model.ordertypes.OrderType;
 import com.sicom.ms.domain.usecase.ordertypes.GetAllOrderTypesUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.Map;
 
