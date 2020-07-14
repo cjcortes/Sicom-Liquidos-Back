@@ -42,12 +42,12 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 public class OrdersControllerTest {
 
-    private static final String AUTH_CODE_DESCRIPTION = "Código de autorización - Default (-1)";
-    private static final String CLIENT_CODE_DESCRIPTION = "Código SICOM cliente - Default (-1)";
-    private static final String PROVIDER_PLANT_CODE_DESCRIPTION = "Código SICOM planta proveedor - Default (-1)";
-    private static final String ORDER_TYPE_DESCRIPTION = "Tipo de orden - Default (-1)";
-    private static final String SUGGESTED_DELIVERY_START_DATE_DESCRIPTION = "Fecha de inicio de entrega sugerida - Default (-1)";
-    private static final String SUGGESTED_DELIVERY_END_DATE_DESCRIPTION = "Fecha de finalización de entrega sugerida - Default (-1)";
+    private static final String AUTH_CODE_DESCRIPTION = "Código de autorización";
+    private static final String CLIENT_CODE_DESCRIPTION = "Código SICOM cliente";
+    private static final String PROVIDER_PLANT_CODE_DESCRIPTION = "Código SICOM planta proveedor";
+    private static final String ORDER_TYPE_DESCRIPTION = "Tipo de orden";
+    private static final String SUGGESTED_DELIVERY_START_DATE_DESCRIPTION = "Fecha de inicio de entrega sugerida";
+    private static final String SUGGESTED_DELIVERY_END_DATE_DESCRIPTION = "Fecha de finalización de entrega sugerida";
 
     private static final ParameterDescriptor[] ORDER_FILTERS_DESCRIPTOR = new ParameterDescriptor[]{
             parameterWithName("authCode")
