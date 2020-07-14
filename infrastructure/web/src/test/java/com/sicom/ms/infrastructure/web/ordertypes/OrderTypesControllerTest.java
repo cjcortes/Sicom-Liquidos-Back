@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.Map;
 
+import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
 import static com.sicom.ms.infrastructure.web.TestConstants.PREFIXED_TOKEN;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -83,7 +84,7 @@ public class OrderTypesControllerTest {
                         .build()
         );
 
-        Map<String, Object> claims = Map.of("sicomAgent", "1");
+        Map<String, Object> claims = Map.of(SICOM_AGENT, "1");
 
         when(getAllOrderTypesUseCase.getAll("1"))
                 .thenReturn(Flux.fromIterable(ordersTypes));

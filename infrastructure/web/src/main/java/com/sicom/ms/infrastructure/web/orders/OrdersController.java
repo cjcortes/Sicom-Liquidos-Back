@@ -17,6 +17,8 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.Date;
 
+import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
+
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
@@ -38,7 +40,7 @@ public class OrdersController {
 
         return authenticationGateway.getClaims(principal)
                 .map(claims -> OrderFilters.builder()
-                        .sicomAgent((String) claims.get("sicomAgent"))
+                        .sicomAgent((String) claims.get(SICOM_AGENT))
                         .authCode(authCode.trim())
                         .clientCode(clientCode.trim())
                         .providerPlantCode(providerPlantCode.trim())

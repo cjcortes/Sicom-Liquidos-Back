@@ -10,12 +10,15 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.sicom.ms.domain.model.common.Constants.CODE;
+import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
+
 @Service
 public class JWTAuthenticationGatewayAdapter implements AuthenticationGateway {
 
     public static final Map<String, Function<Claim, Object>> CLAIMS = Map.of(
-            "code", claim -> claim == null ? 0 : claim.asInt(),
-            "sicomAgent", claim -> claim == null ? "0" : claim.asString()
+            CODE, claim -> claim == null ? 0 : claim.asInt(),
+            SICOM_AGENT, claim -> claim == null ? "0" : claim.asString()
     );
 
     @Override

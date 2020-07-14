@@ -11,6 +11,8 @@ import reactor.core.publisher.Flux;
 
 import java.security.Principal;
 
+import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
+
 @RestController
 @RequestMapping("/api/order-types")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class OrderTypesController {
     @GetMapping
     public Flux<OrderType> getAll(Principal principal) {
         return authenticationGateway.getClaims(principal)
-                .flatMapMany(claims -> getAllOrderTypesUseCase.getAll((String) claims.get("sicomAgent")));
+                .flatMapMany(claims -> getAllOrderTypesUseCase.getAll((String) claims.get(SICOM_AGENT)));
     }
 
 }
