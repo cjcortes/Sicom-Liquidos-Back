@@ -1,5 +1,6 @@
 package com.sicom.ms.infrastructure.web.orders;
 
+import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.orders.Order;
 import com.sicom.ms.domain.model.orders.OrderFilters;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
@@ -20,9 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 
 import static com.sicom.ms.infrastructure.web.TestConstants.PREFIXED_TOKEN;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,13 +42,12 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 public class OrdersControllerTest {
 
-    private static final String AUTH_CODE_DESCRIPTION = "Código de autorización";
-    private static final String CLIENT_CODE_DESCRIPTION = "Código SICOM cliente";
-    private static final String PROVIDER_PLANT_CODE_DESCRIPTION = "Código SICOM planta proveedor";
-    private static final String ORDER_TYPE_DESCRIPTION = "Tipo de orden";
-    private static final String ORDER_STATE_DESCRIPTION = "Estado de la orden";
-    private static final String SUGGESTED_DELIVERY_START_DATE_DESCRIPTION = "Fecha de inicio de entrega sugerida";
-    private static final String SUGGESTED_DELIVERY_END_DATE_DESCRIPTION = "Fecha de finalización de entrega sugerida";
+    private static final String AUTH_CODE_DESCRIPTION = "Código de autorización - Default (-1)";
+    private static final String CLIENT_CODE_DESCRIPTION = "Código SICOM cliente - Default (-1)";
+    private static final String PROVIDER_PLANT_CODE_DESCRIPTION = "Código SICOM planta proveedor - Default (-1)";
+    private static final String ORDER_TYPE_DESCRIPTION = "Tipo de orden - Default (-1)";
+    private static final String SUGGESTED_DELIVERY_START_DATE_DESCRIPTION = "Fecha de inicio de entrega sugerida - Default (-1)";
+    private static final String SUGGESTED_DELIVERY_END_DATE_DESCRIPTION = "Fecha de finalización de entrega sugerida - Default (-1)";
 
     private static final ParameterDescriptor[] ORDER_FILTERS_DESCRIPTOR = new ParameterDescriptor[]{
             parameterWithName("authCode")
@@ -69,8 +71,8 @@ public class OrdersControllerTest {
     private static final String DRIVER_DESCRIPTION = "Nombre del conductor";
     private static final String DRIVER_IDENTIFICATION_DESCRIPTION = "Cédula del conductor";
     private static final String TRANSPORT_CODE_DESCRIPTION = "Código del transporte";
-    private static final String APPLICATION_DATE_DESCRIPTION = "Fecha de la solicitud";
-    private static final String DISPATCH_DATE_DESCRIPTION = "Fecha de despacho";
+    private static final String APPLICATION_DATE_DESCRIPTION = "Fecha de la solicitud en Millis";
+    private static final String DISPATCH_DATE_DESCRIPTION = "Fecha de despacho en Millis";
 
     private static final FieldDescriptor[] ORDER_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("[].authorizationCode")
@@ -108,6 +110,9 @@ public class OrdersControllerTest {
     @MockBean
     private GetAllOrdersByFilterUseCase getAllOrdersByFilterUseCase;
 
+    @MockBean
+    private AuthenticationGateway authenticationGateway;
+
     private WebTestClient webTestClient;
 
     @BeforeEach
@@ -132,6 +137,11 @@ public class OrdersControllerTest {
                 .orderType("1")
                 .build());
 
+        Map<String, Object> claims = Map.of("sicomAgent", "1");
+
+        when(authenticationGateway.getClaims(any()))
+                .thenReturn(Mono.just(claims));
+
         when(getAllOrdersByFilterUseCase.getAllByFilters(any(OrderFilters.class)))
                 .thenReturn(Flux.fromIterable(response));
 
@@ -141,9 +151,9 @@ public class OrdersControllerTest {
                         .queryParam("authCode", "123")
                         .queryParam("clientCode", "123")
                         .queryParam("providerPlantCode", "123")
-                        .queryParam("orderType", "123")
-                        .queryParam("suggestedDeliveryStartDate", "1594674713919")
-                        .queryParam("suggestedDeliveryEndDate", "1594674713919")
+                        .queryParam("orderType", "S")
+                        .queryParam("suggestedDeliveryStartDate", "1594676198112")
+                        .queryParam("suggestedDeliveryEndDate", "1594676198112")
                         .build())
                 .header(HttpHeaders.AUTHORIZATION, PREFIXED_TOKEN)
                 .exchange()

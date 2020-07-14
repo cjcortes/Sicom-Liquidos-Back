@@ -14,7 +14,7 @@ public class GetAllOrderTypesUseCase {
     private final ObjectValidator objectValidator;
     private final OrderTypesGateway orderTypesGateway;
 
-    public Flux<OrderType> getAll(int userCode) {
+    public Flux<OrderType> getAll(String userCode) {
         objectValidator.validate(userCode, GET_ORDERS_TYPES_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("getAll");
         return orderTypesGateway.getAll(userCode);

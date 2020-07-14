@@ -18,6 +18,7 @@ import java.util.Date;
                 @StoredProcedureParameter(name = "p_vrc_sicom_agp", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_fecha_inicio", type = Date.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_fecha_fin", type = Date.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "p_vrc_usuario", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "curBuscar_Orden", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )

@@ -19,4 +19,9 @@ public class TimeProvider {
                 .plus(amountToAdd, chronoUnit));
     }
 
+    public Date currentDateMinus(int amountToSubtract, ChronoUnit chronoUnit) {
+        return Date.from(Instant.now()
+                .minus(amountToSubtract, chronoUnit));
+    }
+
 }

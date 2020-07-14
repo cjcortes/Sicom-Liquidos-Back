@@ -36,20 +36,19 @@ public class GetAllOrderTypesUseCaseTest {
 
     @Test
     void getAllShouldThrowBadExceptionIfRequestIsInvalid() {
-        var request = -1;
 
-        assertThatThrownBy(() -> getAllOrderTypesUseCase.getAll(request))
+        assertThatThrownBy(() -> getAllOrderTypesUseCase.getAll(null))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("getAll bad request")
                 .hasFieldOrPropertyWithValue("code", "getAll.error.badRequest")
                 .satisfies(this::checkBadRequestDetails);
 
-        verify(objectValidator).validate(request, GET_ORDERS_TYPES_REQUEST_RULES);
+        verify(objectValidator).validate(null, GET_ORDERS_TYPES_REQUEST_RULES);
     }
 
     @Test
     void getALlShouldReturnOrderTypesFromRepository() {
-        var request = 1;
+        var request = "1";
         List<OrderType> response = Collections.emptyList();
 
         when(orderTypesGateway.getAll(request))
@@ -67,7 +66,7 @@ public class GetAllOrderTypesUseCaseTest {
 
         assertThat(badRequestException.getDetails())
                 .extracting(ApplicationErrorDetail::getCode, ApplicationErrorDetail::getMessage)
-                .contains(tuple("userCode.userCodeCannotBeNegative",
-                        "userCode cannot be negative"));
+                .contains(tuple("sicomAgent.sicomAgentCannotBeNull",
+                        "sicomAgent cannot be null"));
     }
 }

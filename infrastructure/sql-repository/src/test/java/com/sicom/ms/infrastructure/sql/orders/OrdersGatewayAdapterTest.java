@@ -2,8 +2,6 @@ package com.sicom.ms.infrastructure.sql.orders;
 
 import com.sicom.ms.domain.model.orders.Order;
 import com.sicom.ms.domain.model.orders.OrderFilters;
-import com.sicom.ms.domain.model.ordertypes.OrderType;
-import com.sicom.ms.infrastructure.sql.ordertypes.OrderTypeData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,12 +36,13 @@ public class OrdersGatewayAdapterTest {
     void getAllByFiltersShouldReturnOrdersFromDb() {
 
         var request = OrderFilters.builder()
+                .sicomAgent("123")
                 .authCode("authCode")
                 .clientCode("clientCode")
                 .providerPlantCode("providerPlantCode")
                 .orderType("orderType")
-                .suggestedDeliveryStartDate(new Date())
-                .suggestedDeliveryEndDate(new Date())
+                .suggestedDeliveryStartDate(123)
+                .suggestedDeliveryEndDate(123)
                 .build();
 
         var expected = Collections.singletonList(Order.builder().build());
@@ -65,7 +64,8 @@ public class OrdersGatewayAdapterTest {
         verify(storedProcedureQuery).setParameter("p_vrc_sicom_age", request.getClientCode());
         verify(storedProcedureQuery).setParameter("p_vrc_sicom_agp", request.getProviderPlantCode());
         verify(storedProcedureQuery).setParameter("p_chr_tipped_ope", request.getOrderType());
-        verify(storedProcedureQuery).setParameter("p_fecha_inicio", request.getSuggestedDeliveryStartDate());
-        verify(storedProcedureQuery).setParameter("p_fecha_fin", request.getSuggestedDeliveryEndDate());
+        verify(storedProcedureQuery).setParameter("p_fecha_inicio", new Date(request.getSuggestedDeliveryStartDate()));
+        verify(storedProcedureQuery).setParameter("p_fecha_fin", new Date(request.getSuggestedDeliveryEndDate()));
+        verify(storedProcedureQuery).setParameter("p_vrc_usuario", request.getSicomAgent());
     }
 }

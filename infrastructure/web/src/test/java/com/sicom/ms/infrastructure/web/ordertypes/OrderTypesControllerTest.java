@@ -83,9 +83,9 @@ public class OrderTypesControllerTest {
                         .build()
         );
 
-        Map<String, Object> claims = Map.of("code", 1);
+        Map<String, Object> claims = Map.of("sicomAgent", "1");
 
-        when(getAllOrderTypesUseCase.getAll(1))
+        when(getAllOrderTypesUseCase.getAll("1"))
                 .thenReturn(Flux.fromIterable(ordersTypes));
 
         when(authenticationGateway.getClaims(any()))
@@ -102,6 +102,6 @@ public class OrderTypesControllerTest {
                         responseFields(ORDER_TYPE_DESCRIPTOR)
                 ));
 
-        verify(getAllOrderTypesUseCase).getAll(1);
+        verify(getAllOrderTypesUseCase).getAll("1");
     }
 }

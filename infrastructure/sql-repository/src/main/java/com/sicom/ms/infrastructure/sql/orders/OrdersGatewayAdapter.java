@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -30,8 +31,9 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
         storedProcedureQuery.setParameter("p_vrc_sicom_age", orderFilters.getClientCode());
         storedProcedureQuery.setParameter("p_vrc_sicom_agp", orderFilters.getProviderPlantCode());
         storedProcedureQuery.setParameter("p_chr_tipped_ope", orderFilters.getOrderType());
-        storedProcedureQuery.setParameter("p_fecha_inicio", orderFilters.getSuggestedDeliveryStartDate());
-        storedProcedureQuery.setParameter("p_fecha_fin", orderFilters.getSuggestedDeliveryEndDate());
+        storedProcedureQuery.setParameter("p_fecha_inicio", new Date(orderFilters.getSuggestedDeliveryStartDate()));
+        storedProcedureQuery.setParameter("p_fecha_fin", new Date(orderFilters.getSuggestedDeliveryEndDate()));
+        storedProcedureQuery.setParameter("p_vrc_usuario", orderFilters.getSicomAgent());
 
         List<OrderData> result = storedProcedureQuery.getResultList();
 

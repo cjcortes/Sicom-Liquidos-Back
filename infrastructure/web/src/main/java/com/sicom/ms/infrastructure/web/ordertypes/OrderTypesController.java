@@ -22,7 +22,7 @@ public class OrderTypesController {
     @GetMapping
     public Flux<OrderType> getAll(Principal principal) {
         return authenticationGateway.getClaims(principal)
-                .flatMapMany(claims -> getAllOrderTypesUseCase.getAll((int) claims.get("code")));
+                .flatMapMany(claims -> getAllOrderTypesUseCase.getAll((String) claims.get("sicomAgent")));
     }
 
 }

@@ -22,10 +22,10 @@ public class OrderTypesGatewayAdapter extends BaseGatewayAdapter<OrderType, Orde
     }
 
     @Override
-    public Flux<OrderType> getAll(int userCode) {
+    public Flux<OrderType> getAll(String userCode) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("orderTypes.procedure");
 
-        storedProcedureQuery.setParameter("strUsuario", String.valueOf(userCode));
+        storedProcedureQuery.setParameter("strUsuario", userCode);
 
         List<OrderTypeData> result = storedProcedureQuery.getResultList();
 

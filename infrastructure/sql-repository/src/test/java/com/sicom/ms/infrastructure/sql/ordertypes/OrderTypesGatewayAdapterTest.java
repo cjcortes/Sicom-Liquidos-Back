@@ -34,7 +34,7 @@ public class OrderTypesGatewayAdapterTest {
     @Test
     void loginShouldReturnUserFromDb() {
 
-        var request = 1;
+        var request = "1";
 
         var expected = Collections.singletonList(OrderType.builder().build());
         var dataExpected = Collections.singletonList(new OrderTypeData());
@@ -50,6 +50,6 @@ public class OrderTypesGatewayAdapterTest {
                 .expectNextSequence(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("strUsuario", String.valueOf(request));
+        verify(storedProcedureQuery).setParameter("strUsuario", request);
     }
 }
