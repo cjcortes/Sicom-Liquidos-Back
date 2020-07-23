@@ -2,20 +2,16 @@ package com.sicom.ms.infrastructure.web.orders;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.orders.Order;
+import com.sicom.ms.domain.model.orders.OrderDetail;
 import com.sicom.ms.domain.model.orders.OrderFilters;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
+import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Date;
 
 import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
 
@@ -25,6 +21,7 @@ import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
 public class OrdersController {
 
     private final GetAllOrdersByFilterUseCase getAllOrdersByFilterUseCase;
+    private final GetOrderUseCase getOrderUseCase;
     private final AuthenticationGateway authenticationGateway;
 
     @GetMapping
@@ -37,7 +34,6 @@ public class OrdersController {
             @RequestParam(defaultValue = "-1") long suggestedDeliveryEndDate,
             Principal principal
     ) {
-
         return authenticationGateway.getClaims(principal)
                 .map(claims -> OrderFilters.builder()
                         .sicomAgent((String) claims.get(SICOM_AGENT))
@@ -49,6 +45,11 @@ public class OrdersController {
                         .suggestedDeliveryEndDate(suggestedDeliveryEndDate)
                         .build())
                 .flatMapMany(getAllOrdersByFilterUseCase::getAllByFilters);
+    }
+
+    @GetMapping(value = "/{id}")
+    public Mono<OrderDetail> getById(@PathVariable(value = "id") String id) {
+        return getOrderUseCase.getById(id);
     }
 
 }

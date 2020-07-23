@@ -45,6 +45,13 @@ Se pueden consultar las ordenes con filtros.
 [[resources_get_orders_by_filters]]
 === Obeter ordenes por filtros
 
-Se hace una petición `GET` para obtener los tipos de ordenes y los filtros se envian por Querystring.
+Se hace una petición `GET` para obtener los ordenes por filtros.
 
 operation::orders[snippets='request-parameters,http-request,response-fields,http-response']
+
+[[resources_get_order_by_id]]
+=== Obtener orden por codigo de autorizacion
+
+Se hace una petición `GET` para obtener las ordenes.
+
+operation::order-by-id[snippets='path-parameters,http-request,response-fields,http-response']
