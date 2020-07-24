@@ -5,10 +5,12 @@ import com.sicom.ms.domain.model.orderinfo.OrderInfo;
 import com.sicom.ms.domain.model.orders.Order;
 import com.sicom.ms.domain.model.orders.OrderDetail;
 import com.sicom.ms.domain.model.orders.OrderFilters;
+import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.model.providerscustomers.ProviderCustomer;
 import com.sicom.ms.domain.model.vehicles.Vehicle;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
 import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
+import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,9 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
 
     @MockBean
     private GetOrderUseCase getOrderUseCase;
+
+    @MockBean
+    private GetProductsByOrderUseCase getProductsByOrderUseCase;
 
     @MockBean
     private AuthenticationGateway authenticationGateway;
@@ -172,5 +177,36 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
                 ));
 
         verify(getOrderUseCase).getById("1");
+    }
+
+    @Test
+    void getProductsByOrderIdShouldReturnProductsFromUseCase() {
+
+        var response = Collections.singletonList(Product.builder()
+                .name("Nombre")
+                .state("Estado")
+                .requestedAmount(123)
+                .acceptedAmount(123)
+                .dispatchedAmount(123)
+                .build());
+
+        when(getProductsByOrderUseCase.getAllByOrderId("1"))
+                .thenReturn(Flux.fromIterable(response));
+
+        webTestClient.get()
+                .uri("/api/orders/{id}/products", "1")
+                .header(HttpHeaders.AUTHORIZATION, PREFIXED_TOKEN)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(Product.class)
+                .consumeWith(document("order-products",
+                        pathParameters(
+                                parameterWithName("id")
+                                        .description("Código de autorización")
+                        ),
+                        responseFields(PRODUCT_DESCRIPTOR)
+                ));
+
+        verify(getProductsByOrderUseCase).getAllByOrderId("1");
     }
 }

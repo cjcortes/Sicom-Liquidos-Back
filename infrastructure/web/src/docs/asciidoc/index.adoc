@@ -4,6 +4,7 @@
 :operation-request-fields-title: Campos de la petición
 :operation-response-fields-title: Campos de la respuesta
 :operation-request-parameters-title: Campos querystring de la petición
+:operation-path-parameters-title: Campos de la petición
 
 [[resources]]
 [[resources_security]]
@@ -55,3 +56,10 @@ operation::orders[snippets='request-parameters,http-request,response-fields,http
 Se hace una petición `GET` para obtener las ordenes.
 
 operation::order-by-id[snippets='path-parameters,http-request,response-fields,http-response']
+
+[[resources_get_products_by_order]]
+=== Obtener productos por codigo de autorizacion de la orden
+
+Se hace una petición `GET` para obtener los productos.
+
+operation::order-products[snippets='path-parameters,http-request,response-fields,http-response']

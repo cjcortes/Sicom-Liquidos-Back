@@ -4,8 +4,10 @@ import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.orders.Order;
 import com.sicom.ms.domain.model.orders.OrderDetail;
 import com.sicom.ms.domain.model.orders.OrderFilters;
+import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
 import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
+import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -22,6 +24,7 @@ public class OrdersController {
 
     private final GetAllOrdersByFilterUseCase getAllOrdersByFilterUseCase;
     private final GetOrderUseCase getOrderUseCase;
+    private final GetProductsByOrderUseCase getProductsByOrderUseCase;
     private final AuthenticationGateway authenticationGateway;
 
     @GetMapping
@@ -50,6 +53,11 @@ public class OrdersController {
     @GetMapping(value = "/{id}")
     public Mono<OrderDetail> getById(@PathVariable(value = "id") String id) {
         return getOrderUseCase.getById(id);
+    }
+
+    @GetMapping(value = "/{id}/products")
+    public Flux<Product> getProductsByOrderId(@PathVariable(value = "id") String orderId) {
+        return getProductsByOrderUseCase.getAllByOrderId(orderId);
     }
 
 }

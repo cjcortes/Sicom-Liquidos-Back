@@ -106,6 +106,7 @@ public class OrdersControllerFieldsDescriptions {
     private static final String CAPACITY_DESCRIPTION = "Capacidad del vehículo";
     private static final String COMPARTMENT_DESCRIPTION = "Compartimiento del vehículo";
 
+
     protected static final FieldDescriptor[] ORDER_DETAIL_DESCRIPTOR = new FieldDescriptor[]{
             // Order data
             fieldWithPath("orderInfo")
@@ -227,5 +228,29 @@ public class OrdersControllerFieldsDescriptions {
             fieldWithPath("vehicle.compartment")
                     .type(JsonFieldType.NUMBER)
                     .description(COMPARTMENT_DESCRIPTION),
+    };
+
+    private static final String PRODUCT_NAME_DESCRIPTION = "Nombre del producto";
+    private static final String PRODUCT_STATE_DESCRIPTION = "Estado del producto";
+    private static final String REQUESTED_AMOUNT_DESCRIPTION = "Volumen solicitado";
+    private static final String ACCEPTED_AMOUNT_DESCRIPTION = "Volumen aceptado";
+    private static final String DISPATCHED_AMOUNT_DESCRIPTION = "Volumen despachado";
+
+    protected static final FieldDescriptor[] PRODUCT_DESCRIPTOR = new FieldDescriptor[]{
+            fieldWithPath("[].name")
+                    .type(JsonFieldType.STRING)
+                    .description(PRODUCT_NAME_DESCRIPTION),
+            fieldWithPath("[].state")
+                    .type(JsonFieldType.STRING)
+                    .description(PRODUCT_STATE_DESCRIPTION),
+            fieldWithPath("[].requestedAmount")
+                    .type(JsonFieldType.NUMBER)
+                    .description(REQUESTED_AMOUNT_DESCRIPTION),
+            fieldWithPath("[].acceptedAmount")
+                    .type(JsonFieldType.NUMBER)
+                    .description(ACCEPTED_AMOUNT_DESCRIPTION),
+            fieldWithPath("[].dispatchedAmount")
+                    .type(JsonFieldType.NUMBER)
+                    .description(DISPATCHED_AMOUNT_DESCRIPTION),
     };
 }
