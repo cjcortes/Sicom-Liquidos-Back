@@ -32,9 +32,13 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
         storedProcedureQuery.setParameter("p_vrc_sicom_agp", orderFilters.getProviderPlantCode());
         storedProcedureQuery.setParameter("p_chr_tipped_ope", orderFilters.getOrderType());
         if (orderFilters.getSuggestedDeliveryStartDate() != -1) {
+            var startDate = new Date(orderFilters.getSuggestedDeliveryStartDate());
+            System.out.println(startDate);
             storedProcedureQuery.setParameter("p_fecha_inicio", new Date(orderFilters.getSuggestedDeliveryStartDate()));
         }
         if (orderFilters.getSuggestedDeliveryEndDate() != -1) {
+            var endDate = new Date(orderFilters.getSuggestedDeliveryEndDate());
+            System.out.println(endDate);
             storedProcedureQuery.setParameter("p_fecha_fin", new Date(orderFilters.getSuggestedDeliveryEndDate()));
         }
 
