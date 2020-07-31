@@ -116,6 +116,29 @@ public class GetAllOrdersByFilterUseCaseTest {
         verify(ordersGateway).getAllByFilters(any(OrderFilters.class));
     }
 
+    @Test
+    void getAllByFiltersShouldBuildOrderFilterWhenAuthCodeIsNotLess1() {
+        var request = OrderFilters.builder()
+                .authCode("123")
+                .clientCode("-1")
+                .providerPlantCode("-1")
+                .orderType("-1")
+                .suggestedDeliveryStartDate(123)
+                .suggestedDeliveryEndDate(123)
+                .build();
+
+        var response = Collections.singletonList(Order.builder().build());
+
+        when(ordersGateway.getAllByFilters(any(OrderFilters.class)))
+                .thenReturn(Flux.fromIterable(response));
+
+        StepVerifier.create(getAllOrdersByFilterUseCase.getAllByFilters(request))
+                .expectNextSequence(response)
+                .verifyComplete();
+
+        verify(ordersGateway).getAllByFilters(any(OrderFilters.class));
+    }
+
     private void checkBadRequestDetails(Throwable error) {
         var badRequestException = (BadRequestException) error;
 

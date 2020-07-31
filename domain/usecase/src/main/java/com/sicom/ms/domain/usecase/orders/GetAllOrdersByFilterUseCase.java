@@ -22,7 +22,7 @@ public class GetAllOrdersByFilterUseCase {
     public Flux<Order> getAllByFilters(OrderFilters orderFilters) {
         objectValidator.validate(orderFilters, GET_ORDERS_BY_FILTER_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("getAllByFilters");
-        if (orderFilters.getSuggestedDeliveryStartDate() == -1) {
+        if (orderFilters.getAuthCode().equals("-1") && orderFilters.getSuggestedDeliveryStartDate() == -1) {
             orderFilters = loadDates(orderFilters);
         }
         return ordersGateway.getAllByFilters(orderFilters);
