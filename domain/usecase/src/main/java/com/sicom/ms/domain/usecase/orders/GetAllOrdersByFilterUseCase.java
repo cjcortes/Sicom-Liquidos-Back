@@ -25,7 +25,6 @@ public class GetAllOrdersByFilterUseCase {
         if (orderFilters.getAuthCode().equals("-1") && orderFilters.getSuggestedDeliveryStartDate() == -1) {
             orderFilters = loadDates(orderFilters);
         }
-        System.out.println(orderFilters);
         return ordersGateway.getAllByFilters(orderFilters);
     }
 
