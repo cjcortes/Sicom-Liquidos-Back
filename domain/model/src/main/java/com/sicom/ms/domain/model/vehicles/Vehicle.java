@@ -10,9 +10,9 @@ public class Vehicle {
     String transportType;
     String headPlate;
     String trailer;
-    Integer capacity;
+    int capacity;
     String driver;
     String driverIdentification;
-    Integer compartment;
+    int compartment;
 
 }
