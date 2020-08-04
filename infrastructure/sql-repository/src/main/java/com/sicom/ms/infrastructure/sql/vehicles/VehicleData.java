@@ -25,12 +25,12 @@ public class VehicleData {
     @Column(name = "REMOLQUE")
     String trailer;
     @Column(name = "CAPACIDAD")
-    int capacity;
+    Integer capacity;
     @Column(name = "CONDUCTOR")
     String driver;
     @Column(name = "CEDULA")
     String driverIdentification;
     @Column(name = "COMPARTIMENTO")
-    int compartment;
+    Integer compartment;
 
 }
