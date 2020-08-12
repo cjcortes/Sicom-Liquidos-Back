@@ -63,3 +63,15 @@ operation::order-by-id[snippets='path-parameters,http-request,response-fields,ht
 Se hace una petición `GET` para obtener los productos.
 
 operation::order-products[snippets='path-parameters,http-request,response-fields,http-response']
+
+[[resources_consumptions]]
+== Consumos
+
+Se pueden consultar los consumos de un agente.
+
+[[resources_get_consumptions]]
+=== Obeter consumo del mes de un agente
+
+Se hace una petición `GET` para obtener el consumo del mes de un agente.
+
+operation::consumptions[snippets='http-request,response-fields,http-response']

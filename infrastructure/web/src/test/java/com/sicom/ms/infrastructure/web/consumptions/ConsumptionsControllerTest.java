@@ -107,7 +107,7 @@ public class ConsumptionsControllerTest {
                 .expectStatus().isOk()
                 .expectBodyList(OrderType.class)
                 .consumeWith(document(
-                        "order-types",
+                        "consumptions",
                         responseFields(ORDER_TYPE_DESCRIPTOR)
                 ));
 
