@@ -6,10 +6,10 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class Consumption {
-    int year;
-    int month;
     long assignedQuota;
+    long finalQuota;
     long availableQuota;
     long consumption;
+    long cededVolume;
     double percent;
 }

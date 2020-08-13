@@ -38,29 +38,29 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 public class ConsumptionsControllerTest {
 
-    private static final String YEAR_DESCRIPTION = "Año del consumo";
-    private static final String MONTH_DESCRIPTION = "Mes del consumo";
     private static final String ASSIGNED_QUOTA_DESCRIPTION = "Cupo asignado";
+    private static final String FINAL_QUOTA_DESCRIPTION = "Cupo final";
     private static final String AVAILABLE_QUOTA_DESCRIPTION = "Cupo disponible";
     private static final String CONSUMPTION_DESCRIPTION = "Consumo del mes";
+    private static final String CEDED_VOLUME_DESCRIPTION = "Volumen cedido";
     private static final String PERCENT_DESCRIPTION = "Porcentaje consumido";
 
     private static final FieldDescriptor[] ORDER_TYPE_DESCRIPTOR = new FieldDescriptor[]{
-            fieldWithPath("year")
-                    .type(JsonFieldType.NUMBER)
-                    .description(YEAR_DESCRIPTION),
-            fieldWithPath("month")
-                    .type(JsonFieldType.NUMBER)
-                    .description(MONTH_DESCRIPTION),
             fieldWithPath("assignedQuota")
                     .type(JsonFieldType.NUMBER)
                     .description(ASSIGNED_QUOTA_DESCRIPTION),
+            fieldWithPath("finalQuota")
+                    .type(JsonFieldType.NUMBER)
+                    .description(FINAL_QUOTA_DESCRIPTION),
             fieldWithPath("availableQuota")
                     .type(JsonFieldType.NUMBER)
                     .description(AVAILABLE_QUOTA_DESCRIPTION),
             fieldWithPath("consumption")
                     .type(JsonFieldType.NUMBER)
                     .description(CONSUMPTION_DESCRIPTION),
+            fieldWithPath("cededVolume")
+                    .type(JsonFieldType.NUMBER)
+                    .description(CEDED_VOLUME_DESCRIPTION),
             fieldWithPath("percent")
                     .type(JsonFieldType.NUMBER)
                     .description(PERCENT_DESCRIPTION)
@@ -84,11 +84,11 @@ public class ConsumptionsControllerTest {
     void getConsumptionShouldReturnConsumptionFromUseCase() {
         var consumption =
                 Consumption.builder()
-                        .year(2020)
-                        .month(8)
                         .assignedQuota(4000)
+                        .finalQuota(1000)
                         .availableQuota(2000)
                         .consumption(2000)
+                        .cededVolume(1000)
                         .percent(50)
                         .build();
 

@@ -18,16 +18,16 @@ import javax.persistence.*;
 public class ConsumptionData {
 
     @Id
-    @Column(name = "ANIO")
-    Integer year;
-    @Column(name = "MES")
-    Integer month;
     @Column(name = "CUPO_ASIGNADO")
     Long assignedQuota;
+    @Column(name = "CUPO_FINAL")
+    Long finalQuota;
     @Column(name = "CUPO_DISPONIBLE")
     Long availableQuota;
     @Column(name = "CONSUMO")
     Long consumption;
+    @Column(name = "VOL_CEDIDO")
+    Long cededVolume;
     @Column(name = "PORCENTAJE")
     Double percent;
 
