@@ -13,6 +13,7 @@ public class OrdersControllerFieldsDescriptions {
     private static final String CLIENT_CODE_DESCRIPTION = "Código SICOM cliente";
     private static final String PROVIDER_SICOM_PLANT_DESCRIPTION = "Código SICOM de la planta proveedor";
     private static final String ORDER_TYPE_DESCRIPTION = "Tipo de orden";
+    private static final String ORDER_STATE_DESCRIPTION = "Estado de la orden";
     private static final String SUGGESTED_DELIVERY_START_DATE_DESCRIPTION = "Fecha de inicio de entrega sugerida";
     private static final String SUGGESTED_DELIVERY_END_DATE_DESCRIPTION = "Fecha de finalización de entrega sugerida";
 
@@ -25,6 +26,8 @@ public class OrdersControllerFieldsDescriptions {
                     .description(PROVIDER_SICOM_PLANT_DESCRIPTION),
             parameterWithName("orderType")
                     .description(ORDER_TYPE_DESCRIPTION),
+            parameterWithName("orderState")
+                    .description(ORDER_STATE_DESCRIPTION),
             parameterWithName("suggestedDeliveryStartDate")
                     .description(SUGGESTED_DELIVERY_START_DATE_DESCRIPTION),
             parameterWithName("suggestedDeliveryEndDate")

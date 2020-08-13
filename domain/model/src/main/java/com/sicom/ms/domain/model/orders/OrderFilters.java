@@ -12,6 +12,7 @@ public class OrderFilters {
     String clientCode;
     String providerPlantCode;
     String orderType;
+    int orderState;
     long suggestedDeliveryStartDate;
     long suggestedDeliveryEndDate;
 

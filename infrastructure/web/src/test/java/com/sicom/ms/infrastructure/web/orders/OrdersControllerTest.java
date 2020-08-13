@@ -96,6 +96,7 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
                         .queryParam("clientCode", "123")
                         .queryParam("providerPlantCode", "123")
                         .queryParam("orderType", "S")
+                        .queryParam("orderState", "1")
                         .queryParam("suggestedDeliveryStartDate", "1594676198112")
                         .queryParam("suggestedDeliveryEndDate", "1594676198112")
                         .build())

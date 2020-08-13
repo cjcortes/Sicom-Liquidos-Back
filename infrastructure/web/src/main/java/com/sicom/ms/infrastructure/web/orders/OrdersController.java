@@ -33,6 +33,7 @@ public class OrdersController {
             @RequestParam(defaultValue = "-1") String clientCode,
             @RequestParam(defaultValue = "-1") String providerPlantCode,
             @RequestParam(defaultValue = "-1") String orderType,
+            @RequestParam(defaultValue = "-1") int orderState,
             @RequestParam(defaultValue = "-1") long suggestedDeliveryStartDate,
             @RequestParam(defaultValue = "-1") long suggestedDeliveryEndDate,
             Principal principal
@@ -44,6 +45,7 @@ public class OrdersController {
                         .clientCode(clientCode.trim())
                         .providerPlantCode(providerPlantCode.trim())
                         .orderType(orderType.trim())
+                        .orderState(orderState)
                         .suggestedDeliveryStartDate(suggestedDeliveryStartDate)
                         .suggestedDeliveryEndDate(suggestedDeliveryEndDate)
                         .build())

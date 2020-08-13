@@ -19,6 +19,7 @@ import java.util.Date;
                 @StoredProcedureParameter(name = "p_fecha_inicio", type = Date.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_fecha_fin", type = Date.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_vrc_usuario", type = String.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "p_int_estado", type = Integer.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "curBuscar_Orden", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )
@@ -38,7 +39,7 @@ public class OrderData {
     @Column(name = "CEDULA")
     String driverIdentification;
     @Column(name = "CODIGO_TRANSPORTE")
-    int transportCode;
+    Integer transportCode;
     @Column(name = "FECHA_SOLICITUD")
     Date applicationDate;
     @Column(name = "FECHA_DESPACHO")

@@ -39,6 +39,7 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
         }
 
         storedProcedureQuery.setParameter("p_vrc_usuario", orderFilters.getSicomAgent());
+        storedProcedureQuery.setParameter("p_int_estado", orderFilters.getOrderState());
 
         List<OrderData> result = storedProcedureQuery.getResultList();
 

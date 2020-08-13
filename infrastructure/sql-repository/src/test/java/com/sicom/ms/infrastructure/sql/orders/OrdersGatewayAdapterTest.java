@@ -41,6 +41,7 @@ public class OrdersGatewayAdapterTest {
                 .clientCode("clientCode")
                 .providerPlantCode("providerPlantCode")
                 .orderType("orderType")
+                .orderState(1)
                 .suggestedDeliveryStartDate(123)
                 .suggestedDeliveryEndDate(123)
                 .build();
@@ -67,5 +68,6 @@ public class OrdersGatewayAdapterTest {
         verify(storedProcedureQuery).setParameter("p_fecha_inicio", new Date(request.getSuggestedDeliveryStartDate()));
         verify(storedProcedureQuery).setParameter("p_fecha_fin", new Date(request.getSuggestedDeliveryEndDate()));
         verify(storedProcedureQuery).setParameter("p_vrc_usuario", request.getSicomAgent());
+        verify(storedProcedureQuery).setParameter("p_int_estado", request.getOrderState());
     }
 }
