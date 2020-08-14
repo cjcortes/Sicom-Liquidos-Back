@@ -6,3 +6,6 @@ services:
     image: "app-sicom:${CI_PIPELINE_ID}"
     build: .
     network_mode: "host"
+    dns:
+      - 190.90.1.90
+      - 190.90.1.91
