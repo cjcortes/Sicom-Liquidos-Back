@@ -42,17 +42,17 @@ public class NotificationGatewayAdapter implements NotificationGateway {
     }
 
     private Mono<String> sendPushNotification(String token, Notification request) {
-        var notification = NotificationData.builder()
+        var notification = NotificationDTO.builder()
                 .title(request.getTitle())
                 .body(request.getBody())
                 .build();
-        var androidNotification = AndroidNotificationData.builder()
+        var androidNotification = AndroidNotificationDTO.builder()
                 .click_action("FLUTTER_NOTIFICATION_CLICK")
                 .build();
-        var androidConfig = AndroidConfigData.builder()
+        var androidConfig = AndroidConfigDTO.builder()
                 .notification(androidNotification)
                 .build();
-        var message = MessageData.builder()
+        var message = MessageDTO.builder()
                 .topic("news")
                 .notification(notification)
                 .android(androidConfig)

@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class NotificationData {
+public class NotificationDTO {
 
     String title;
     String body;

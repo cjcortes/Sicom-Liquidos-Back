@@ -5,8 +5,10 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class AndroidConfigData {
+public class MessageDTO {
 
-    AndroidNotificationData notification;
+    String topic;
+    NotificationDTO notification;
+    AndroidConfigDTO android;
 
 }

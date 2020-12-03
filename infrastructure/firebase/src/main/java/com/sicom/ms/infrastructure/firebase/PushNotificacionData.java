@@ -6,5 +6,5 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class PushNotificacionData {
-    MessageData message;
+    MessageDTO message;
 }
