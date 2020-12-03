@@ -17,6 +17,7 @@ dependencies {
     implementation project(':infrastructure:web')
     implementation project(':infrastructure:sql-repository')
     implementation project(':infrastructure:security')
+    implementation project(':infrastructure:firebase')
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }

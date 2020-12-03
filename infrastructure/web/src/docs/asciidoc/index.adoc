@@ -75,3 +75,15 @@ Se pueden consultar los consumos de un agente.
 Se hace una petición `GET` para obtener el consumo del mes de un agente.
 
 operation::consumptions[snippets='http-request,response-fields,http-response']
+
+[[resources_fcm]]
+== Notificaciones push
+
+Se pueden enviar notificaciones push.
+
+[[resources_fcm_send]]
+=== Obeter ordenes por filtros
+
+Se hace una petición `POST` para enviar la notificación push.
+
+operation::fcm-send[snippets='request-fields,http-request,http-response']
