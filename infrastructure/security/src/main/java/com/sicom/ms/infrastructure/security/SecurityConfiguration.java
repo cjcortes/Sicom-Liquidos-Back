@@ -30,7 +30,8 @@ public class SecurityConfiguration {
                 .pathMatchers(
                         "/",
                         "/api/security/login",
-                        "/api/security/refresh-token"
+                        "/api/security/refresh-token",
+                        "/api/fcm"
                 )
                 .permitAll()
                 .anyExchange().authenticated()
