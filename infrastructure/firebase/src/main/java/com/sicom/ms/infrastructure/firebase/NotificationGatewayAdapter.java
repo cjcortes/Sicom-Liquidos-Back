@@ -1,7 +1,15 @@
 package com.sicom.ms.infrastructure.firebase;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
 import com.sicom.ms.domain.model.fcm.Notification;
 import com.sicom.ms.domain.model.fcm.NotificationGateway;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +20,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Repository
 public class NotificationGatewayAdapter implements NotificationGateway {
@@ -39,6 +50,38 @@ public class NotificationGatewayAdapter implements NotificationGateway {
             e.printStackTrace();
         }
         return Mono.just("OK");
+    }
+
+    @Override
+    public Mono<String> saveNotification(Notification request) {
+        getFirebaseInstance();
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        ObjectMapper oMapper = new ObjectMapper();
+        Map<String, Object> notificationData = oMapper.convertValue(request, Map.class);
+
+        DocumentReference docRef = db.collection("notifications").document(UUID.randomUUID().toString());
+        ApiFuture<WriteResult> result = docRef.set(notificationData);
+
+        return Mono.just("OK");
+    }
+
+    private void getFirebaseInstance() {
+        var inputStream = ClassLoader.getSystemResourceAsStream(serviceAccountKey);
+        GoogleCredentials credentials;
+        try {
+            credentials = GoogleCredentials
+                    .fromStream(inputStream);
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(credentials)
+                    .build();
+            if(FirebaseApp.getApps().size() == 0){
+                FirebaseApp.initializeApp(options);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Mono<String> sendPushNotification(String token, Notification request) {

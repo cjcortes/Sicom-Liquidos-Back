@@ -9,5 +9,7 @@ public class Notification {
 
     String title;
     String body;
-
+    String dueDate;
+    String fileUrl;
+    String fileName;
 }

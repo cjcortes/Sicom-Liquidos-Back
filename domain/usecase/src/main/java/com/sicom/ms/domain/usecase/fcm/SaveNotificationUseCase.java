@@ -9,14 +9,13 @@ import reactor.core.publisher.Mono;
 import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.NOTIFICATION_REQUEST_RULES;
 
 @RequiredArgsConstructor
-public class SendPushNotificationUseCase {
-
+public class SaveNotificationUseCase {
     private final ObjectValidator objectValidator;
     private final NotificationGateway notificationGateway;
 
-    public Mono<String> send(Notification request) {
+    public Mono<String> save(Notification request) {
         objectValidator.validate(request, NOTIFICATION_REQUEST_RULES)
-                .throwBadRequestExceptionIfInvalid("send");
-        return notificationGateway.sendPushNotification(request);
+                .throwBadRequestExceptionIfInvalid("save");
+        return notificationGateway.saveNotification(request);
     }
 }

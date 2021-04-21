@@ -1,6 +1,7 @@
 package com.sicom.ms.infrastructure.web.fcm;
 
 import com.sicom.ms.domain.model.fcm.Notification;
+import com.sicom.ms.domain.usecase.fcm.SaveNotificationUseCase;
 import com.sicom.ms.domain.usecase.fcm.SendPushNotificationUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,11 @@ import reactor.core.publisher.Mono;
 public class FCMController {
 
     private final SendPushNotificationUseCase sendPushNotificationUseCase;
+    private final SaveNotificationUseCase saveNotificationUseCase;
 
     @PostMapping
     public Mono<String> sendPushNotification(@RequestBody Notification notification) {
+        saveNotificationUseCase.save(notification);
         return sendPushNotificationUseCase.send(notification);
     }
 
