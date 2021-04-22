@@ -14,4 +14,8 @@ public class SendNotificationPushRules {
             cannotBeNull(Notification::getTitle, "notification", "title"),
             cannotBeNull(Notification::getBody, "notification", "body")
     );
+
+    public static final Rules<String> READ_NOTIFICATION_REQUEST_RULES = Rules.of(
+            cannotBeNull(value -> value, "notification", "notificationId")
+    );
 }

@@ -5,6 +5,7 @@ import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
@@ -63,6 +64,19 @@ public class NotificationGatewayAdapter implements NotificationGateway {
 
         DocumentReference docRef = db.collection("notifications").document(UUID.randomUUID().toString());
         ApiFuture<WriteResult> result = docRef.set(notificationData);
+
+        return Mono.just("OK");
+    }
+
+    @Override
+    public Mono<String> readNotification(String userId, String notificationId) {
+        getFirebaseInstance();
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        DocumentReference docRef = db.collection("notifications").document(notificationId);
+        ApiFuture<WriteResult> arrayUnion = docRef.update("users",
+                FieldValue.arrayUnion(userId));
 
         return Mono.just("OK");
     }
