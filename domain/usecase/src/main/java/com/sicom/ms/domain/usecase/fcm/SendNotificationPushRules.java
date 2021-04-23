@@ -12,7 +12,8 @@ import static com.sicom.ms.domain.usecase.validations.common.GeneralRulesFactory
 public class SendNotificationPushRules {
     public static final Rules<Notification> NOTIFICATION_REQUEST_RULES = Rules.of(
             cannotBeNull(Notification::getTitle, "notification", "title"),
-            cannotBeNull(Notification::getBody, "notification", "body")
+            cannotBeNull(Notification::getBody, "notification", "body"),
+            cannotBeNull(Notification::getDueDate, "notification", "dueDate")
     );
 
     public static final Rules<String> READ_NOTIFICATION_REQUEST_RULES = Rules.of(

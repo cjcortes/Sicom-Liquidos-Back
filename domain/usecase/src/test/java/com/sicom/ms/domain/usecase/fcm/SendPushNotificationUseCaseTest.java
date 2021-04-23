@@ -14,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.util.Date;
+
 import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.NOTIFICATION_REQUEST_RULES;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -50,6 +52,7 @@ public class SendPushNotificationUseCaseTest {
         var request = Notification.builder()
                 .title("title")
                 .body("body")
+                .dueDate(new Date())
                 .build();
         String expected = "OK";
 

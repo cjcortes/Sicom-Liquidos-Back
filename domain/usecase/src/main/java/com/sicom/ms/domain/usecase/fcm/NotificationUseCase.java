@@ -6,7 +6,6 @@ import com.sicom.ms.domain.usecase.validations.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
-import static com.sicom.ms.domain.usecase.consumptions.GetConsumptionRules.GET_CONSUMPTION_RULES;
 import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.NOTIFICATION_REQUEST_RULES;
 import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.READ_NOTIFICATION_REQUEST_RULES;
 

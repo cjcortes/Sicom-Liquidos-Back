@@ -1,6 +1,8 @@
 package com.sicom.ms.infrastructure.web.fcm;
 
+import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.fcm.Notification;
+import com.sicom.ms.domain.usecase.fcm.NotificationUseCase;
 import com.sicom.ms.domain.usecase.fcm.SendPushNotificationUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -31,6 +35,9 @@ public class FCMControllerTest {
 
     private static final String TITLE_DESCRIPTION = "Titulo de la notificación push";
     private static final String BODY_DESCRIPTION = "Descripción de la notificación push";
+    private static final String DUE_DATE = "Fecha de vencimiento de la notificación";
+    private static final String FILE_URL = "url del documento adjunto en la notificación";
+    private static final String FILE_NAME = "nombre del documento adjunto en la notificación";
 
     private static final FieldDescriptor[] NOTIFICATION_REQUEST_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("title")
@@ -38,11 +45,27 @@ public class FCMControllerTest {
                     .description(TITLE_DESCRIPTION),
             fieldWithPath("body")
                     .type(JsonFieldType.STRING)
-                    .description(BODY_DESCRIPTION)
+                    .description(BODY_DESCRIPTION),
+            fieldWithPath("dueDate")
+                    .type(JsonFieldType.NUMBER)
+                    .description(DUE_DATE),
+            fieldWithPath("fileUrl")
+                    .type(JsonFieldType.STRING)
+                    .description(FILE_URL),
+            fieldWithPath("fileName")
+                    .type(JsonFieldType.STRING)
+                    .description(FILE_NAME)
+
     };
 
     @MockBean
     private SendPushNotificationUseCase sendPushNotificationUseCase;
+
+    @MockBean
+    private NotificationUseCase notificationUseCase;
+
+    @MockBean
+    private AuthenticationGateway authenticationGateway;
 
     private WebTestClient webTestClient;
 
@@ -57,6 +80,9 @@ public class FCMControllerTest {
         var request = Notification.builder()
                 .title("Title")
                 .body("Body")
+                .dueDate(new Date())
+                .fileName("File Name")
+                .fileUrl("File Url")
                 .build();
 
         when(sendPushNotificationUseCase.send(request))
@@ -76,6 +102,4 @@ public class FCMControllerTest {
                 ));
         verify(sendPushNotificationUseCase).send(request);
     }
-
-
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
@@ -61,6 +62,7 @@ public class NotificationGatewayAdapter implements NotificationGateway {
 
         ObjectMapper oMapper = new ObjectMapper();
         Map<String, Object> notificationData = oMapper.convertValue(request, Map.class);
+        notificationData.put("dueDate", Timestamp.of(request.getDueDate()));
 
         DocumentReference docRef = db.collection("notifications").document(UUID.randomUUID().toString());
         ApiFuture<WriteResult> result = docRef.set(notificationData);
@@ -99,9 +101,15 @@ public class NotificationGatewayAdapter implements NotificationGateway {
     }
 
     private Mono<String> sendPushNotification(String token, Notification request) {
+        var body = request.getBody();
+
+        if (body.length() > 200) {
+            body = body.substring(199);
+        }
+
         var notification = NotificationDTO.builder()
                 .title(request.getTitle())
-                .body(request.getBody())
+                .body(body)
                 .build();
         var androidNotification = AndroidNotificationDTO.builder()
                 .click_action("FLUTTER_NOTIFICATION_CLICK")
