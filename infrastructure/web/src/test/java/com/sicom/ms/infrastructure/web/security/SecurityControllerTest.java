@@ -115,7 +115,7 @@ public class SecurityControllerTest {
                 .password("password")
                 .build();
 
-        when(loginUserUseCase.login(request))
+        when(loginUserUseCase.login(request, false))
                 .thenReturn(Mono.just(user));
 
         webTestClient.post()
@@ -132,7 +132,7 @@ public class SecurityControllerTest {
                         responseFields(USER_DESCRIPTOR)
                 ));
 
-        verify(loginUserUseCase).login(request);
+        verify(loginUserUseCase).login(request, false);
     }
 
     @Test

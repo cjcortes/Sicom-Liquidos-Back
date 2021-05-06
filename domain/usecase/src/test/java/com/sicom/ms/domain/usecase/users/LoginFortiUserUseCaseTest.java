@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class LoginUserUseCaseTest {
+public class LoginFortiUserUseCaseTest {
 
     @Spy
     private final ObjectValidator objectValidator = new ObjectValidator();
@@ -40,7 +40,7 @@ public class LoginUserUseCaseTest {
     void loginShouldThrowBadExceptionIfRequestIsInvalid() {
         var request = LoginRequest.builder().build();
 
-        assertThatThrownBy(() -> loginUserUseCase.login(request))
+        assertThatThrownBy(() -> loginUserUseCase.login(request, false))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("login bad request")
                 .hasFieldOrPropertyWithValue("code", "login.error.badRequest")
@@ -65,7 +65,7 @@ public class LoginUserUseCaseTest {
         when(securityGateway.generateToken(expected))
                 .thenReturn(Mono.just(expected));
 
-        StepVerifier.create(loginUserUseCase.login(request))
+        StepVerifier.create(loginUserUseCase.login(request, false))
                 .expectNext(expected)
                 .verifyComplete();
 

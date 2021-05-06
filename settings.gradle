@@ -7,4 +7,5 @@ include 'domain:model',
         'infrastructure:sql-repository',
         'infrastructure:security',
         'infrastructure:firebase',
-        'applications:api'
+        'applications:api',
+        'infrastructure:forti'

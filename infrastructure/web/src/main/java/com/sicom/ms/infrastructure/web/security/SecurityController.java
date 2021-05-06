@@ -6,6 +6,7 @@ import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,13 +21,15 @@ import java.util.List;
 @RequestMapping("/api/security")
 @RequiredArgsConstructor
 public class SecurityController {
+    @Value("${app.forti.status}")
+    private boolean fortiStatus;
 
     private final LoginUserUseCase loginUserUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
-        return loginUserUseCase.login(loginRequest);
+        return loginUserUseCase.login(loginRequest, fortiStatus);
     }
 
     @PostMapping("/refresh-token")
