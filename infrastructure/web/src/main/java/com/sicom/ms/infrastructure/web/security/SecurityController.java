@@ -1,8 +1,10 @@
 package com.sicom.ms.infrastructure.web.security;
 
+import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
 import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
+import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class SecurityController {
 
     private final LoginUserUseCase loginUserUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
+    private final FortiUseCase fortiUseCase;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
@@ -35,5 +38,10 @@ public class SecurityController {
     @PostMapping("/refresh-token")
     public Mono<RefreshToken> refreshToken(@RequestBody RefreshToken refreshToken) {
         return refreshTokenUseCase.refresh(refreshToken);
+    }
+
+    @PostMapping("/validate-forti-token")
+    public Mono<String> validateFortiToken(@RequestBody ValidateTokenRequest validateTokenRequest) {
+        return fortiUseCase.validateToken(validateTokenRequest);
     }
 }

@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                         "/",
                         "/api/security/login",
                         "/api/security/refresh-token",
-                        "/api/fcm"
+                        "/api/fcm",
+                        "/api/security/validate-forti-token"
                 )
                 .permitAll()
                 .anyExchange().authenticated()
