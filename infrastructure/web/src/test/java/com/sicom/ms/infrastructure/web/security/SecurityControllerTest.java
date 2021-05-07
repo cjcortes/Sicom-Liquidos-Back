@@ -18,6 +18,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -30,6 +31,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @WebFluxTest
 @ContextConfiguration(classes = {SecurityController.class})
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
+@TestPropertySource(properties = {"app.forti.status=false"})
 public class SecurityControllerTest {
 
     private static final String USER_DESCRIPTION = "Codigo SICOM Cliente";
@@ -52,6 +54,9 @@ public class SecurityControllerTest {
     private static final String AGENT_TYPE_DESCRIPTION = "Tipo de Agente";
     private static final String PROFILE_DESCRIPTION = "Perfil del usuario";
     private static final String TOKEN_DESCRIPTION = "Token de sesión";
+    private static final String FORTI_USER_ID_DESCRIPTION = "id de usuario en forti";
+    private static final String FORTI_USER_NAME_DESCRIPTION = "nombre de usuario en forti";
+    private static final String FORTI_ACTIVE_AUTH = "estado de forti";
 
     private static final FieldDescriptor[] USER_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("code")
@@ -80,7 +85,16 @@ public class SecurityControllerTest {
                     .description(PROFILE_DESCRIPTION),
             fieldWithPath("token")
                     .type(JsonFieldType.STRING)
-                    .description(TOKEN_DESCRIPTION)
+                    .description(TOKEN_DESCRIPTION),
+            fieldWithPath("fortiUserId")
+                    .type(JsonFieldType.STRING)
+                    .description(FORTI_USER_ID_DESCRIPTION),
+            fieldWithPath("fortiUserName")
+                    .type(JsonFieldType.STRING)
+                    .description(FORTI_USER_NAME_DESCRIPTION),
+            fieldWithPath("fortiActiveAuth")
+                    .type(JsonFieldType.BOOLEAN)
+                    .description(FORTI_ACTIVE_AUTH)
     };
 
     @MockBean
@@ -112,6 +126,9 @@ public class SecurityControllerTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
+                .fortiUserId("fortiUserId")
+                .fortiUserName("fortiUserName")
+                .fortiActiveAuth(false)
                 .build();
 
         var request = LoginRequest.builder()

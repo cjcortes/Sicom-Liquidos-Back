@@ -27,7 +27,7 @@ public class FortiGatewayAdapter implements FortiGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("localusers/"+userId)
+                .uri("localusers/508/")
                 .retrieve()
                 .bodyToMono(FortiUser.class);
     }
