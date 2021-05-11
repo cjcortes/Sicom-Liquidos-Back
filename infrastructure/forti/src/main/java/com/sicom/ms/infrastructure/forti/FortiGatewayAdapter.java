@@ -28,8 +28,8 @@ public class FortiGatewayAdapter implements FortiGateway {
                 .build();
         return client.get()
                 .uri("localusers/508/")
-                .retrieve()
-                .bodyToMono(FortiUser.class);
+                .exchange()
+                .flatMap(response -> response.bodyToMono(FortiUser.class));
     }
 
     @Override
