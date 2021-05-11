@@ -28,6 +28,7 @@ public class FortiGatewayAdapter implements FortiGateway {
                 .build();
         return client.get()
                 .uri("localusers/508/")
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMap(response -> response.bodyToMono(FortiUser.class));
     }
