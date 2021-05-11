@@ -21,7 +21,7 @@ public class FortiGatewayAdapter implements FortiGateway {
 
     @Value("${app.forti.key}")
     private String serviceKey;
-    @Value("${app.forti.key}")
+    @Value("${app.forti.user}")
     private String user;
     @Value("${app.forti.url}")
     private String baseUrl;
