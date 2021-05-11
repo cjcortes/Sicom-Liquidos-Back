@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Collections;
+
 @Repository
 public class FortiGatewayAdapter implements FortiGateway {
 
@@ -21,9 +23,11 @@ public class FortiGatewayAdapter implements FortiGateway {
 
     @Override
     public Mono<FortiUser> searchUser(String userId) {
+
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setBasicAuth(user, serviceKey))
+                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
