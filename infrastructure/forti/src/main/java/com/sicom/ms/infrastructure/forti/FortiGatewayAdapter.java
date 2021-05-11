@@ -28,23 +28,14 @@ public class FortiGatewayAdapter implements FortiGateway {
 
     @Override
     public Mono<FortiUser> searchUser(String userId) {
-        ExchangeStrategies strategies = ExchangeStrategies
-                .builder()
-                .codecs(clientDefaultCodecsConfigurer -> {
-                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonEncoder(new Jackson2JsonEncoder(new ObjectMapper(), MediaType.APPLICATION_JSON));
-                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(new ObjectMapper(), MediaType.APPLICATION_JSON));
-
-                }).build();
-
         var client = WebClient.builder()
-                .exchangeStrategies(strategies)
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setBasicAuth(user, serviceKey))
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("localusers/508/")
+                .uri("localusers/508/?format=json")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMap(response -> response.bodyToMono(FortiUser.class));
