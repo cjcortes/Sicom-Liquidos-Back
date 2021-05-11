@@ -7,8 +7,8 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class FortiUser {
-        @JsonProperty("user_name")
+        @JsonProperty("username")
         String userName;
-        @JsonProperty("auth_active")
+        @JsonProperty("token_auth")
         boolean authActive;
 }
