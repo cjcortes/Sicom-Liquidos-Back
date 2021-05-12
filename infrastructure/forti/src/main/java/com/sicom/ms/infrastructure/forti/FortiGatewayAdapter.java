@@ -1,16 +1,11 @@
 package com.sicom.ms.infrastructure.forti;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sicom.ms.domain.model.forti.FortiGateway;
 import com.sicom.ms.domain.model.forti.FortiUser;
 import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.codec.ClientCodecConfigurer;
-import org.springframework.http.codec.json.Jackson2JsonDecoder;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
