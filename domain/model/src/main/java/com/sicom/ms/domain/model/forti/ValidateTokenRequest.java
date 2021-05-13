@@ -6,6 +6,6 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class ValidateTokenRequest {
-    String userName;
-    String token;
+    String username;
+    String token_code;
 }
