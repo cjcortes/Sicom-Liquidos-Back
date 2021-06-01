@@ -24,7 +24,7 @@ public class FortiGatewayAdapter implements FortiGateway {
     private String baseUrl;
 
     @Override
-    public Mono<FortiUser> searchUser(String userId) {
+    public Mono<FortiUser> searchUser(int userId) {
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setBasicAuth(user, serviceKey))
@@ -32,7 +32,7 @@ public class FortiGatewayAdapter implements FortiGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("localusers/508/")
+                .uri("localusers/"+userId+"/")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .flatMap(response -> response.bodyToMono(FortiUser.class));

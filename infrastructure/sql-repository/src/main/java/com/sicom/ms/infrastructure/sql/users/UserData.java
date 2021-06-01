@@ -37,5 +37,6 @@ public class UserData implements Serializable {
     String agentType;
     @Column(name = "VRC_NOMBRE_PER")
     String profile;
-
+    @Column(name = "INT_CODUSUARIO_REST")
+    int fortiUserId;
 }
