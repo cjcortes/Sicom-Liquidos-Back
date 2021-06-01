@@ -126,7 +126,7 @@ public class SecurityControllerTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
-                .fortiUserId("fortiUserId")
+                .fortiUserId(123)
                 .fortiUserName("fortiUserName")
                 .fortiActiveAuth(false)
                 .build();
