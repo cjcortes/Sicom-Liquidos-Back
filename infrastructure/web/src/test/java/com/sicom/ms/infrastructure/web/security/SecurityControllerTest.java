@@ -87,7 +87,7 @@ public class SecurityControllerTest {
                     .type(JsonFieldType.STRING)
                     .description(TOKEN_DESCRIPTION),
             fieldWithPath("fortiUserId")
-                    .type(JsonFieldType.STRING)
+                    .type(JsonFieldType.NUMBER)
                     .description(FORTI_USER_ID_DESCRIPTION),
             fieldWithPath("fortiUserName")
                     .type(JsonFieldType.STRING)
