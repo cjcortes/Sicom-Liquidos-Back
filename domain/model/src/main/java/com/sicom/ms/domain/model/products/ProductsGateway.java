@@ -4,4 +4,5 @@ import reactor.core.publisher.Flux;
 
 public interface ProductsGateway {
     Flux<Product> getAllByOrderId(String orderId);
+
 }

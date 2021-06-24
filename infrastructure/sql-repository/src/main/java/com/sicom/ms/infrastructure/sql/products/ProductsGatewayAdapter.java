@@ -1,6 +1,7 @@
 package com.sicom.ms.infrastructure.sql.products;
 
 import com.sicom.ms.domain.model.products.Product;
+import com.sicom.ms.domain.model.products.ProductMaster;
 import com.sicom.ms.domain.model.products.ProductsGateway;
 import com.sicom.ms.infrastructure.sql.BaseGatewayAdapter;
 import com.sicom.ms.infrastructure.sql.ObjectConverter;
