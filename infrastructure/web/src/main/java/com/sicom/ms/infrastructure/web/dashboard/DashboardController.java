@@ -1,8 +1,11 @@
 package com.sicom.ms.infrastructure.web.dashboard;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.dashboard.DashboardFilters;
+import com.sicom.ms.domain.model.consumptions.ConsumptionProduct;
+import com.sicom.ms.domain.model.consumptions.ConsumptionsProductsFilters;
+import com.sicom.ms.domain.model.dashboard.DashboardTotalsFilters;
 import com.sicom.ms.domain.model.dashboard.DashboardTotal;
+import com.sicom.ms.domain.usecase.consumptions.GetConsumptionsProductsUseCase;
 import com.sicom.ms.domain.usecase.dashboard.GetTotalsDashboardUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +35,7 @@ public class DashboardController {
                                           Principal principal) {
 
         return authenticationGateway.getClaims(principal)
-                .map(claims -> DashboardFilters.builder()
+                .map(claims -> DashboardTotalsFilters.builder()
                         .sicomAgent((String) claims.get(SICOM_AGENT))
                         .product(product)
                         .orderType(orderType)

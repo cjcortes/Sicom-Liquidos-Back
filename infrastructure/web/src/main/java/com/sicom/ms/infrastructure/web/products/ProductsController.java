@@ -17,7 +17,7 @@ public class ProductsController {
 
     private final ProductsUseCase productsUseCase;
 
-    @GetMapping(value = "/list")
+    @GetMapping()
     public Flux<ProductMaster> getAllProducts() {
         return productsUseCase.getAllProducts();
     }

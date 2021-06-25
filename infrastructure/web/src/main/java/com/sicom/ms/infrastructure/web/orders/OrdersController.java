@@ -1,11 +1,12 @@
 package com.sicom.ms.infrastructure.web.orders;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.orders.Order;
-import com.sicom.ms.domain.model.orders.OrderDetail;
-import com.sicom.ms.domain.model.orders.OrderFilters;
+import com.sicom.ms.domain.model.consumptions.ConsumptionProduct;
+import com.sicom.ms.domain.model.consumptions.ConsumptionsProductsFilters;
+import com.sicom.ms.domain.model.orders.*;
 import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
+import com.sicom.ms.domain.usecase.orders.GetCountOrdersStatusUseCase;
 import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
 import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class OrdersController {
     private final GetOrderUseCase getOrderUseCase;
     private final GetProductsByOrderUseCase getProductsByOrderUseCase;
     private final AuthenticationGateway authenticationGateway;
+    private final GetCountOrdersStatusUseCase getCountOrdersStatusUseCase;
 
     @GetMapping
     public Flux<Order> getAllByFilter(
@@ -62,4 +64,21 @@ public class OrdersController {
         return getProductsByOrderUseCase.getAllByOrderId(orderId);
     }
 
+    @GetMapping(value = "/status-count")
+    public Flux<OrderStatus> getConsumptionsProducts(@RequestParam(defaultValue = "-1") int product,
+                                                     @RequestParam(defaultValue = "-1") String orderType,
+                                                     @RequestParam(defaultValue = "-1") long startDate,
+                                                     @RequestParam(defaultValue = "-1") long endDate,
+                                                     Principal principal) {
+
+        return authenticationGateway.getClaims(principal)
+                .map(claims -> OrderStatusFilters.builder()
+                        .sicomAgent((String) claims.get(SICOM_AGENT))
+                        .product(product)
+                        .orderType(orderType)
+                        .startDate(startDate)
+                        .endDate(endDate)
+                        .build())
+                .flatMapMany(getCountOrdersStatusUseCase::getCountOrdersStatus);
+    }
 }

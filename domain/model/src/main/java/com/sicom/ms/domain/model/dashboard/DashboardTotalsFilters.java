@@ -5,10 +5,12 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class DashboardFilters {
+public class DashboardTotalsFilters {
+
     String sicomAgent;
     Integer product;
     String orderType;
     long startDate;
     long endDate;
+
 }
