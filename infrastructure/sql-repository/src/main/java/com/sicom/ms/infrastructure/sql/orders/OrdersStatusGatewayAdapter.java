@@ -5,7 +5,6 @@ import com.sicom.ms.domain.model.orders.OrderStatusFilters;
 import com.sicom.ms.domain.model.orders.OrdersStatusGateway;
 import com.sicom.ms.infrastructure.sql.BaseGatewayAdapter;
 import com.sicom.ms.infrastructure.sql.ObjectConverter;
-import com.sicom.ms.infrastructure.sql.consumptions.ConsumptionProductData;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
@@ -25,7 +24,7 @@ public class OrdersStatusGatewayAdapter extends BaseGatewayAdapter<OrderStatus, 
 
     @Override
     public Flux<OrderStatus> getCountOrdersStatus(OrderStatusFilters orderStatusFilters) {
-        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("consumptionsProducts.procedure");
+        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("ordersStatus.procedure");
 
         storedProcedureQuery.setParameter("p_vrc_codigo_sicom", orderStatusFilters.getSicomAgent());
 

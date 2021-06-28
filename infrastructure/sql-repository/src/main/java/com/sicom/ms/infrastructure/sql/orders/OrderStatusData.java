@@ -10,7 +10,7 @@ import java.util.Date;
 @NamedStoredProcedureQuery(
         name = "ordersStatus.procedure",
         procedureName = "PKG_MOVIL_CONSULTA_DASH.OPE_PRC_ESTADO_ORDENES_X_CANT",
-        resultClasses = com.sicom.ms.infrastructure.sql.dashboard.DashboardTotalData.class,
+        resultClasses = OrderStatusData.class,
         parameters = {
                 @StoredProcedureParameter(name = "p_vrc_codigo_sicom", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_fecha_inicio", type = Date.class, mode = ParameterMode.IN),

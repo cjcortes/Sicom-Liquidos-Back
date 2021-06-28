@@ -3,9 +3,12 @@ package com.sicom.ms.infrastructure.web.dashboard;
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.consumptions.ConsumptionProduct;
 import com.sicom.ms.domain.model.consumptions.ConsumptionsProductsFilters;
+import com.sicom.ms.domain.model.dashboard.DashboardConsumptionQuota;
+import com.sicom.ms.domain.model.dashboard.DashboardConsumptionQuotaFilters;
 import com.sicom.ms.domain.model.dashboard.DashboardTotalsFilters;
 import com.sicom.ms.domain.model.dashboard.DashboardTotal;
 import com.sicom.ms.domain.usecase.consumptions.GetConsumptionsProductsUseCase;
+import com.sicom.ms.domain.usecase.dashboard.GetConsumptionAndQuotaDashboardUseCase;
 import com.sicom.ms.domain.usecase.dashboard.GetTotalsDashboardUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,7 @@ public class DashboardController {
     private final AuthenticationGateway authenticationGateway;
 
     private final GetTotalsDashboardUseCase getTotalsDashboardUseCase;
+    private final GetConsumptionAndQuotaDashboardUseCase getConsumptionAndQuotaDashboardUseCase;
 
     @GetMapping(value = "/totals")
     public Flux<DashboardTotal> getTotals(@RequestParam(defaultValue = "-1") int product,
@@ -43,5 +47,23 @@ public class DashboardController {
                         .endDate(endDate)
                         .build())
                 .flatMapMany(getTotalsDashboardUseCase::getTotals);
+    }
+
+    @GetMapping(value = "/consumption-quota")
+    public Flux<DashboardConsumptionQuota> getConsumptionAndQuota(@RequestParam(defaultValue = "-1") int product,
+                                                                  @RequestParam(defaultValue = "-1") String orderType,
+                                                                  @RequestParam(defaultValue = "-1") int year,
+                                                                  @RequestParam(defaultValue = "-1") int month,
+                                                                  Principal principal) {
+
+        return authenticationGateway.getClaims(principal)
+                .map(claims -> DashboardConsumptionQuotaFilters.builder()
+                        .sicomAgent((String) claims.get(SICOM_AGENT))
+                        .product(product)
+                        .orderType(orderType)
+                        .year(year)
+                        .month(month)
+                        .build())
+                .flatMapMany(getConsumptionAndQuotaDashboardUseCase::getConsumptionAndQuota);
     }
 }
