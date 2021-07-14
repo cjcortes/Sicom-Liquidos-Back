@@ -4,6 +4,7 @@ import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.consumptions.Consumption;
 import com.sicom.ms.domain.model.ordertypes.OrderType;
 import com.sicom.ms.domain.usecase.consumptions.GetConsumptionUseCase;
+import com.sicom.ms.domain.usecase.consumptions.GetConsumptionsProductsUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,6 +72,9 @@ public class ConsumptionsControllerTest {
 
     @MockBean
     private AuthenticationGateway authenticationGateway;
+
+    @MockBean
+    private GetConsumptionsProductsUseCase getConsumptionsProductsUseCase;
 
     private WebTestClient webTestClient;
 

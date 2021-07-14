@@ -9,6 +9,7 @@ import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.model.providerscustomers.ProviderCustomer;
 import com.sicom.ms.domain.model.vehicles.Vehicle;
 import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
+import com.sicom.ms.domain.usecase.orders.GetCountOrdersStatusUseCase;
 import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
 import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
@@ -56,6 +57,9 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
 
     @MockBean
     private AuthenticationGateway authenticationGateway;
+
+    @MockBean
+    private GetCountOrdersStatusUseCase getCountOrdersStatusUseCase;
 
     private WebTestClient webTestClient;
 
