@@ -5,9 +5,7 @@ import com.sicom.ms.domain.model.consumptions.ConsumptionProduct;
 import com.sicom.ms.domain.model.consumptions.ConsumptionsProductsFilters;
 import com.sicom.ms.domain.model.orders.*;
 import com.sicom.ms.domain.model.products.Product;
-import com.sicom.ms.domain.usecase.orders.GetAllOrdersByFilterUseCase;
-import com.sicom.ms.domain.usecase.orders.GetCountOrdersStatusUseCase;
-import com.sicom.ms.domain.usecase.orders.GetOrderUseCase;
+import com.sicom.ms.domain.usecase.orders.*;
 import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +26,8 @@ public class OrdersController {
     private final GetProductsByOrderUseCase getProductsByOrderUseCase;
     private final AuthenticationGateway authenticationGateway;
     private final GetCountOrdersStatusUseCase getCountOrdersStatusUseCase;
+    private final CreateOPSimpleUseCase createOPSimpleUseCase;
+    private final ConfirmOPSimpleUseCase confirmOPSimpleUseCase;
 
     @GetMapping
     public Flux<Order> getAllByFilter(
@@ -80,5 +80,15 @@ public class OrdersController {
                         .endDate(endDate)
                         .build())
                 .flatMapMany(getCountOrdersStatusUseCase::getCountOrdersStatus);
+    }
+
+    @PostMapping(value = "/create-simple-op")
+    public Mono<OPSimple> createOpSimple(@RequestBody OPSimpleRequest request) {
+        return createOPSimpleUseCase.create(request);
+    }
+
+    @PostMapping(value = "/confirm-simple-op")
+    public Mono<OPSimplePerform> confirmOpSimple(@RequestBody OPSimpleConfirmRequest request) {
+        return confirmOPSimpleUseCase.confirm(request);
     }
 }

@@ -9,3 +9,10 @@ include 'domain:model',
         'infrastructure:firebase',
         'applications:api',
         'infrastructure:forti'
+        'infrastructure:sicom-api'
+include 'sicom'
+include 'infrastructure:sicom'
+findProject(':infrastructure:sicom')?.name = 'sicom'
+include 'infrastructure:sicom-api'
+findProject(':infrastructure:sicom-api')?.name = 'sicom-api'
+
