@@ -23,9 +23,8 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
-
         return client.post()
-                .uri("eds/api/v1/dummyOPS/CrearOrdenSimple/")
+                .uri("WEBSERVICE/liquidos/ops/OPS")
                 .bodyValue(request)
                 .exchange()
                 .flatMap(response -> response.bodyToMono(OPSimple.class));
@@ -40,7 +39,7 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .build();
 
         return client.post()
-                .uri("eds/api/v1/dummyOPS/PerformActivity")
+                .uri("/WEBSERVICE/liquidos/ops/PerformActivity")
                 .bodyValue(request)
                 .exchange()
                 .flatMap(response -> response.bodyToMono(OPSimplePerform.class));

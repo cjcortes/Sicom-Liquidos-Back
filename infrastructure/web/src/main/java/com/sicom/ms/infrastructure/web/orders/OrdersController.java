@@ -1,8 +1,6 @@
 package com.sicom.ms.infrastructure.web.orders;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.consumptions.ConsumptionProduct;
-import com.sicom.ms.domain.model.consumptions.ConsumptionsProductsFilters;
 import com.sicom.ms.domain.model.orders.*;
 import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.usecase.orders.*;
