@@ -9,5 +9,6 @@ public class DashboardTotal {
 
     String name;
     String value;
+    String valueStr;
 
 }

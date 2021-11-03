@@ -26,5 +26,8 @@ public class ConsumptionProductData {
     @Column(name = "PRODUCTO")
     String productName;
     @Column(name = "TOTAL_CONSUMO")
+    String valueStr;
+    @Column(name = "TOTAL_CONSUMO_NUM")
     String value;
+
 }

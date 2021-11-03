@@ -11,6 +11,7 @@ import javax.persistence.*;
         procedureName = "PKG_MOVIL_CONSULTA_DASH.OPE_PRC_CONSULTA_PRODUCTOS",
         resultClasses = ProductMasterData.class,
         parameters = {
+                @StoredProcedureParameter(name = "p_vrc_codigo_sicom", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )

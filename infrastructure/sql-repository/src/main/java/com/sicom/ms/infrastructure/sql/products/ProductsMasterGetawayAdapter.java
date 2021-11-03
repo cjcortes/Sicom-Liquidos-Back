@@ -21,8 +21,10 @@ public class ProductsMasterGetawayAdapter extends BaseGatewayAdapter<ProductMast
     }
 
     @Override
-    public Flux<ProductMaster> getAllProducts() {
+    public Flux<ProductMaster> getAllProducts(String sicomAgent) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("listProducts.procedure");
+
+        storedProcedureQuery.setParameter("p_vrc_codigo_sicom", "330005");
 
         List<ProductMasterData> result = storedProcedureQuery.getResultList();
 

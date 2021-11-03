@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 public class ProductsUseCase {
     private final ProductsMasterGateway productsMasterGateway;
 
-    public Flux<ProductMaster> getAllProducts() {
-        return productsMasterGateway.getAllProducts();
+    public Flux<ProductMaster> getAllProducts(String sicomAgent) {
+        return productsMasterGateway.getAllProducts(sicomAgent);
     }
 }

@@ -27,5 +27,8 @@ public class DashboardConsumptionQuotaData {
     @Column(name = "CUPO_ASIGNADO")
     String quota;
     @Column(name = "CUPO_CONSUMIDO")
+    String consumptionStr;
+    @Column(name = "CONSUMIDO_NUM")
     String consumption;
+
 }

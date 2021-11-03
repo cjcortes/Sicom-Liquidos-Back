@@ -18,7 +18,7 @@ public class ProductsController {
     private final ProductsUseCase productsUseCase;
 
     @GetMapping()
-    public Flux<ProductMaster> getAllProducts() {
-        return productsUseCase.getAllProducts();
+    public Flux<ProductMaster> getAllProducts(String sicomAgent) {
+        return productsUseCase.getAllProducts(sicomAgent);
     }
 }

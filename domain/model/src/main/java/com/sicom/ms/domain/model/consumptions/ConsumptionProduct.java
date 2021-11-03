@@ -9,5 +9,6 @@ public class ConsumptionProduct {
 
     String productName;
     String value;
+    String valueStr;
 
 }

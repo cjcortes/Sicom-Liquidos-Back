@@ -26,5 +26,7 @@ public class DashboardTotalData {
     @Column(name = "NOMBRE")
     String name;
     @Column(name = "VALOR")
+    String valueStr;
+    @Column(name = "VALOR_NUM")
     String value;
 }
