@@ -11,5 +11,6 @@ public class DashboardConsumptionQuota {
     String consumption;
     String quota;
     String consumptionStr;
+    String quotaStr;
 
 }
