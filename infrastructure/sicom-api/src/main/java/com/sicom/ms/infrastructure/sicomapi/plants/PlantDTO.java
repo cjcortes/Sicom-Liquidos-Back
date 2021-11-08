@@ -1,4 +1,4 @@
-package com.sicom.ms.infrastructure.sicomapi;
+package com.sicom.ms.infrastructure.sicomapi.plants;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

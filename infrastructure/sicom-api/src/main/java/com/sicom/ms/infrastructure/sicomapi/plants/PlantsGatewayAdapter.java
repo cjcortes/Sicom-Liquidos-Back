@@ -1,4 +1,4 @@
-package com.sicom.ms.infrastructure.sicomapi;
+package com.sicom.ms.infrastructure.sicomapi.plants;
 
 import com.sicom.ms.domain.model.plants.Plant;
 import com.sicom.ms.domain.model.plants.PlantsGateway;
