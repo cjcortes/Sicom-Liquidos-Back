@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 public class GetVehiclesBySicomAgentIdUseCase {
     private final VehiclesListGateway vehiclesListGateway;
 
-    public Flux<Vehicles> getVehiclesBySicomAgentId(String agentId) {
+    public Flux<Vehicles> get(String agentId) {
         return  vehiclesListGateway.getVehiclesBySicomAgentId(agentId);
     }
 

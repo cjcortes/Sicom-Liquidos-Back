@@ -1,11 +1,10 @@
 package com.sicom.ms.infrastructure.web.agents;
 
 import com.sicom.ms.domain.model.agents.Agent;
-import com.sicom.ms.domain.model.plants.Plant;
-import com.sicom.ms.domain.usecase.agents.GetAgentsUseCase;
-import com.sicom.ms.domain.usecase.plants.GetAllPlantsUseCase;
+import com.sicom.ms.domain.usecase.agents.GetAgentByIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
@@ -14,10 +13,10 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/api/agents")
 @RequiredArgsConstructor
 public class AgentsController {
-    private final GetAgentsUseCase getAgentsUseCase;
+    private final GetAgentByIdUseCase getAgentByIdUseCase;
 
-    @GetMapping(value = "/get-agents")
-    public Flux<Agent> getAllPlants() {
-        return getAgentsUseCase.get();
+    @GetMapping(value = "/get-agent/{id}")
+    public Flux<Agent> getAgents(@PathVariable(value = "id") String agentId) {
+        return getAgentByIdUseCase.get(agentId);
     }
 }

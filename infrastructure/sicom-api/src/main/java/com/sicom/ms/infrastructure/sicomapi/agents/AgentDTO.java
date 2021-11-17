@@ -8,4 +8,18 @@ public class AgentDTO {
     public String nombreComercial;
     @JsonProperty("Codigo_Sicom")
     public String codigoSicom;
+    @JsonProperty("NIT")
+    public String nit;
+    @JsonProperty("SubTipoAgente")
+    public String subTipoAgente;
+    @JsonProperty("TipoAgente")
+    public String tipoAgente;
+    @JsonProperty("Departamento")
+    public String departamento;
+    @JsonProperty("Municipio")
+    public String municipio;
+    @JsonProperty("Direccion_Correspondencia")
+    public String direccionCorrespondencia;
+    @JsonProperty("Es_Zona_Frontera")
+    public boolean zonaFrontera;
 }

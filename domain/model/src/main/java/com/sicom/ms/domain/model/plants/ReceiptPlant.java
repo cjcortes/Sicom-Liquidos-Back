@@ -6,11 +6,10 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class Plant{
+public class ReceiptPlant {
 
-    public int idPlanta;
+    public String idPlanta;
     public String nombrePlanta;
     public String estado;
-    public int idAgente;
 
 }

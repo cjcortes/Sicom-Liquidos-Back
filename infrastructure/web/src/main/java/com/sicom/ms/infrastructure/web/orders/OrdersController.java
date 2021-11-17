@@ -26,7 +26,7 @@ public class OrdersController {
     private final GetCountOrdersStatusUseCase getCountOrdersStatusUseCase;
     private final CreateOPSimpleUseCase createOPSimpleUseCase;
     private final ConfirmOPSimpleUseCase confirmOPSimpleUseCase;
-
+    private final GetOrderModalityTypeUseCase getOrderModalityType;
     @GetMapping
     public Flux<Order> getAllByFilter(
             @RequestParam(defaultValue = "-1") String authCode,
@@ -89,4 +89,12 @@ public class OrdersController {
     public Mono<OPSimplePerform> confirmOpSimple(@RequestBody OPSimpleConfirmRequest request) {
         return confirmOPSimpleUseCase.confirm(request);
     }
+
+
+    @GetMapping(value = "/get-order-modality-type")
+    public Mono<OrderModalityTypeEntitie> getOrderModalityType() {
+        return getOrderModalityType.getOrderModalityType();
+    }
+
+
 }

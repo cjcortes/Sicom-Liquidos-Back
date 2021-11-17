@@ -13,12 +13,11 @@ import java.util.Collections;
 
 @Repository
 public class AgentsGatewayAdapter implements AgentsGateway {
-    //@Value("${app.sicom.api.url}")
-    @Value("http://192.168.76.151/")
+    @Value("${app.sicom.apibizagi.url}")
     private String baseUrl;
 
     @Override
-    public Flux<Agent> getAllAgents() {
+    public Flux<Agent> getAgentById(String agentId) {
 
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
@@ -26,12 +25,19 @@ public class AgentsGatewayAdapter implements AgentsGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("WEBSERVICE/liquidos/ops/Agente/all")
+                .uri("WEBSERVICE/liquidos/ops/Agente/all/filter?codigosicom="+agentId+"")
                 .retrieve()
                 .bodyToFlux(AgentDTO.class).map(a -> Agent.builder()
                         .idAgente(a.idAgente)
                         .nombreComercial(a.nombreComercial)
                         .codigoSicom(a.codigoSicom)
+                        .nit(a.nit)
+                        .subTipoAgente(a.subTipoAgente)
+                        .tipoAgente(a.tipoAgente)
+                        .departamento(a.departamento)
+                        .municipio(a.municipio)
+                        .direccionCorrespondencia(a.direccionCorrespondencia)
+                        .zonaFrontera(a.zonaFrontera)
                         .build());
     }
 }
