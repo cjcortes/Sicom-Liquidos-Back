@@ -1,29 +1,19 @@
 package com.sicom.ms.infrastructure.web.plants;
 
-import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.plants.ReceiptPlant;
-import com.sicom.ms.domain.usecase.plants.GetAllPlantsUseCase;
+import com.sicom.ms.domain.model.plants.Plant;
+import com.sicom.ms.domain.usecase.plants.GetPlantsByAgentIdUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
-import java.security.Principal;
-
-import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
-
 @RestController
-@RequestMapping("/api/receipt-plants")
+@RequestMapping("/api/plants")
 @RequiredArgsConstructor
 public class PlantsController {
-    private final GetAllPlantsUseCase getAllPlantsUseCase;
-    private final AuthenticationGateway authenticationGateway;
+    private final GetPlantsByAgentIdUseCase getPlantsByAgentIdUseCase;
 
-    @GetMapping(value = "/get")
-    public Flux<ReceiptPlant> getReceiptPlants(Principal principal) {
-        return authenticationGateway.getClaims(principal)
-                .map(claims -> (String) claims.get(SICOM_AGENT))
-                .flatMapMany(getAllPlantsUseCase::get);
+    @GetMapping()
+    public Flux<Plant> get(@RequestParam  String agentId) {
+        return getPlantsByAgentIdUseCase.get(agentId);
     }
 }

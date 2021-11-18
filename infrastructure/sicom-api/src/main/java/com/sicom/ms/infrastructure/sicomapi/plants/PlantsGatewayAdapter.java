@@ -1,7 +1,9 @@
 package com.sicom.ms.infrastructure.sicomapi.plants;
 
-import com.sicom.ms.domain.model.plants.ReceiptPlant;
+import com.sicom.ms.domain.model.agents.Agent;
+import com.sicom.ms.domain.model.plants.Plant;
 import com.sicom.ms.domain.model.plants.PlantsGateway;
+import com.sicom.ms.infrastructure.sicomapi.agents.AgentDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,7 +22,7 @@ public class PlantsGatewayAdapter implements PlantsGateway {
     private String baseUrl;
 
     @Override
-    public Flux<ReceiptPlant> getAllPlants(String agentId) {
+    public Flux<Plant> getPlantsByAgentId(String agentId) {
 
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
@@ -28,21 +30,16 @@ public class PlantsGatewayAdapter implements PlantsGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        Mono<ReceiptPlantDTO> response = client.get()
-                .uri("WEBSERVICE/liquidos/ops/Agente/filtro?codigosicom="+agentId+"")
+        return client.get()
+                .uri("WEBSERVICE/liquidos/ops/Plantas?id_Agente="+agentId+"")
                 .retrieve()
-                .bodyToMono(ReceiptPlantDTO.class);
-
-        ReceiptPlantDTO receiptPlantDTO = response.block();
-        List<ReceiptPlant> receiptPlants = new ArrayList<>();
-
-        receiptPlantDTO.entities.sCMM_Agente.col_Planta.sCMM_Planta.forEach(value -> {
-            receiptPlants.add(ReceiptPlant.builder()
-                    .idPlanta(value.iCodigoSICOMPlanta)
-                    .nombrePlanta(value.nombrePlanta)
-                    .estado(value.sEstado).build());
-        });
-
-        return Mono.just(receiptPlants).flatMapMany(Flux::fromIterable);
+                .bodyToFlux(PlantDTO.class).map(p -> Plant.builder()
+                        .idPlant(p.idPlanta)
+                        .plantName(p.nombrePlanta)
+                        .status(p.estado)
+                        .idAgent(p.idAgente)
+                        .nominalTotalCapacity(p.capacidad_Total_Nominal)
+                        .totalOperatingCapacity(p.capacidad_Total_Operativa)
+                        .build());
     }
 }

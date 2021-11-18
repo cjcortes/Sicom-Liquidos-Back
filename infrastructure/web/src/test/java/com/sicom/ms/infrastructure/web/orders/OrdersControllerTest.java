@@ -65,6 +65,9 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
     @MockBean
     private ConfirmOPSimpleUseCase confirmOPSimpleUseCase;
 
+    @MockBean
+    private GetOrderModalityTypeUseCase getOrderModalityType;
+
     private WebTestClient webTestClient;
 
     @BeforeEach

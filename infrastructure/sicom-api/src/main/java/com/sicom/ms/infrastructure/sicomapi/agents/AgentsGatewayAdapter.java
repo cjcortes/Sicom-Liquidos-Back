@@ -25,7 +25,7 @@ public class AgentsGatewayAdapter implements AgentsGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("WEBSERVICE/liquidos/ops/Agente/all/filter?codigosicom="+agentId+"")
+                .uri("WEBSERVICE/liquidos/ops/Agente?codigosicom="+agentId+"")
                 .retrieve()
                 .bodyToFlux(AgentDTO.class).map(a -> Agent.builder()
                         .idAgente(a.idAgente)

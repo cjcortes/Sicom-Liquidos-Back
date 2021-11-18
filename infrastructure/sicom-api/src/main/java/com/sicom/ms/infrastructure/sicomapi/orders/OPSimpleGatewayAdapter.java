@@ -1,4 +1,4 @@
-package com.sicom.ms.infrastructure.sicomapi;
+package com.sicom.ms.infrastructure.sicomapi.orders;
 
 import com.sicom.ms.domain.model.orders.*;
 import org.springframework.beans.factory.annotation.Value;
