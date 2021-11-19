@@ -8,6 +8,7 @@ import com.sicom.ms.domain.model.vehicles.Tractocamion;
 
 import java.util.List;
 
+
 public class VehiclesDTO{
     @JsonProperty("Buques")
     public List<Buque> buques;

@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
-public class GetAgentByIdUseCase {
+public class GetAgentBySicomCodeUseCase {
     private final AgentsGateway agentsGateway;
 
     public Flux<Agent> get(String agentId) {

@@ -3,7 +3,7 @@ package com.sicom.ms.domain.model.vehicles;
 public class Barcaza {
 
     public String estadoVehiculo;
-    public String matriculaBarcaza;
+    public String identificador;
     public String numeroRegistro;
     public String nombreTransporte;
     public String capacidad;

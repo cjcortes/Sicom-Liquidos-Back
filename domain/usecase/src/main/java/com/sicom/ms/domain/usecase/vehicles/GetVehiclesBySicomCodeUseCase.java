@@ -1,16 +1,15 @@
 package com.sicom.ms.domain.usecase.vehicles;
 
-import com.sicom.ms.domain.model.plants.PlantsGateway;
-import com.sicom.ms.domain.model.vehicles.Vehicles;
+import com.sicom.ms.domain.model.vehicles.VehicleOpSimple;
 import com.sicom.ms.domain.model.vehicles.VehiclesListGateway;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
-public class GetVehiclesBySicomAgentIdUseCase {
+public class GetVehiclesBySicomCodeUseCase {
     private final VehiclesListGateway vehiclesListGateway;
 
-    public Flux<Vehicles> get(String agentId) {
+    public Flux<VehicleOpSimple> get(String agentId) {
         return  vehiclesListGateway.getVehiclesBySicomAgentId(agentId);
     }
 

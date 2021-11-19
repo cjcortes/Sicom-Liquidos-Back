@@ -4,7 +4,7 @@ public class Tractocamion {
 
     public String estadoVehiculo;
     public String tipoPropiedad;
-    public String placaTractoCamion;
+    public String identificador;
     public String empresaTransportadora;
     public String placaTanque;
     public String nombreConductor;

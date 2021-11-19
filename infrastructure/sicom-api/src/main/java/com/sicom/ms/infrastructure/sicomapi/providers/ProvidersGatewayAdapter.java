@@ -9,7 +9,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 
@@ -36,7 +38,9 @@ public class ProvidersGatewayAdapter implements ProvidersGateway {
                         .providerSicomCode(p.codSicomProveedor)
                         .startContractDate(p.fechaInicioContrato)
                         .endContractDate(p.fechaFinContrato)
-                        .build());
+                        .build())
+                .onErrorResume(WebClientResponseException.class,
+                        ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
 
     }
 }

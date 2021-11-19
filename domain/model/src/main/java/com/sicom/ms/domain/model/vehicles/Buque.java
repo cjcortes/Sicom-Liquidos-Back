@@ -2,7 +2,7 @@ package com.sicom.ms.domain.model.vehicles;
 
 public class Buque {
 
-    public String matricula;
+    public String identificador;
     public String nombreBuque;
     public double capacidad;
     public int numeroCompartimientos;

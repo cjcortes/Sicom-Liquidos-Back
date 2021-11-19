@@ -6,7 +6,7 @@ public class CarroTanque {
     public String capacidadTotal;
     public String tipoPropiedad;
     public String estadoVehiculo;
-    public String placaCarroTanque;
+    public String identificador;
     public String compartimientos;
     public String placaTanque;
     public String nombreConductor;

@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -40,6 +41,8 @@ public class PlantsGatewayAdapter implements PlantsGateway {
                         .idAgent(p.idAgente)
                         .nominalTotalCapacity(p.capacidad_Total_Nominal)
                         .totalOperatingCapacity(p.capacidad_Total_Operativa)
-                        .build());
+                        .build())
+                .onErrorResume(WebClientResponseException.class,
+                        ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
     }
 }
