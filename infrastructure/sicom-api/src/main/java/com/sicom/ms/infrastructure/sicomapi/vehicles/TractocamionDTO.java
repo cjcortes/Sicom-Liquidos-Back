@@ -1,6 +1,6 @@
-package com.sicom.ms.domain.model.vehicles;
+package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
-public class Tractocamion {
+public class TractocamionDTO {
 
     public String estadoVehiculo;
     public String tipoPropiedad;

@@ -1,6 +1,6 @@
-package com.sicom.ms.domain.model.vehicles;
+package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
-public class Barcaza {
+public class BarcazaDTO {
 
     public String estadoVehiculo;
     public String identificador;

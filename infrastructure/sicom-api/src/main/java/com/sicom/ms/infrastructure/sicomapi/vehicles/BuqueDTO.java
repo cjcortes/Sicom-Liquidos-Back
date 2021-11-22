@@ -1,6 +1,6 @@
-package com.sicom.ms.domain.model.vehicles;
+package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
-public class Buque {
+public class BuqueDTO {
 
     public String identificador;
     public String nombreBuque;

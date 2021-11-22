@@ -1,21 +1,17 @@
 package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sicom.ms.domain.model.vehicles.Barcaza;
-import com.sicom.ms.domain.model.vehicles.Buque;
-import com.sicom.ms.domain.model.vehicles.CarroTanque;
-import com.sicom.ms.domain.model.vehicles.Tractocamion;
 
 import java.util.List;
 
 
 public class VehiclesDTO{
     @JsonProperty("Buques")
-    public List<Buque> buques;
+    public List<BuqueDTO> buqueDTOS;
     @JsonProperty("Barcazas")
-    public List<Barcaza> barcazas;
+    public List<BarcazaDTO> barcazas;
     @JsonProperty("CarroTanques")
-    public List<CarroTanque> carroTanques;
+    public List<CarroTanqueDTO> carroTanques;
     @JsonProperty("Tractocamiones")
-    public List<Tractocamion> tractocamiones;
+    public List<TractocamionDTO> tractocamiones;
 }

@@ -8,14 +8,14 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class Agent {
 
-    public int idAgente;
-    public String nombreComercial;
-    public String codigoSicom;
+    public int agentId;
+    public String commercialName;
+    public String sicomCode;
     public String nit;
-    public String subTipoAgente;
-    public String tipoAgente;
-    public String departamento;
-    public String municipio;
-    public String direccionCorrespondencia;
-    public boolean zonaFrontera;
+    public String agentSubType;
+    public String agentType;
+    public String department;
+    public String municipality;
+    public String addressCorrespondence;
+    public boolean isFrontierZone;
 }

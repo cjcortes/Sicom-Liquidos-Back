@@ -1,6 +1,6 @@
-package com.sicom.ms.domain.model.vehicles;
+package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
-public class CarroTanque {
+public class CarroTanqueDTO {
 
     public String empresaTransportadora;
     public String capacidadTotal;

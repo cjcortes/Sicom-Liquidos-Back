@@ -35,7 +35,7 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
         VehiclesDTO vehiclesDTO = vehiclesDTOMono.block();
         List<VehicleOpSimple> vehiclesList = new ArrayList<>();
 
-        vehiclesDTO.buques.forEach(buque -> {
+        vehiclesDTO.buqueDTOS.forEach(buque -> {
             vehiclesList.add(VehicleOpSimple.builder()
                     .identification(buque.identificador)
                     .vehicleType(VehicleTypeOPS.SHIP.getValue())
