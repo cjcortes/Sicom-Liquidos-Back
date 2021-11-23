@@ -1,12 +1,14 @@
 package com.sicom.ms.infrastructure.sicomapi.orders;
 
-import com.sicom.ms.domain.model.orders.OrderModalityTypeEntitie;
+import com.sicom.ms.domain.model.orders.OrderModalityType;
 import com.sicom.ms.domain.model.orders.OrdersModalityTypeGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -17,25 +19,21 @@ public class OrdersModalityTypeGatewayAdapter implements OrdersModalityTypeGatew
     private String baseUrl;
 
     @Override
-    public Mono<OrderModalityTypeEntitie> getOrderModalityType() {
+    public Flux<OrderModalityType> getOrderModalityType() {
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-        Mono<OrderModalityTypeDTO> response = client.get()
+        return client.get()
                 .uri("WEBSERVICE/liquidos/ops/TipoModalidad")
                 .retrieve()
-                .bodyToMono(OrderModalityTypeDTO.class);
-
-        OrderModalityTypeDTO orderModalityTypeDTO = response.block();
-
-        return Mono.just(OrderModalityTypeEntitie.builder()
-                .key(orderModalityTypeDTO.entities.sCMP_TipoModalidad.key)
-                .name(orderModalityTypeDTO.entities.sCMP_TipoModalidad.sNombre)
-                .code(orderModalityTypeDTO.entities.sCMP_TipoModalidad.sCodigo)
-                .build());
-
+                .bodyToFlux(OrderModalityTypeDTO.class).map(p -> OrderModalityType.builder()
+                        .code(p.codigoModalidad)
+                        .name(p.tipoModalidad)
+                        .build())
+                .onErrorResume(WebClientResponseException.class,
+                        ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
     }
 }

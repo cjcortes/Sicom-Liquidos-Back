@@ -6,8 +6,7 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class OrderModalityTypeEntitie {
-    public String key;
-    public String name;
+public class OrderModalityType {
     public String code;
+    public String name;
 }

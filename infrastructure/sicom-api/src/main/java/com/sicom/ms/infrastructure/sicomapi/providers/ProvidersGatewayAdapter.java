@@ -35,6 +35,7 @@ public class ProvidersGatewayAdapter implements ProvidersGateway {
                         .applicantId(p.idSolicitante)
                         .applicantSicomCode(p.codSicomSolicitante)
                         .providerId(p.idProveedor)
+                        .providerCommercialName(p.nombreComercialProveedor)
                         .providerSicomCode(p.codSicomProveedor)
                         .startContractDate(p.fechaInicioContrato)
                         .endContractDate(p.fechaFinContrato)

@@ -1,7 +1,7 @@
 package com.sicom.ms.domain.model.orders;
 
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 public interface OrdersModalityTypeGateway {
-    Mono<OrderModalityTypeEntitie> getOrderModalityType();
+    Flux<OrderModalityType> getOrderModalityType();
 }

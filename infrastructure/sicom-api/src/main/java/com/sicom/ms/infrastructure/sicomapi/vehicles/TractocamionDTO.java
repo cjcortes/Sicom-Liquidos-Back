@@ -2,6 +2,7 @@ package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
 public class TractocamionDTO {
 
+    public String idM_Asociacion;
     public String estadoVehiculo;
     public String tipoPropiedad;
     public String identificador;

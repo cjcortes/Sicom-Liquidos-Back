@@ -7,7 +7,7 @@ import java.util.List;
 
 public class VehiclesDTO{
     @JsonProperty("Buques")
-    public List<BuqueDTO> buqueDTOS;
+    public List<BuqueDTO> buques;
     @JsonProperty("Barcazas")
     public List<BarcazaDTO> barcazas;
     @JsonProperty("CarroTanques")

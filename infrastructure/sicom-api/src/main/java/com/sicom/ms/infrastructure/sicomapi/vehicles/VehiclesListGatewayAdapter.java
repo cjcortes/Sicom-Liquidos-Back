@@ -35,8 +35,9 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
         VehiclesDTO vehiclesDTO = vehiclesDTOMono.block();
         List<VehicleOpSimple> vehiclesList = new ArrayList<>();
 
-        vehiclesDTO.buqueDTOS.forEach(buque -> {
+        vehiclesDTO.buques.forEach(buque -> {
             vehiclesList.add(VehicleOpSimple.builder()
+                    .idMAssociation(buque.idM_Asociacion)
                     .identification(buque.identificador)
                     .vehicleType(VehicleTypeOPS.SHIP.getValue())
                     .transportName(buque.nombreBuque)
@@ -49,6 +50,7 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
 
         vehiclesDTO.barcazas.forEach(barcaza -> {
             vehiclesList.add(VehicleOpSimple.builder()
+                    .idMAssociation(barcaza.idM_Asociacion)
                     .identification(barcaza.identificador)
                     .vehicleType(VehicleTypeOPS.BARGE.getValue())
                     .transportName(barcaza.nombreTransporte)
@@ -61,6 +63,7 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
 
         vehiclesDTO.carroTanques.forEach(carroTanque -> {
             vehiclesList.add(VehicleOpSimple.builder()
+                    .idMAssociation(carroTanque.idM_Asociacion)
                     .identification(carroTanque.identificador)
                     .vehicleType(VehicleTypeOPS.TANK_CAR.getValue())
                     .transportName("N/A")
@@ -73,6 +76,7 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
 
         vehiclesDTO.tractocamiones.forEach(tractocamion -> {
             vehiclesList.add(VehicleOpSimple.builder()
+                    .idMAssociation(tractocamion.idM_Asociacion)
                     .identification(tractocamion.identificador)
                     .vehicleType(VehicleTypeOPS.TRACTOR_TRUCK.getValue())
                     .transportName("N/A")

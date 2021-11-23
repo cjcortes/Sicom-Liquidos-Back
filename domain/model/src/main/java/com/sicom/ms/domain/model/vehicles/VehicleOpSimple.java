@@ -6,6 +6,7 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class VehicleOpSimple {
+    public String idMAssociation;
     public String identification;
     public String vehicleType;
     public String transportName;

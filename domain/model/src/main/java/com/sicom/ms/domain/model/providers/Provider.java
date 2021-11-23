@@ -9,7 +9,9 @@ public class Provider {
     public int applicantId;
     public int applicantSicomCode;
     public int providerId;
+    public String providerCommercialName;
     public int providerSicomCode;
     public String startContractDate;
     public String endContractDate;
+
 }
