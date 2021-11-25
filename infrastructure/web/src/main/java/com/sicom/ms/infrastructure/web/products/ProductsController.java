@@ -4,12 +4,11 @@ import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.dashboard.DashboardConsumptionQuotaFilters;
 import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.model.products.ProductMaster;
+import com.sicom.ms.domain.model.products.ProductOPSimple;
+import com.sicom.ms.domain.usecase.products.GetProductsOPSimpleBySicomCodeUseCase;
 import com.sicom.ms.domain.usecase.products.ProductsUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -25,6 +24,7 @@ public class ProductsController {
     private final AuthenticationGateway authenticationGateway;
 
     private final ProductsUseCase productsUseCase;
+    private final GetProductsOPSimpleBySicomCodeUseCase productsOPSimpleBySicomCodeUseCase;
 
     @GetMapping()
     public Flux<ProductMaster> getAllProducts(Principal principal) {
@@ -33,5 +33,11 @@ public class ProductsController {
                 .map(claims -> (String) claims.get(SICOM_AGENT))
                 .flatMapMany(productsUseCase::getAllProducts);
 
+    }
+
+    @GetMapping(value = "/op-simple")
+    public Flux<ProductOPSimple> getAllProductsOPSimple(@RequestParam String sicomCode) {
+
+        return productsOPSimpleBySicomCodeUseCase.get(sicomCode);
     }
 }
