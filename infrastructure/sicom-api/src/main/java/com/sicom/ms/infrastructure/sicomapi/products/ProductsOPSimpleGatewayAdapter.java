@@ -19,7 +19,10 @@ public class ProductsOPSimpleGatewayAdapter implements ProductsOPSimpleGateway {
     private String baseUrl;
 
     @Override
-    public Flux<ProductOPSimple> getProductsOPSimpleBySicomCodeUseCase(String sicomCode) {
+    public Flux<ProductOPSimple> getProductsOPSimpleBySicomCodeUseCase(String codigoSicomSol,
+                                                                       String codigoSicomProv,
+                                                                       String idPlantaRecibo,
+                                                                       String idPlantaAbastecimiento) {
 
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
@@ -27,7 +30,7 @@ public class ProductsOPSimpleGatewayAdapter implements ProductsOPSimpleGateway {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
         return client.get()
-                .uri("WEBSERVICE/liquidos/ops/Productos?codigoSicom="+sicomCode+"")
+                .uri("WEBSERVICE/liquidos/ops/Productos?codigoSicomSol="+codigoSicomSol+"&codigoSicomProv="+codigoSicomProv+"&idPlantaRecibo="+idPlantaRecibo+"&idPlantaAbastecimiento="+idPlantaAbastecimiento+"")
                 .retrieve()
                 .bodyToFlux(ProductOPSimpleDTO.class).map(p -> ProductOPSimple.builder()
                         .key(p.key)

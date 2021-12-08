@@ -9,7 +9,11 @@ import reactor.core.publisher.Flux;
 public class GetProductsOPSimpleBySicomCodeUseCase {
     private final ProductsOPSimpleGateway productsOPSimpleGateway;
 
-    public Flux<ProductOPSimple> get(String sicomCode) {
-        return productsOPSimpleGateway.getProductsOPSimpleBySicomCodeUseCase(sicomCode);
+    public Flux<ProductOPSimple> get(String codigoSicomSol,
+                                     String codigoSicomProv,
+                                     String idPlantaRecibo,
+                                     String idPlantaAbastecimiento) {
+        return productsOPSimpleGateway.getProductsOPSimpleBySicomCodeUseCase(codigoSicomSol,
+                codigoSicomProv, idPlantaRecibo, idPlantaAbastecimiento);
     }
 }

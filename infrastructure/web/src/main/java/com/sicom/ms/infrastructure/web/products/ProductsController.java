@@ -36,8 +36,12 @@ public class ProductsController {
     }
 
     @GetMapping(value = "/op-simple")
-    public Flux<ProductOPSimple> getAllProductsOPSimple(@RequestParam String sicomCode) {
+    public Flux<ProductOPSimple> getAllProductsOPSimple(@RequestParam String codigoSicomSol,
+                                                        @RequestParam String codigoSicomProv,
+                                                        @RequestParam String idPlantaRecibo,
+                                                        @RequestParam String idPlantaAbastecimiento) {
 
-        return productsOPSimpleBySicomCodeUseCase.get(sicomCode);
+        return productsOPSimpleBySicomCodeUseCase.get(codigoSicomSol,
+                codigoSicomProv, idPlantaRecibo, idPlantaAbastecimiento);
     }
 }
