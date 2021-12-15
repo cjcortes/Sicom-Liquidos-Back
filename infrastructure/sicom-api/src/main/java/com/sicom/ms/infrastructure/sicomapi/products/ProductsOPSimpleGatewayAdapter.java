@@ -45,6 +45,7 @@ public class ProductsOPSimpleGatewayAdapter implements ProductsOPSimpleGateway {
                         .nominalTotalCapacity(p.capacidadTotalNominal)
                         .totalOperatingCapacity(p.capacidadTotalOperativa)
                         .sicomAgentCode(p.codigoSicomAgente)
+                        .storageCapacity(p.capacidadDeAlmacenamiento)
                         .build())
                 .onErrorResume(WebClientResponseException.class,
                         ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));

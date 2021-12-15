@@ -19,4 +19,6 @@ public class ProductOPSimple {
     public int nominalTotalCapacity;
     public int totalOperatingCapacity;
     public int sicomAgentCode;
+    public double storageCapacity;
+
 }

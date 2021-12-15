@@ -14,4 +14,5 @@ public class ProductOPSimpleDTO {
     public int capacidadTotalNominal;
     public int capacidadTotalOperativa;
     public int codigoSicomAgente;
+    public double capacidadDeAlmacenamiento;
 }
