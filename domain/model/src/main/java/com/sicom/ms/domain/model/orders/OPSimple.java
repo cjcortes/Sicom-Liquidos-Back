@@ -1,22 +1,24 @@
 package com.sicom.ms.domain.model.orders;
 
-public class OPSimple {
-    public Envelope envelope;
-}
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class OPSimple {
+    public Process process;
+}
 class SavedMessage{
+    @JsonProperty("Entities")
     public String entities;
 }
 
 class ProcessWorkflowClass{
-    public int workflowClassId;
+    public String workflowClassId;
     public String workflowClassName;
     public String workflowClassDisplayName;
     public String workflowClassDescription;
     public String workflowClassHelpText;
-    public int workflowClassDisplayOrder;
+    public String workflowClassDisplayOrder;
     public String workflowClassCreationDate;
-    public String workflowClassGlobalenvelopeForm;
+    public String workflowClassGlobalForm;
     public String workflowClassAllocationPrinciple;
     public String workflowClassProcessType;
     public String workflowClassDisplay;
@@ -29,22 +31,22 @@ class ProcessError{
 }
 
 class Task{
-    public int taskId;
+    public String taskId;
     public String taskName;
     public String taskDisplayName;
     public String taskDescription;
     public String taskHelpText;
-    public int taskEstimatedDuration;
+    public String taskEstimatedDuration;
     public String taskType;
-    public int taskCost;
+    public String taskCost;
     public String taskPriority;
 }
 
 class WorkItem{
-    public int workItemId;
+    public String workItemId;
     public String workItemState;
     public String workItemEntryDate;
-    public int workItemDuration;
+    public String workItemDuration;
     public String workItemEstimatedSolutionDate;
     public Task task;
 }
@@ -54,37 +56,13 @@ class CurrentWorkItems{
 }
 
 class Process{
-    public int processId;
+    public String processId;
     public String processRadNumber;
     public SavedMessage savedMessage;
+    @JsonProperty("ProcessGuid")
+    public String processGuid;
     public ProcessWorkflowClass processWorkflowClass;
     public ProcessError processError;
-    public String processGuid;
+    @JsonProperty("CurrentWorkItems")
     public CurrentWorkItems currentWorkItems;
 }
-
-class Processes{
-    public Process process;
-}
-
-class CreateCasesResult{
-    public Processes processes;
-}
-
-class CreateCasesResponse{
-    public CreateCasesResult createCasesResult;
-}
-
-class Body{
-    public CreateCasesResponse createCasesResponse;
-}
-
-class Envelope{
-    public Body body;
-}
-
-class Root{
-    public Envelope envelope;
-}
-
-
