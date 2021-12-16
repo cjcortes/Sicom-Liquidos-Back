@@ -59,13 +59,13 @@ subprojects {
     dependencies {
         implementation 'io.projectreactor:reactor-core'
         implementation 'org.slf4j:slf4j-api'
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation 'io.projectreactor:reactor-test'
-        compile('com.fasterxml.jackson.core:jackson-annotations')
+        implementation('com.fasterxml.jackson.core:jackson-annotations')
     }
 
     dependencyManagement {
