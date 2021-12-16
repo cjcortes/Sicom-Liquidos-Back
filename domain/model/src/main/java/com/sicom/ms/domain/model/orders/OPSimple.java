@@ -25,11 +25,6 @@ class ProcessWorkflowClass{
     public String workflowClassUseParentRadicationNumber;
 }
 
-class ProcessError{
-    public String errorCode;
-    public String errorMessage;
-}
-
 class Task{
     public String taskId;
     public String taskName;
@@ -62,7 +57,6 @@ class Process{
     @JsonProperty("ProcessGuid")
     public String processGuid;
     public ProcessWorkflowClass processWorkflowClass;
-    public ProcessError processError;
     @JsonProperty("CurrentWorkItems")
     public CurrentWorkItems currentWorkItems;
 }

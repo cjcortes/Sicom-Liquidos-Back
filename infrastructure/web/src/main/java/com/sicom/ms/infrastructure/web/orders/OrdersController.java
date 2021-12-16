@@ -6,6 +6,7 @@ import com.sicom.ms.domain.model.products.Product;
 import com.sicom.ms.domain.usecase.orders.*;
 import com.sicom.ms.domain.usecase.products.GetProductsByOrderUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -82,7 +83,7 @@ public class OrdersController {
 
     @PostMapping(value = "/create-simple-op")
     public Mono<OPSimple> createOpSimple(@RequestBody OPSimpleRequest request) {
-        return createOPSimpleUseCase.create(request);
+         return createOPSimpleUseCase.create(request);
     }
 
     @PostMapping(value = "/confirm-simple-op")
