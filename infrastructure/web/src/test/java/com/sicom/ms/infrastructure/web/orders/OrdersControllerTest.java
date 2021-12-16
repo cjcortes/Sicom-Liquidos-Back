@@ -68,6 +68,9 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
     @MockBean
     private GetOrderModalityTypeUseCase getOrderModalityType;
 
+    @MockBean
+    private GetOPSQuotaUseCase getOPSQuotaUseCase;
+
     private WebTestClient webTestClient;
 
     @BeforeEach
