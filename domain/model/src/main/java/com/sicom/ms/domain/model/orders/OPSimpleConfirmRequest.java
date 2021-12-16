@@ -3,6 +3,7 @@ package com.sicom.ms.domain.model.orders;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -42,8 +43,8 @@ public class OPSimpleConfirmRequest{
     public int idM_PlantaRecibo;
     @JsonProperty("IdM_AgenteProveedor")
     public int idM_AgenteProveedor;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
-    public Date dFechaSugeridaEntrega;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    public LocalDateTime dFechaSugeridaEntrega;
     public String sObservacionAgenteSolicit;
     public ColTransporteOPS col_TransporteOPS;
     @JsonProperty("Col_ItemsPedido")

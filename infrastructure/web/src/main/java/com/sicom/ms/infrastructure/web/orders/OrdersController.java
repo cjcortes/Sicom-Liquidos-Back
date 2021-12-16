@@ -27,6 +27,7 @@ public class OrdersController {
     private final GetCountOrdersStatusUseCase getCountOrdersStatusUseCase;
     private final CreateOPSimpleUseCase createOPSimpleUseCase;
     private final ConfirmOPSimpleUseCase confirmOPSimpleUseCase;
+    private final GetOPSQuotaUseCase getOPSQuotaUseCase;
 
     @GetMapping
     public Flux<Order> getAllByFilter(
@@ -81,14 +82,19 @@ public class OrdersController {
                 .flatMapMany(getCountOrdersStatusUseCase::getCountOrdersStatus);
     }
 
-    @PostMapping(value = "/create-simple-op")
+    @PostMapping(value = "/create-ops")
     public Mono<OPSimple> createOpSimple(@RequestBody OPSimpleRequest request) {
          return createOPSimpleUseCase.create(request);
     }
 
-    @PostMapping(value = "/confirm-simple-op")
+    @PostMapping(value = "/confirm-ops")
     public Mono<OPSimplePerform> confirmOpSimple(@RequestBody OPSimpleConfirmRequest request) {
         return confirmOPSimpleUseCase.confirm(request);
+    }
+
+    @GetMapping(value = "/quota")
+    public Flux<OPSQuota> getOPSQuota(@RequestParam(value = "numeroCasoOPS") String opsCaseNumber, @RequestParam(value = "codigoSICOMSol") String sicomCode) {
+        return getOPSQuotaUseCase.get(opsCaseNumber, sicomCode);
     }
 
 }

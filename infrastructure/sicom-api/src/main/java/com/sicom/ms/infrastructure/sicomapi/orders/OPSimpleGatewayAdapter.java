@@ -3,6 +3,8 @@ package com.sicom.ms.infrastructure.sicomapi.orders;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.orders.*;
+import com.sicom.ms.domain.model.products.ProductOPSimple;
+import com.sicom.ms.infrastructure.sicomapi.products.ProductOPSimpleDTO;
 import com.sicom.ms.infrastructure.sicomapi.vehicles.VehiclesDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -60,32 +62,30 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .bodyValue(request)
                 .exchange()
                 .flatMap( clientResponse -> {
-                    //if ( clientResponse.statusCode() == HttpStatus.BAD_REQUEST  ) {
-                        return clientResponse.bodyToMono(String.class)
+                    if ( clientResponse.statusCode() == HttpStatus.BAD_REQUEST ) {
+                        return clientResponse.bodyToMono(OPSimpleError.class)
                                 .flatMap(errorDetails ->
-                                        Mono.error(new BadRequestException("400", "errorDetails.process.processError.errorMessage", null)
-                                        ));
-                    //}
-                    //return clientResponse.bodyToMono(OPSimplePerform.class );
+                                        Mono.error(new BadRequestException("400", errorDetails.process.processError.errorMessage, null))
+                                );
+                    }
+                    return clientResponse.bodyToMono(OPSimplePerform.class );
                 } );
 
         return result;
     }
-}
 
-class ProcessError{
-    public String errorCode;
-    public String errorMessage;
-}
-
-class Process{
-    public String processId;
-    public String processRadNumber;
-    public ProcessError processError;
-    @JsonProperty("CurrentWorkItems")
-    public String currentWorkItems;
-}
-
-class Root{
-    public Process process;
+    @Override
+    public Flux<OPSQuota> getOPSQuota(String opsCaseNumber, String sicomCode) {
+        var client = WebClient.builder()
+                .baseUrl(baseUrl)
+                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+        return client.get()
+                .uri("WEBSERVICE/liquidos/ops/cupo?numeroCasoOPS="+opsCaseNumber+"&codigoSICOMSol="+sicomCode+"")
+                .retrieve()
+                .bodyToFlux(OPSQuota.class)
+                .onErrorResume(WebClientResponseException.class,
+                        ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
+    }
 }
