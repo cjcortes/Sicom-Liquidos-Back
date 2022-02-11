@@ -2,22 +2,18 @@ package com.sicom.ms.infrastructure.web.security;
 
 import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
+import com.sicom.ms.domain.model.users.EncryptPasswordRequest;
+import com.sicom.ms.domain.model.users.EncryptedPasswordResponse;
 import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
+import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.function.Tuple2;
-import reactor.util.function.Tuples;
-
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/security")
@@ -29,6 +25,7 @@ public class SecurityController {
     private final LoginUserUseCase loginUserUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
     private final FortiUseCase fortiUseCase;
+    private final EncryptPasswordUseCase encryptPasswordUseCase;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
@@ -43,5 +40,10 @@ public class SecurityController {
     @PostMapping("/validate-forti-token")
     public Mono<String> validateFortiToken(@RequestBody ValidateTokenRequest validateTokenRequest) {
         return fortiUseCase.validateToken(validateTokenRequest);
+    }
+
+    @PostMapping("/login-encrypt-password")
+    public Mono<EncryptedPasswordResponse> encryptPassword(@RequestBody EncryptPasswordRequest request) {
+        return encryptPasswordUseCase.encryptPassword(request);
     }
 }

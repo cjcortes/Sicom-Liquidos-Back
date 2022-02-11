@@ -5,6 +5,7 @@ import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
+import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,6 +106,9 @@ public class SecurityControllerTest {
 
     @MockBean
     private FortiUseCase FortiUseCase;
+
+    @MockBean
+    private EncryptPasswordUseCase encryptPasswordUseCase;
 
     private WebTestClient webTestClient;
 
