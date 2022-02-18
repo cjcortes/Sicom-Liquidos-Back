@@ -59,6 +59,7 @@ public class SecurityControllerTest {
     private static final String FORTI_USER_ID_DESCRIPTION = "id de usuario en forti";
     private static final String FORTI_USER_NAME_DESCRIPTION = "nombre de usuario en forti";
     private static final String FORTI_ACTIVE_AUTH = "estado de forti";
+    private static final String RESULT_AUTH = "resultado de la autenticacion";
 
     private static final FieldDescriptor[] USER_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("code")
@@ -96,7 +97,10 @@ public class SecurityControllerTest {
                     .description(FORTI_USER_NAME_DESCRIPTION),
             fieldWithPath("fortiActiveAuth")
                     .type(JsonFieldType.BOOLEAN)
-                    .description(FORTI_ACTIVE_AUTH)
+                    .description(FORTI_ACTIVE_AUTH),
+            fieldWithPath("resultAuth")
+                    .type(JsonFieldType.BOOLEAN)
+                    .description(RESULT_AUTH)
     };
 
     @MockBean
@@ -137,6 +141,7 @@ public class SecurityControllerTest {
                 .fortiUserId(123)
                 .fortiUserName("fortiUserName")
                 .fortiActiveAuth(false)
+                .resultAuth(false)
                 .build();
 
         var request = LoginRequest.builder()
