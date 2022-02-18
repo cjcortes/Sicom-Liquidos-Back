@@ -27,22 +27,22 @@ public class ConsumptionsProductsGatewayAdapter extends BaseGatewayAdapter<Consu
     public Flux<ConsumptionProduct> getConsumptionsProducts(ConsumptionsProductsFilters consumptionsProductsFilters) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("consumptionsProducts.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codigo_sicom", consumptionsProductsFilters.getSicomAgent());
+        storedProcedureQuery.setParameter("codigo_sicom", consumptionsProductsFilters.getSicomAgent());
 
         if(consumptionsProductsFilters.getStartDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_inicio", new Date(consumptionsProductsFilters.getStartDate()));
+            storedProcedureQuery.setParameter("fecha_creacion", new Date(consumptionsProductsFilters.getStartDate()));
         }
 
         if(consumptionsProductsFilters.getEndDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_fin", new Date(consumptionsProductsFilters.getEndDate()));
+            storedProcedureQuery.setParameter("fecha_cierre", new Date(consumptionsProductsFilters.getEndDate()));
         }
 
         if(consumptionsProductsFilters.getProduct() != -1) {
-            storedProcedureQuery.setParameter("p_int_prod", consumptionsProductsFilters.getProduct());
+            storedProcedureQuery.setParameter("codigo_producto", consumptionsProductsFilters.getProduct());
         }
 
         if(!consumptionsProductsFilters.getOrderType().equals("-1")) {
-            storedProcedureQuery.setParameter("P_int_tipo_orden", consumptionsProductsFilters.getOrderType());
+            storedProcedureQuery.setParameter("tipo_orden", consumptionsProductsFilters.getOrderType());
         }
 
         List<ConsumptionProductData> result = storedProcedureQuery.getResultList();

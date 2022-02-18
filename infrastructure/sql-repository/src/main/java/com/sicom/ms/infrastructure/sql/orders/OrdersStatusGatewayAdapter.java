@@ -26,22 +26,22 @@ public class OrdersStatusGatewayAdapter extends BaseGatewayAdapter<OrderStatus, 
     public Flux<OrderStatus> getCountOrdersStatus(OrderStatusFilters orderStatusFilters) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("ordersStatus.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codigo_sicom", orderStatusFilters.getSicomAgent());
+        storedProcedureQuery.setParameter("codigo_sicom", orderStatusFilters.getSicomAgent());
 
         if(orderStatusFilters.getStartDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_inicio", new Date(orderStatusFilters.getStartDate()));
+            storedProcedureQuery.setParameter("fecha_creacion", new Date(orderStatusFilters.getStartDate()));
         }
 
         if(orderStatusFilters.getEndDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_fin", new Date(orderStatusFilters.getEndDate()));
+            storedProcedureQuery.setParameter("fecha_cierre", new Date(orderStatusFilters.getEndDate()));
         }
 
         if(orderStatusFilters.getProduct() != -1) {
-            storedProcedureQuery.setParameter("p_int_prod", orderStatusFilters.getProduct());
+            storedProcedureQuery.setParameter("codigo_producto", orderStatusFilters.getProduct());
         }
 
         if(!orderStatusFilters.getOrderType().equals("-1")) {
-            storedProcedureQuery.setParameter("P_int_tipo_orden", orderStatusFilters.getOrderType());
+            storedProcedureQuery.setParameter("tipo_orden", orderStatusFilters.getOrderType());
         }
 
         List<OrderStatusData> result = storedProcedureQuery.getResultList();

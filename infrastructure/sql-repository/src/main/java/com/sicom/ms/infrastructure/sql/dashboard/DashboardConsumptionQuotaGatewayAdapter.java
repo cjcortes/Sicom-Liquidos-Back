@@ -36,11 +36,11 @@ public class DashboardConsumptionQuotaGatewayAdapter extends BaseGatewayAdapter<
         }
 
         if(dashboardConsumptionQuotaFilters.getProduct() != -1) {
-            storedProcedureQuery.setParameter("p_int_prod", dashboardConsumptionQuotaFilters.getProduct());
+            storedProcedureQuery.setParameter("codigo_producto", dashboardConsumptionQuotaFilters.getProduct());
         }
 
         if(!dashboardConsumptionQuotaFilters.getOrderType().equals("-1")) {
-            storedProcedureQuery.setParameter("P_int_tipo_orden", dashboardConsumptionQuotaFilters.getOrderType());
+            storedProcedureQuery.setParameter("tipo_orden", dashboardConsumptionQuotaFilters.getOrderType());
         }
 
         List<DashboardConsumptionQuotaData> result = storedProcedureQuery.getResultList();

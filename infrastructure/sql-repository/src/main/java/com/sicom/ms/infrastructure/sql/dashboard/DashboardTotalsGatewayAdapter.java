@@ -26,24 +26,24 @@ public class DashboardTotalsGatewayAdapter extends BaseGatewayAdapter<DashboardT
     public Flux<DashboardTotal> getTotals(DashboardTotalsFilters dashboardTotalsFilters) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("dashboardTotals.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codigo_sicom", dashboardTotalsFilters.getSicomAgent());
+        storedProcedureQuery.setParameter("codigo_sicom", dashboardTotalsFilters.getSicomAgent());
 
         if(dashboardTotalsFilters.getStartDate() != -1) {
             Date startDate = new Date(dashboardTotalsFilters.getStartDate());
-            storedProcedureQuery.setParameter("p_fecha_inicio", startDate);
+            storedProcedureQuery.setParameter("fecha_creacion", startDate);
         }
 
         if(dashboardTotalsFilters.getEndDate() != -1) {
             Date endDate = new Date(dashboardTotalsFilters.getEndDate());
-            storedProcedureQuery.setParameter("p_fecha_fin", endDate);
+            storedProcedureQuery.setParameter("fecha_cierre", endDate);
         }
 
         if(dashboardTotalsFilters.getProduct() != -1) {
-            storedProcedureQuery.setParameter("p_int_prod", dashboardTotalsFilters.getProduct());
+            storedProcedureQuery.setParameter("codigo_producto", dashboardTotalsFilters.getProduct());
         }
 
         if(!dashboardTotalsFilters.getOrderType().equals("-1")) {
-            storedProcedureQuery.setParameter("P_int_tipo_orden", dashboardTotalsFilters.getOrderType());
+            storedProcedureQuery.setParameter("tipo_orden", dashboardTotalsFilters.getOrderType());
         }
 
         List<DashboardTotalData> result = storedProcedureQuery.getResultList();
