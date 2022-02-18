@@ -33,7 +33,8 @@ public class SecurityConfiguration {
                         "/api/security/refresh-token",
                         "/api/fcm",
                         "/api/security/validate-forti-token",
-                        "/api/security/login-encrypt-password"
+                        "/api/security/login-encrypt-password",
+                        "/api/security/loginns"
                 )
                 .permitAll()
                 .anyExchange().authenticated()

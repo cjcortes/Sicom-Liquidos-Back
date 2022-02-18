@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 @Repository
 public class AutenticacionNSGatewayAdapter implements AutenticacionNSGateway {
@@ -30,9 +31,17 @@ public class AutenticacionNSGatewayAdapter implements AutenticacionNSGateway {
                 .uri("/WEBSERVICE/liquidos/ops/AutenticacionNS")
                 .bodyValue(request)
                 .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .flatMap(response -> response.bodyToMono(AutenticacionNSResponse.class));
-        AutenticacionNSResponse autenticacionNSResponse = mono.block();
+                .retrieve()
+                .bodyToMono(AutenticacionNSResponse.class);
+
+        AutenticacionNSResponse autenticacionNSResponse = null;
+        try {
+            autenticacionNSResponse = mono.toFuture().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         User user = User.builder()
                 .code(autenticacionNSResponse.INT_CODIGO_USR)
