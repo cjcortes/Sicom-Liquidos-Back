@@ -19,4 +19,5 @@ public class User {
     int  fortiUserId;
     String fortiUserName;
     boolean fortiActiveAuth;
+    boolean resultAuth;
 }

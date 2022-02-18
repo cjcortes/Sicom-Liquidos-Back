@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.sicom.ms.domain.model.common.TimeProvider;
 import com.sicom.ms.domain.model.common.UUIDOperations;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
+import com.sicom.ms.domain.model.users.AutenticacionNSResponse;
 import com.sicom.ms.domain.model.users.SecurityGateway;
 import com.sicom.ms.domain.model.users.User;
 import lombok.RequiredArgsConstructor;

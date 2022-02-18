@@ -5,6 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface SecurityGateway {
     Mono<User> generateToken(User user);
-
     Mono<RefreshToken> refreshToken(RefreshToken refreshToken);
 }

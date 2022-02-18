@@ -2,12 +2,10 @@ package com.sicom.ms.infrastructure.web.security;
 
 import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
-import com.sicom.ms.domain.model.users.EncryptPasswordRequest;
-import com.sicom.ms.domain.model.users.EncryptedPasswordResponse;
-import com.sicom.ms.domain.model.users.LoginRequest;
-import com.sicom.ms.domain.model.users.User;
+import com.sicom.ms.domain.model.users.*;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
+import com.sicom.ms.domain.usecase.users.AutenticacionNSUseCase;
 import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +24,7 @@ public class SecurityController {
     private final RefreshTokenUseCase refreshTokenUseCase;
     private final FortiUseCase fortiUseCase;
     private final EncryptPasswordUseCase encryptPasswordUseCase;
+    private final AutenticacionNSUseCase autenticacionNSUseCase;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
@@ -45,5 +44,10 @@ public class SecurityController {
     @PostMapping("/login-encrypt-password")
     public Mono<EncryptedPasswordResponse> encryptPassword(@RequestBody EncryptPasswordRequest request) {
         return encryptPasswordUseCase.encryptPassword(request);
+    }
+
+    @PostMapping("/loginns")
+    public Mono<User> autenticacionns(@RequestBody AutenticacionNSRequest request) {
+        return autenticacionNSUseCase.login(request);
     }
 }
