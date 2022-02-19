@@ -14,4 +14,5 @@ public class Notification {
     Date dueDate;
     String fileUrl;
     String fileName;
+    String user;
 }

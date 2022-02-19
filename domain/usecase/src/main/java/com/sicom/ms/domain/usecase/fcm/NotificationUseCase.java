@@ -2,12 +2,12 @@ package com.sicom.ms.domain.usecase.fcm;
 
 import com.sicom.ms.domain.model.fcm.Notification;
 import com.sicom.ms.domain.model.fcm.NotificationGateway;
+import com.sicom.ms.domain.model.fcm.UserDeviceNotification;
 import com.sicom.ms.domain.usecase.validations.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
-import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.NOTIFICATION_REQUEST_RULES;
-import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.READ_NOTIFICATION_REQUEST_RULES;
+import static com.sicom.ms.domain.usecase.fcm.SendNotificationPushRules.*;
 
 @RequiredArgsConstructor
 public class NotificationUseCase {
@@ -24,5 +24,11 @@ public class NotificationUseCase {
         objectValidator.validate(notificationId, READ_NOTIFICATION_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("read");
         return notificationGateway.readNotification(userId, notificationId);
+    }
+
+    public Mono<String> saveUserDevice(UserDeviceNotification userDeviceNotification, String userId) {
+        objectValidator.validate(userDeviceNotification, SAVE_USER_DEVICE_NOTIFICATION_REQUEST_RULES)
+                .throwBadRequestExceptionIfInvalid("saveUserDevice");
+        return notificationGateway.saveUserDevice(userDeviceNotification, userId);
     }
 }

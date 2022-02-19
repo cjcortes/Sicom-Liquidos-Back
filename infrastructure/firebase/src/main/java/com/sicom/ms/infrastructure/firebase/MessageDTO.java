@@ -10,5 +10,5 @@ public class MessageDTO {
     String topic;
     NotificationDTO notification;
     AndroidConfigDTO android;
-
+    String token;
 }

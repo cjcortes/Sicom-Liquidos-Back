@@ -5,25 +5,28 @@ import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.Timestamp;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.FieldValue;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.SendResponse;
 import com.sicom.ms.domain.model.fcm.Notification;
 import com.sicom.ms.domain.model.fcm.NotificationGateway;
+import com.sicom.ms.domain.model.fcm.UserDeviceNotification;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 @Repository
 public class NotificationGatewayAdapter implements NotificationGateway {
@@ -37,6 +40,45 @@ public class NotificationGatewayAdapter implements NotificationGateway {
     private String baseUrl;
 
     @Override
+    public Mono<String> sendMultiplePushNotifications(List<Notification> notifications) {
+        List <Message> messages = new ArrayList<>();
+        notifications.forEach(notification -> {
+            var body = notification.getBody();
+
+            if (body.length() > 200) {
+                body = body.substring(199);
+            }
+
+            UserDeviceNotification userDeviceNotification = null;
+
+            if(notification.getUser()!= null) {
+                userDeviceNotification = getUserDevice(notification.getUser());
+
+                if(userDeviceNotification != null && userDeviceNotification.getDeviceToken() != null) {
+                    Message message = Message.builder()
+                            .setNotification(com.google.firebase.messaging.Notification.builder()
+                                    .setTitle(notification.getTitle())
+                                    .setBody(body)
+                                    .build())
+                            .setToken(userDeviceNotification.getDeviceToken())
+                            .build();
+                    messages.add(message);
+                }
+            }
+        });
+
+        try {
+            FirebaseMessaging.getInstance().sendAll(messages).getResponses().forEach(sendResponse -> {
+                SendResponse s = sendResponse;
+            });
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+
+        return  Mono.just("OK");
+    }
+
+    @Override
     public Mono<String> sendPushNotification(Notification request) {
         var inputStream = ClassLoader.getSystemResourceAsStream(serviceAccountKey);
         GoogleCredentials credentials;
@@ -46,6 +88,7 @@ public class NotificationGatewayAdapter implements NotificationGateway {
                     .createScoped(SCOPES);
             credentials.refreshIfExpired();
             AccessToken accessToken = credentials.getAccessToken();
+
             return sendPushNotification(accessToken.getTokenValue(), request);
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,8 +119,23 @@ public class NotificationGatewayAdapter implements NotificationGateway {
         Firestore db = FirestoreClient.getFirestore();
 
         DocumentReference docRef = db.collection("notifications").document(notificationId);
-        ApiFuture<WriteResult> arrayUnion = docRef.update("users",
-                FieldValue.arrayUnion(userId));
+        docRef.update("users", FieldValue.arrayUnion(userId));
+
+        return Mono.just("OK");
+    }
+
+    @Override
+    public Mono<String> saveUserDevice(UserDeviceNotification userDeviceNotification, String userId) {
+        getFirebaseInstance();
+
+        Firestore db = FirestoreClient.getFirestore();
+
+        ObjectMapper oMapper = new ObjectMapper();
+        Map<String, Object> userDeviceNotificationData = oMapper.convertValue(userDeviceNotification, Map.class);
+        userDeviceNotificationData.put("registerDate", Timestamp.of(userDeviceNotification.getRegisterDate()));
+
+        DocumentReference docRef = db.collection("usersDevice").document(userId);
+        docRef.set(userDeviceNotificationData);
 
         return Mono.just("OK");
     }
@@ -98,6 +156,30 @@ public class NotificationGatewayAdapter implements NotificationGateway {
             e.printStackTrace();
         }
     }
+
+    private UserDeviceNotification getUserDevice(String userId)  {
+        UserDeviceNotification userDeviceNotification = null;
+
+        try {
+            getFirebaseInstance();
+            Firestore db = FirestoreClient.getFirestore();
+            DocumentReference docRef = db.collection("usersDevice").document(userId);
+            ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = null;
+            document = future.get();
+            if (document.exists()) {
+                userDeviceNotification = document.toObject(UserDeviceNotification.class);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        return userDeviceNotification;
+    }
+
 
     private Mono<String> sendPushNotification(String token, Notification request) {
         var body = request.getBody();
@@ -121,6 +203,7 @@ public class NotificationGatewayAdapter implements NotificationGateway {
                 .notification(notification)
                 .android(androidConfig)
                 .build();
+
         var pushNotification = PushNotificacionData.builder()
                 .message(message)
                 .build();
@@ -130,9 +213,13 @@ public class NotificationGatewayAdapter implements NotificationGateway {
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
+
         return client.post()
                 .uri("/messages:send")
                 .bodyValue(pushNotification)
-                .exchange().map(clientResponse -> "OK");
+                .exchange().map(clientResponse -> {
+                    ClientResponse clientResponse1 = clientResponse;
+                    return "OK";
+                });
     }
 }
