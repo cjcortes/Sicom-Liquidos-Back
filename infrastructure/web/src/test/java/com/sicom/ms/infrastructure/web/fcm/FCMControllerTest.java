@@ -38,6 +38,7 @@ public class FCMControllerTest {
     private static final String DUE_DATE = "Fecha de vencimiento de la notificación";
     private static final String FILE_URL = "url del documento adjunto en la notificación";
     private static final String FILE_NAME = "nombre del documento adjunto en la notificación";
+    private static final String USER = "usuario a quien se le envía la notificación";
 
     private static final FieldDescriptor[] NOTIFICATION_REQUEST_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("title")
@@ -54,8 +55,10 @@ public class FCMControllerTest {
                     .description(FILE_URL),
             fieldWithPath("fileName")
                     .type(JsonFieldType.STRING)
-                    .description(FILE_NAME)
-
+                    .description(FILE_NAME),
+            fieldWithPath("user")
+                    .type(JsonFieldType.STRING)
+                    .description(USER)
     };
 
     @MockBean
