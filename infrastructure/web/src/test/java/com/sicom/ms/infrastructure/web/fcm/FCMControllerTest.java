@@ -83,6 +83,7 @@ public class FCMControllerTest {
                 .dueDate(new Date())
                 .fileName("File Name")
                 .fileUrl("File Url")
+                .user("user")
                 .build();
 
         when(sendPushNotificationUseCase.send(request))
