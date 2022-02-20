@@ -21,8 +21,6 @@ public class SendNotificationPushRules {
     );
 
     public static final Rules<UserDeviceNotification> SAVE_USER_DEVICE_NOTIFICATION_REQUEST_RULES = Rules.of(
-            cannotBeNull(UserDeviceNotification::getDeviceToken, "notification", "deviceId"),
-            cannotBeNull(UserDeviceNotification::getType, "notification", "type"),
-            cannotBeNull(UserDeviceNotification::getRegisterDate, "notification", "registerDate")
+            cannotBeNull(UserDeviceNotification::getDeviceToken, "notification", "deviceId")
     );
 }

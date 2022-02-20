@@ -68,9 +68,11 @@ public class NotificationGatewayAdapter implements NotificationGateway {
         });
 
         try {
-            FirebaseMessaging.getInstance().sendAll(messages).getResponses().forEach(sendResponse -> {
-                SendResponse s = sendResponse;
-            });
+            if(messages.size() > 0) {
+                FirebaseMessaging.getInstance().sendAll(messages).getResponses().forEach(sendResponse -> {
+                    SendResponse s = sendResponse;
+                });
+            }
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
@@ -132,7 +134,6 @@ public class NotificationGatewayAdapter implements NotificationGateway {
 
         ObjectMapper oMapper = new ObjectMapper();
         Map<String, Object> userDeviceNotificationData = oMapper.convertValue(userDeviceNotification, Map.class);
-        userDeviceNotificationData.put("registerDate", Timestamp.of(userDeviceNotification.getRegisterDate()));
 
         DocumentReference docRef = db.collection("usersDevice").document(userId);
         docRef.set(userDeviceNotificationData);
