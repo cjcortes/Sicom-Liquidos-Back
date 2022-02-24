@@ -88,7 +88,7 @@ public class OrdersController {
     }
 
     @PostMapping(value = "/confirm-ops")
-    public Mono<OPSimplePerform> confirmOpSimple(@RequestBody OPSimpleConfirmRequest request) {
+    public Mono<OPSimple> confirmOpSimple(@RequestBody OPSimpleConfirmRequest request) {
         return confirmOPSimpleUseCase.confirm(request);
     }
 

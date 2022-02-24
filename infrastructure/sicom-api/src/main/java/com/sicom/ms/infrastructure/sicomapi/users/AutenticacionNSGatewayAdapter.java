@@ -1,12 +1,8 @@
 package com.sicom.ms.infrastructure.sicomapi.users;
 
-import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.error.ErrorRoot;
-import com.sicom.ms.domain.model.orders.OPSimple;
-import com.sicom.ms.domain.model.orders.OPSimpleError;
 import com.sicom.ms.domain.model.users.*;
-import com.sicom.ms.infrastructure.sicomapi.vehicles.VehiclesDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +12,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
 
 @Repository
 public class AutenticacionNSGatewayAdapter implements AutenticacionNSGateway {

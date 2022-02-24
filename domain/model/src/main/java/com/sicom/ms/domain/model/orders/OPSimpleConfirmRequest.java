@@ -18,7 +18,7 @@ class ColTransporteOPS{
 }
 
 class SCMMItemsPedido{
-    public int fVolumenSolicitado;
+    public double fVolumenSolicitado;
     public int idP_ProductoCompra;
     public boolean bRechazar;
 }

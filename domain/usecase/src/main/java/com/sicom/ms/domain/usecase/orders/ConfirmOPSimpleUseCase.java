@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 public class ConfirmOPSimpleUseCase {
     private final OPSimpleGateway opsimpleGateway;
 
-    public Mono<OPSimplePerform> confirm(OPSimpleConfirmRequest request) {
+    public Mono<OPSimple> confirm(OPSimpleConfirmRequest request) {
         return opsimpleGateway.confirmOPSimple(request);
     }
 }

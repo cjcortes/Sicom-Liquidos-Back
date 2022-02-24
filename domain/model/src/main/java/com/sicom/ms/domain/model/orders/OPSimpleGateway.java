@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface OPSimpleGateway {
     Mono<OPSimple> createOPSimple(OPSimpleRequest request);
-    Mono<OPSimplePerform> confirmOPSimple(OPSimpleConfirmRequest request);
+    Mono<OPSimple> confirmOPSimple(OPSimpleConfirmRequest request);
     Flux<OPSQuota> getOPSQuota(String opsCaseNumber, String sicomCode);
 }
