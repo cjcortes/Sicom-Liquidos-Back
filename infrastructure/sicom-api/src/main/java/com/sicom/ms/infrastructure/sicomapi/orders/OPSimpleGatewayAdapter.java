@@ -34,7 +34,7 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .exchange()
                 .flatMap( clientResponse -> {
                     if ( clientResponse.statusCode() == HttpStatus.BAD_REQUEST ) {
-                        return clientResponse.bodyToMono(OPSimple.class)
+                        return clientResponse.bodyToMono(OPSimpleError.class)
                                 .flatMap(errorDetails ->
                                         Mono.error(new BadRequestException("400", errorDetails.process.processError.errorMessage, null))
                                 );
@@ -59,7 +59,7 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .exchange()
                 .flatMap( clientResponse -> {
                     if ( clientResponse.statusCode() == HttpStatus.BAD_REQUEST ) {
-                        return clientResponse.bodyToMono(OPSimple.class)
+                        return clientResponse.bodyToMono(OPSimpleError.class)
                                 .flatMap(errorDetails ->
                                         Mono.error(new BadRequestException("400", errorDetails.process.processError.errorMessage, null))
                                 );
