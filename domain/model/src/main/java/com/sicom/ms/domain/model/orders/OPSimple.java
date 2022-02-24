@@ -50,13 +50,3 @@ class CurrentWorkItems{
     public WorkItem workItem;
 }
 
-class Process{
-    public String processId;
-    public String processRadNumber;
-    public SavedMessage savedMessage;
-    @JsonProperty("ProcessGuid")
-    public String processGuid;
-    public ProcessWorkflowClass processWorkflowClass;
-    @JsonProperty("CurrentWorkItems")
-    public CurrentWorkItems currentWorkItems;
-}

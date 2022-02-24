@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                         "/api/security/login",
                         "/api/security/refresh-token",
                         "/api/fcm",
+                        "/api/fcm/custom",
                         "/api/security/validate-forti-token",
                         "/api/security/login-encrypt-password",
                         "/api/security/loginns"
