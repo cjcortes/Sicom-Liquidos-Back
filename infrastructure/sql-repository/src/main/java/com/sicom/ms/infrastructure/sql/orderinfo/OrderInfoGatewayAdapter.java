@@ -25,7 +25,7 @@ public class OrderInfoGatewayAdapter extends BaseGatewayAdapter<OrderInfo, Order
     public Mono<OrderInfo> getByOrderId(String orderId) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("orderInfo.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codaut_ope", orderId);
+        storedProcedureQuery.setParameter("codigo_autorizacion", orderId);
 
         List<OrderInfoData> result = storedProcedureQuery.getResultList();
 

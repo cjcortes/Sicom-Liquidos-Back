@@ -27,7 +27,7 @@ public class ConsumptionsGatewayAdapter extends BaseGatewayAdapter<Consumption, 
     public Mono<Consumption> get(String userCode) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("consumption.procedure");
 
-        storedProcedureQuery.setParameter("p_VRC_SICOM", userCode);
+        storedProcedureQuery.setParameter("codigo_sicom", userCode);
 
         List result = storedProcedureQuery.getResultList();
 

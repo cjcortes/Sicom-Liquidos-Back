@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @NamedStoredProcedureQuery(
         name = "ordersByFilters.procedure",
-        procedureName = "SEG_MOVIL_PKG_IDENTIFICACION.SEG_MOVIL_BUSCAR_ORDEN",
+        procedureName = "SICOM.CONSULTAR_ORDENES.SEG_MOVIL_BUSCAR_ORDEN",
         resultClasses = OrderData.class,
         parameters = {
                 @StoredProcedureParameter(name = "p_vrc_codaut_ope", type = String.class, mode = ParameterMode.IN),
@@ -20,11 +20,11 @@ import java.util.Date;
                 @StoredProcedureParameter(name = "p_fecha_fin", type = Date.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_vrc_usuario", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "p_int_estado", type = Integer.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "curBuscar_Orden", type = void.class, mode = ParameterMode.REF_CURSOR)
+                @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )
-public class OrderData {
 
+public class OrderData {
     @Id
     @Column(name = "CODIGO_AUTORIZACION")
     String authorizationCode;
