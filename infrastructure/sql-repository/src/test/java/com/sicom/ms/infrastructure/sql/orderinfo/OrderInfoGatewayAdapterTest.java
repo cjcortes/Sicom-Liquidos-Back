@@ -57,7 +57,7 @@ public class OrderInfoGatewayAdapterTest {
                 .expectNext(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
     }
 
     @Test
@@ -75,7 +75,7 @@ public class OrderInfoGatewayAdapterTest {
                 .assertNext(orderInfo -> assertThat(orderInfo).isInstanceOf(OrderInfo.class))
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
         verify(orderInfoConverter, times(0)).toEntity(any());
     }
 }

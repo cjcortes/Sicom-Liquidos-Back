@@ -57,7 +57,7 @@ public class ConsumptionsGatewayAdapterTest {
                 .expectNext(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_VRC_SICOM", request);
+        verify(storedProcedureQuery).setParameter("codigo_sicom", request);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ConsumptionsGatewayAdapterTest {
                 .hasMessage("consumption not found")
                 .hasFieldOrPropertyWithValue("code", "consumption.error.notFound");
 
-        verify(storedProcedureQuery).setParameter("p_VRC_SICOM", request);
+        verify(storedProcedureQuery).setParameter("codigo_sicom", request);
     }
 //
 }
