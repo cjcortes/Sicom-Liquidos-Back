@@ -9,8 +9,8 @@ public class Product {
 
     String name;
     String state;
-    int requestedAmount;
-    int acceptedAmount;
+    double requestedAmount;
+    double acceptedAmount;
     int dispatchedAmount;
 
 }

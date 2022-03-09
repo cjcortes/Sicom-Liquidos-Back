@@ -25,7 +25,7 @@ public class ProductsGatewayAdapter extends BaseGatewayAdapter<Product, ProductD
     public Flux<Product> getAllByOrderId(String orderId) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("orderProducts.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codaut_ope", orderId);
+        storedProcedureQuery.setParameter("codigo_autorizacion", orderId);
 
         List<ProductData> result = storedProcedureQuery.getResultList();
 

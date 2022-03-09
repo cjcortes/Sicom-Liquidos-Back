@@ -25,7 +25,7 @@ public class VehiclesGatewayAdapter extends BaseGatewayAdapter<Vehicle, VehicleD
     public Mono<Vehicle> getByOrderId(String orderId) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("orderVehicle.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codaut_ope", orderId);
+        storedProcedureQuery.setParameter("codigo_autorizacion", orderId);
 
         List<VehicleData> result = storedProcedureQuery.getResultList();
 

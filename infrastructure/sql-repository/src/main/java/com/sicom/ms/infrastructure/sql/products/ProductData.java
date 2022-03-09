@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Entity
 @NamedStoredProcedureQuery(
         name = "orderProducts.procedure",
-        procedureName = "SEG_MOVIL_PKG_IDENTIFICACION.LISTAR_OP_DATOS_PRODUCTOS",
+        procedureName = "SICOM.CONSULTAR_ORDENES.LISTAR_OP_DATOS_PRODUCTOS",
         resultClasses = ProductData.class,
         parameters = {
-                @StoredProcedureParameter(name = "p_vrc_codaut_ope", type = String.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "codigo_autorizacion", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )
@@ -23,9 +23,9 @@ public class ProductData {
     @Column(name = "ESTADO_DETALLE")
     String state;
     @Column(name = "VOLUMEN_SOLICITADO")
-    int requestedAmount;
+    double requestedAmount;
     @Column(name = "VOLUMEN_ACEPTADO")
-    int acceptedAmount;
+    double acceptedAmount;
     @Column(name = "VOLUMEN_DESPACHADO")
     int dispatchedAmount;
 

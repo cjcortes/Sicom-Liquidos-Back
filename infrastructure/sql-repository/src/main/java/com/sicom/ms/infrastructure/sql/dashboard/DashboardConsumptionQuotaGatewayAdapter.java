@@ -28,19 +28,19 @@ public class DashboardConsumptionQuotaGatewayAdapter extends BaseGatewayAdapter<
         storedProcedureQuery.setParameter("p_vrc_codigo_sicom", dashboardConsumptionQuotaFilters.getSicomAgent());
 
         if(dashboardConsumptionQuotaFilters.getYear() != -1) {
-            storedProcedureQuery.setParameter("AÑO", dashboardConsumptionQuotaFilters.getYear());
+            storedProcedureQuery.setParameter("anio", dashboardConsumptionQuotaFilters.getYear());
         }
 
         if(dashboardConsumptionQuotaFilters.getMonth() != -1) {
-            storedProcedureQuery.setParameter("MES", dashboardConsumptionQuotaFilters.getMonth());
+            storedProcedureQuery.setParameter("mes", dashboardConsumptionQuotaFilters.getMonth());
         }
 
         if(dashboardConsumptionQuotaFilters.getProduct() != -1) {
-            storedProcedureQuery.setParameter("codigo_producto", dashboardConsumptionQuotaFilters.getProduct());
+            storedProcedureQuery.setParameter("p_int_prod", dashboardConsumptionQuotaFilters.getProduct());
         }
 
         if(!dashboardConsumptionQuotaFilters.getOrderType().equals("-1")) {
-            storedProcedureQuery.setParameter("tipo_orden", dashboardConsumptionQuotaFilters.getOrderType());
+            storedProcedureQuery.setParameter("p_int_tipo_orden", dashboardConsumptionQuotaFilters.getOrderType());
         }
 
         List<DashboardConsumptionQuotaData> result = storedProcedureQuery.getResultList();

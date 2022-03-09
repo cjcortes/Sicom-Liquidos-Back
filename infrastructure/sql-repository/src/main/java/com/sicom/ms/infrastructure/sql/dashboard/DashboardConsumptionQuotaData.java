@@ -14,10 +14,10 @@ package com.sicom.ms.infrastructure.sql.dashboard;
         resultClasses = DashboardConsumptionQuotaData.class,
         parameters = {
                 @StoredProcedureParameter(name = "p_vrc_codigo_sicom", type = String.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "AÑO", type = Integer.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "MES", type = Integer.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "codigo_producto", type = Integer.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "tipo_orden", type = String.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "anio", type = Integer.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "mes", type = Integer.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "p_int_prod", type = Integer.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "p_int_tipo_orden", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )

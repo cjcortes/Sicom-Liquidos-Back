@@ -24,7 +24,7 @@ public class ProvidersCustomersGatewayAdapter extends BaseGatewayAdapter<Provide
     public Mono<ProviderCustomer> getByOrderId(String orderId) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("orderProviderCustomer.procedure");
 
-        storedProcedureQuery.setParameter("p_vrc_codaut_op", orderId);
+        storedProcedureQuery.setParameter("codigo_autorizacion", orderId);
 
         List<ProviderCustomerData> result = storedProcedureQuery.getResultList();
 

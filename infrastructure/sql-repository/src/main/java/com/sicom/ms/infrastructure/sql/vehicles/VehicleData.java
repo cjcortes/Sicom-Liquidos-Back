@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Entity
 @NamedStoredProcedureQuery(
         name = "orderVehicle.procedure",
-        procedureName = "SEG_MOVIL_PKG_IDENTIFICACION.LISTAR_OP_DATOS_VEHICULO",
+        procedureName = "SICOM.CONSULTAR_ORDENES.LISTAR_OP_DATOS_VEHICULO",
         resultClasses = VehicleData.class,
         parameters = {
-                @StoredProcedureParameter(name = "p_vrc_codaut_ope", type = String.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "codigo_autorizacion", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)
         }
 )
