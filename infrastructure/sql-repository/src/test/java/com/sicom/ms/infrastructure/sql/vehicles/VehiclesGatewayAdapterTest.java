@@ -49,7 +49,7 @@ public class VehiclesGatewayAdapterTest {
                 .expectNext(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
     }
 
     @Test
@@ -66,7 +66,7 @@ public class VehiclesGatewayAdapterTest {
                 .assertNext(orderInfo -> assertThat(orderInfo).isInstanceOf(Vehicle.class))
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
         verify(vehicleConverter, times(0)).toEntity(any());
     }
 }

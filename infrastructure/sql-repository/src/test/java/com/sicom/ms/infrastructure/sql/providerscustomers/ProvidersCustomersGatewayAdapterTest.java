@@ -50,7 +50,7 @@ public class ProvidersCustomersGatewayAdapterTest {
                 .expectNext(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_op", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ProvidersCustomersGatewayAdapterTest {
                 .assertNext(orderInfo -> assertThat(orderInfo).isInstanceOf(ProviderCustomer.class))
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_op", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
         verify(providerCustomerConverter, times(0)).toEntity(any());
     }
 }

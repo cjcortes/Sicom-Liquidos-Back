@@ -48,6 +48,6 @@ public class ProductsGatewayAdapterTest {
                 .expectNextSequence(expected)
                 .verifyComplete();
 
-        verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", "1");
+        verify(storedProcedureQuery).setParameter("codigo_autorizacion", "1");
     }
 }
