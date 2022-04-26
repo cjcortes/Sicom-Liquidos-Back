@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @NamedStoredProcedureQuery(
         name = "consumptionsProducts.procedure",
-        procedureName = "SICOM.CONSULTAR_ORDENES.OPE_PRC_CONSUMO_X_PROD_NAL",
+        procedureName = "DATA_SICOM.CONSULTAR_ORDENES.OPE_PRC_CONSUMO_X_PROD_NAL",
         resultClasses = ConsumptionProductData.class,
         parameters = {
                 @StoredProcedureParameter(name = "codigo_sicom", type = String.class, mode = ParameterMode.IN),

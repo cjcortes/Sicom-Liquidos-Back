@@ -10,7 +10,7 @@ package com.sicom.ms.infrastructure.sql.dashboard;
 @Entity
 @NamedStoredProcedureQuery(
         name = "dashboardConsumptionQuota.procedure",
-        procedureName = "SICOM.CONSULTAR_ORDENES.OPE_PRC_CONSUMO_ZONA_FRONTERA",
+        procedureName = "DATA_SICOM.CONSULTAR_ORDENES.OPE_PRC_CONSUMO_ZONA_FRONTERA",
         resultClasses = DashboardConsumptionQuotaData.class,
         parameters = {
                 @StoredProcedureParameter(name = "p_vrc_codigo_sicom", type = String.class, mode = ParameterMode.IN),

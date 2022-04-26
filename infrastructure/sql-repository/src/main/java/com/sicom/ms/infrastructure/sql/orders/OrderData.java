@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @NamedStoredProcedureQuery(
         name = "ordersByFilters.procedure",
-        procedureName = "SICOM.CONSULTAR_ORDENES.SEG_MOVIL_BUSCAR_ORDEN",
+        procedureName = "DATA_SICOM.CONSULTAR_ORDENES.SEG_MOVIL_BUSCAR_ORDEN",
         resultClasses = OrderData.class,
         parameters = {
                 @StoredProcedureParameter(name = "p_vrc_codaut_ope", type = String.class, mode = ParameterMode.IN),
