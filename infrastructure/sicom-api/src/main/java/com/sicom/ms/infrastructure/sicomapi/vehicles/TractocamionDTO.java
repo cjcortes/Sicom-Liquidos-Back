@@ -10,6 +10,11 @@ public class TractocamionDTO {
     public String placaTanque;
     public String nombreConductor;
     public String numeroDocumentoConductor;
-    public Object remolqueTractoCamion;
+    public RemolqueTractoCamion remolqueTractoCamion;
 
+}
+
+class RemolqueTractoCamion {
+    public String capacidad;
+    public int numeroCompartimientos;
 }

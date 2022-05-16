@@ -80,8 +80,8 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
                     .identification(tractocamion.identificador)
                     .vehicleType(VehicleTypeOPS.TRACTOR_TRUCK.getValue())
                     .transportName("N/A")
-                    .totalCapacity("N/A")
-                    .compartments("N/A")
+                    .totalCapacity(tractocamion.remolqueTractoCamion.capacidad)
+                    .compartments(Integer.toString(tractocamion.remolqueTractoCamion.numeroCompartimientos))
                     .driver(tractocamion.nombreConductor)
                     .status(tractocamion.estadoVehiculo)
                     .build());
