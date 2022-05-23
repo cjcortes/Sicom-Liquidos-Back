@@ -17,8 +17,7 @@ public class VehiclesController {
 
     @GetMapping()
     public Flux<VehicleOpSimple> get(@RequestParam String sicomCode,
-                                     @RequestParam boolean acceptOPS) {
-
+                                     @RequestParam(defaultValue = "false") boolean acceptOPS) {
         return getVehiclesBySicomCodeUseCase.get(sicomCode, acceptOPS);
     }
 }
