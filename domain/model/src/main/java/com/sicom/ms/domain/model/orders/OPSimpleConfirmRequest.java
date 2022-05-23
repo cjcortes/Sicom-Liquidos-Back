@@ -14,7 +14,7 @@ class ScmMTransporteOP{
 }
 
 class ColTransporteOPS{
-    public List<ScmMTransporteOP> scmM_TransporteOPS;
+    public List<ScmMTransporteOP> scmm_TransporteOPS;
 }
 
 class SCMMItemsPedido{
@@ -24,8 +24,7 @@ class SCMMItemsPedido{
 }
 
 class ColItemsPedido{
-    @JsonProperty("SCMM_ItemsPedido")
-    public List<SCMMItemsPedido> sCMM_ItemsPedido;
+    public List<SCMMItemsPedido> scmm_ItemsPedido;
 }
 
 public class OPSimpleConfirmRequest{
@@ -47,6 +46,5 @@ public class OPSimpleConfirmRequest{
     public LocalDateTime dFechaSugeridaEntrega;
     public String sObservacionAgenteSolicit;
     public ColTransporteOPS col_TransporteOPS;
-    @JsonProperty("Col_ItemsPedido")
     public ColItemsPedido col_ItemsPedido;
 }

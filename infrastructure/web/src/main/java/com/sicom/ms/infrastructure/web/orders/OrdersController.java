@@ -28,6 +28,7 @@ public class OrdersController {
     private final CreateOPSimpleUseCase createOPSimpleUseCase;
     private final ConfirmOPSimpleUseCase confirmOPSimpleUseCase;
     private final GetOPSQuotaUseCase getOPSQuotaUseCase;
+    private final AcceptOPSimpleUseCase acceptOPSimpleUseCase;
 
     @GetMapping
     public Flux<Order> getAllByFilter(
@@ -97,4 +98,8 @@ public class OrdersController {
         return getOPSQuotaUseCase.get(opsCaseNumber, sicomCode);
     }
 
+    @PostMapping(value = "/accept-ops")
+    public Mono<OPSimple> acceptOpSimple(@RequestBody OPSimpleAcceptRequest request) {
+        return acceptOPSimpleUseCase.accept(request);
+    }
 }

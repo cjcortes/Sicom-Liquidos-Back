@@ -84,4 +84,29 @@ public class OPSimpleGatewayAdapter implements OPSimpleGateway {
                 .onErrorResume(WebClientResponseException.class,
                         ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
     }
+
+    @Override
+    public Mono<OPSimple> acceptOPSimple(OPSimpleAcceptRequest request) {
+        var client = WebClient.builder()
+                .baseUrl(baseUrl)
+                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        Mono<OPSimple> result = client.post()
+                .uri("/WEBSERVICE/liquidos/ops/PerformActivityAceptarOPS")
+                .bodyValue(request)
+                .exchange()
+                .flatMap( clientResponse -> {
+                    if ( clientResponse.statusCode() == HttpStatus.BAD_REQUEST ) {
+                        return clientResponse.bodyToMono(OPSimpleError.class)
+                                .flatMap(errorDetails ->
+                                        Mono.error(new BadRequestException("400", errorDetails.process.processError.errorMessage, null))
+                                );
+                    }
+                    return clientResponse.bodyToMono(OPSimple.class );
+                } );
+
+        return result;
+    }
 }

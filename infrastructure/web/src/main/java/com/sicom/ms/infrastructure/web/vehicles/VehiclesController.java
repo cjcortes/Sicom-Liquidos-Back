@@ -16,8 +16,9 @@ public class VehiclesController {
     private final GetVehiclesBySicomCodeUseCase getVehiclesBySicomCodeUseCase;
 
     @GetMapping()
-    public Flux<VehicleOpSimple> get(@RequestParam String sicomCode) {
+    public Flux<VehicleOpSimple> get(@RequestParam String sicomCode,
+                                     @RequestParam boolean acceptOPS) {
 
-        return getVehiclesBySicomCodeUseCase.get(sicomCode);
+        return getVehiclesBySicomCodeUseCase.get(sicomCode, acceptOPS);
     }
 }

@@ -21,15 +21,20 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
     private String baseUrl;
 
     @Override
-    public Flux<VehicleOpSimple> getVehiclesBySicomAgentId(String agentId) {
+    public Flux<VehicleOpSimple> getVehiclesBySicomAgentId(String agentId, boolean acceptOPS) {
         var client = WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
+        String uri = "WEBSERVICE/liquidos/ops/VehiculosAgente?codigoSicom="+agentId+"";
+
+        if(acceptOPS) {
+            uri = uri+"&aceptarOPS=true";
+        }
 
         Mono<VehiclesDTO> vehiclesDTOMono = client.get()
-                .uri("WEBSERVICE/liquidos/ops/VehiculosAgente?codigoSicom="+agentId+"")
+                .uri(uri)
                 .retrieve()
                 .bodyToMono(VehiclesDTO.class);
         VehiclesDTO vehiclesDTO = vehiclesDTOMono.block();
