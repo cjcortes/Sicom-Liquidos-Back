@@ -23,6 +23,6 @@ class ColItemsPedidoAccept{
 
 class SCMMItemsPedidoAccept{
     public double fVolumenAceptado;
-    public int idProductoSolicitado;
+    public int idP_ProductoCompra;
     public boolean bRechazar;
 }
