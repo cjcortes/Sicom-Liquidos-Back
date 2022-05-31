@@ -1,5 +1,7 @@
 package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
+import com.sicom.ms.domain.model.orders.OPSimple;
+import com.sicom.ms.domain.model.vehicles.VehicleDetail;
 import com.sicom.ms.domain.model.vehicles.VehicleOpSimple;
 import com.sicom.ms.domain.model.vehicles.VehicleTypeOPS;
 import com.sicom.ms.domain.model.vehicles.VehiclesListGateway;
@@ -93,5 +95,19 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
         });
 
         return Mono.just(vehiclesList).flatMapMany(Flux::fromIterable);
+    }
+
+    @Override
+    public Mono<VehicleDetail> getVehicle(String param) {
+        var client = WebClient.builder()
+                .baseUrl("http://eds.sicom.gov.co/eds/api/v1")
+                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        return client.get()
+                .uri("/detalleVehiculo/"+param)
+                .exchange().block().bodyToMono(VehicleDetail.class);
+
     }
 }
