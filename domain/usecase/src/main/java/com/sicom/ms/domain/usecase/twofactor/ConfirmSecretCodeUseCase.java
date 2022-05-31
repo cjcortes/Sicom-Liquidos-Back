@@ -33,7 +33,7 @@ public class ConfirmSecretCodeUseCase {
                         //3- Buscar two-factor-secret-code con el secret generado
                         .flatMap(secretCodeGateway::findBySecret)
                         //4- Actualizar objecto two-factor-secret-code cambio de estado y fecha
-                        .map(secretCode -> secretCode.toBuilder().status(SecretCodeStatusEnum.VALID.toString()).date(Date.from(Instant.now())).build())
+                        .map(secretCode -> secretCode.toBuilder().status(SecretCodeStatusEnum.VALID.name()).date(Date.from(Instant.now())).build())
                         //5- Actualizar objecto two-factor-secret-code
                         .flatMap(secretCodeGateway::saveOrUpdate))
                 //6- Contruir objecto respuesta

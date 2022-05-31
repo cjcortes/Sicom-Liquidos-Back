@@ -1,7 +1,9 @@
 package com.sicom.ms.infrastructure.firebase.twofactor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.cloud.Timestamp;
 import com.google.firebase.cloud.FirestoreClient;
+import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
 import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
@@ -26,6 +28,7 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
     public Mono<TwoFactorUser> saveOrUpdate(TwoFactorUser user) {
         try {
             final Map<String, Object> collection = objectMapper.convertValue(user, Map.class);
+            collection.put("date", Timestamp.of(user.getDate()));
 
             adapter.fireBaseInstance();
             final var db = FirestoreClient.getFirestore();
@@ -41,10 +44,10 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
                 final var docRef = db.collection(COLLECTION_NAME).document();
                 docRef.set(collection);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return Mono.just(user);
+        } catch (Exception cause) {
+            throw new ApplicationException("two.factor.error.invalid", "Error in save or update user", cause);
         }
-        return Mono.empty();
     }
 
     @Override
@@ -60,8 +63,8 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
                 final var result = docList.get(0).toObject(TwoFactorUser.class);
                 return Mono.just(result);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception cause) {
+            throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
         }
         return Mono.empty();
     }
@@ -72,15 +75,15 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
         try {
             adapter.fireBaseInstance();
             final var db = FirestoreClient.getFirestore();
-            final var query = db.collection(COLLECTION_NAME).whereEqualTo(USER, user).whereEqualTo(STATUS, status);
+            final var query = db.collection(COLLECTION_NAME).whereEqualTo(USER, user).whereEqualTo(STATUS, status.name());
             final var future = query.get();
             final var docList = future.get().getDocuments();
             if (docList.size() > 0) {
                 final var result = docList.get(0).toObject(TwoFactorUser.class);
                 return Mono.just(result);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }catch (Exception cause) {
+            throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
         }
         return Mono.empty();
     }

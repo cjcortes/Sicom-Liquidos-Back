@@ -1,18 +1,19 @@
 package com.sicom.ms.domain.model.twofactor;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Value
 @Builder(toBuilder = true)
-@RequiredArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TwoFactorSecretCode {
     String user;
+    String code;
     String secret;
     String status;
     Date date;

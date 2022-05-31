@@ -1,5 +1,6 @@
 package com.sicom.ms.domain.usecase.twofactor;
 
+import com.sicom.ms.domain.model.common.UUIDOperations;
 import com.sicom.ms.domain.model.di.Injectable;
 import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
@@ -15,25 +16,22 @@ import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Injectable
-public class TwoFactorCommon {
+public class TwoFactorCommon implements UUIDOperations {
 
     public Mono<String> generateCode() {
         return Mono.just(new Random())
-                .map(random -> Flux.range(1, 6)
+                .flatMap(random -> Flux.range(1, 6)
                         .map(i -> String.valueOf(random.nextInt(10)))
-                        .toStream()
-                        .collect(Collectors.joining()));
+                        .reduce((a, b) -> a + b));
     }
 
     public Mono<TwoFactorUser> buildTwoFactorUser(String user, UserStatusEnum status) {
         return Mono.just(TwoFactorUser.builder()
                 .user(user)
-                .uuid(UUID.randomUUID().toString())
-                .status(status.toString())
+                .uuid(randomUUID())
+                .status(status.name())
                 .date(Date.from(Instant.now()))
                 .build());
     }
@@ -42,8 +40,9 @@ public class TwoFactorCommon {
         return generateSecret(uuid, user, code)
                 .map(secret -> TwoFactorSecretCode.builder()
                         .user(user)
+                        .code(code)
                         .secret(secret)
-                        .status(status.toString())
+                        .status(status.name())
                         .date(Date.from(Instant.now()))
                         .build());
     }

@@ -5,10 +5,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.sicom.ms.domain.model.di.Injectable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Injectable
+@Component
 public class FireBaseInstanceAdapter {
 
     @Value("${app.fcm.service.key}")

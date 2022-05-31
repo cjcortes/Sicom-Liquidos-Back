@@ -35,7 +35,11 @@ public class SecurityConfiguration {
                         "/api/fcm/custom",
                         "/api/security/validate-forti-token",
                         "/api/security/login-encrypt-password",
-                        "/api/security/loginns"
+                        "/api/security/loginns",
+                        "/api/two-factor/register-user",
+                        "/api/two-factor/confirm-user",
+                        "/api/two-factor/generate-secret-code",
+                        "/api/two-factor/confirm-secret-code"
                 )
                 .permitAll()
                 .anyExchange().authenticated()

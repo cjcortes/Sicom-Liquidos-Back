@@ -27,18 +27,18 @@ public class ConfirmUserUseCase {
                 .throwBadRequestExceptionIfInvalid("ConfirmUserUseCase");
 
         //1- Buscar usuario para obtener uuid (semilla)
-        return userGateway.findByUser(request.getUser())
+        return userGateway.findBy(request.getUser(), UserStatusEnum.PENDING)
                 //2- Generar secret de los datos ingresados (request)
                 .flatMap(user -> twoFactorCommon.generateSecret(user.getUuid(), request.getUser(), request.getCode())
                         //3- Buscar two-factor-secret-code con el secret generado
                         .flatMap(secretCodeGateway::findBySecret)
                         //4- Actualizar objecto two-factor-secret-code cambio de estado y fecha
-                        .map(secretCode -> secretCode.toBuilder().status(SecretCodeStatusEnum.VALID.toString()).date(Date.from(Instant.now())).build())
+                        .map(secretCode -> secretCode.toBuilder().status(SecretCodeStatusEnum.VALID.name()).date(Date.from(Instant.now())).build())
                         //5- Actualizar objecto two-factor-secret-code
                         .flatMap(secretCodeGateway::saveOrUpdate)
                         .thenReturn(user))
                 //6- Actualizaro objecto two-factor-user cambio de estado y fecha
-                .map(user -> user.toBuilder().status(UserStatusEnum.ACTIVE.toString()).date(Date.from(Instant.now())).build())
+                .map(user -> user.toBuilder().status(UserStatusEnum.ACTIVE.name()).date(Date.from(Instant.now())).build())
                 //7- Actualizar objecto two-factor-user
                 .flatMap(userGateway::saveOrUpdate)
                 //8- Contruir objecto respuesta
