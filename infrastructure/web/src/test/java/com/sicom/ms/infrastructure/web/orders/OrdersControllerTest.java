@@ -206,6 +206,7 @@ public class OrdersControllerTest extends OrdersControllerFieldsDescriptions {
                 .requestedAmount(123)
                 .acceptedAmount(123)
                 .dispatchedAmount(123)
+                .productId(123)
                 .build());
 
         when(getProductsByOrderUseCase.getAllByOrderId("1"))

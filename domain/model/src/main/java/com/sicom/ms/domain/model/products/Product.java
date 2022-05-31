@@ -12,5 +12,6 @@ public class Product {
     double requestedAmount;
     double acceptedAmount;
     int dispatchedAmount;
+    int productId;
 
 }

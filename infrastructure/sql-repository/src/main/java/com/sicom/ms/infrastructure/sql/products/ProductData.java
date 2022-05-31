@@ -28,5 +28,7 @@ public class ProductData {
     double acceptedAmount;
     @Column(name = "VOLUMEN_DESPACHADO")
     int dispatchedAmount;
+    @Column(name = "IDP_PRODUCTOCOMPRA")
+    int productId;
 
 }
