@@ -238,6 +238,9 @@ public class OrdersControllerFieldsDescriptions {
     private static final String REQUESTED_AMOUNT_DESCRIPTION = "Volumen solicitado";
     private static final String ACCEPTED_AMOUNT_DESCRIPTION = "Volumen aceptado";
     private static final String DISPATCHED_AMOUNT_DESCRIPTION = "Volumen despachado";
+    private static final String PRODUCT_ID = "id del producto";
+
+
 
     protected static final FieldDescriptor[] PRODUCT_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("[].name")
@@ -255,5 +258,9 @@ public class OrdersControllerFieldsDescriptions {
             fieldWithPath("[].dispatchedAmount")
                     .type(JsonFieldType.NUMBER)
                     .description(DISPATCHED_AMOUNT_DESCRIPTION),
+            fieldWithPath("[].productId")
+                    .type(JsonFieldType.NUMBER)
+                    .description(PRODUCT_ID),
+
     };
 }
