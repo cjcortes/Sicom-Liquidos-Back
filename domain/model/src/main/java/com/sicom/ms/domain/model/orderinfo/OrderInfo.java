@@ -23,5 +23,11 @@ public class OrderInfo {
     String borderQuota;
     String nationalQuota;
     String additionalObservation;
+    String receiptPlantId;
+    String supplyPlantId;
+    String providesTransport;
+    String radNumber;
+    String vehicleAgent;
+    String vehicleId;
 
 }
