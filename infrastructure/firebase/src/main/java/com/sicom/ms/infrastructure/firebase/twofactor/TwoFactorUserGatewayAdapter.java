@@ -3,6 +3,7 @@ package com.sicom.ms.infrastructure.firebase.twofactor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.Timestamp;
 import com.google.firebase.cloud.FirestoreClient;
+import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
 import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
@@ -48,6 +50,7 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
         } catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error in save or update user", cause);
         }
+
     }
 
     @Override
@@ -66,7 +69,7 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
         } catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
         }
-        return Mono.empty();
+        throw new ApplicationException("two.factor.error.invalid", "Error searching user");
     }
 
     @Override
@@ -85,6 +88,6 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
         }catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
         }
-        return Mono.empty();
+        throw new ApplicationException("two.factor.error.invalid", "Error searching user");
     }
 }
