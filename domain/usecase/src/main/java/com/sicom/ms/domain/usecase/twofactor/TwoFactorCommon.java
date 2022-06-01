@@ -6,7 +6,6 @@ import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
 import com.sicom.ms.domain.model.twofactor.TwoFactorSecretCode;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -27,11 +26,10 @@ public class TwoFactorCommon implements UUIDOperations {
                         .reduce((a, b) -> a + b));
     }
 
-    public Mono<TwoFactorUser> buildTwoFactorUser(String user, UserStatusEnum status) {
+    public Mono<TwoFactorUser> buildTwoFactorUser(String user) {
         return Mono.just(TwoFactorUser.builder()
                 .user(user)
                 .uuid(randomUUID())
-                .status(status.name())
                 .date(Date.from(Instant.now()))
                 .build());
     }

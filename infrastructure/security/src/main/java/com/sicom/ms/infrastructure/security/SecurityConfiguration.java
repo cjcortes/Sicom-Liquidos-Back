@@ -30,15 +30,13 @@ public class SecurityConfiguration {
                 .pathMatchers(
                         "/",
                         "/api/security/login",
-                        "/api/security/login-secret-Code",
+                        "/api/security/login-two-factor",
                         "/api/security/refresh-token",
                         "/api/fcm",
                         "/api/fcm/custom",
                         "/api/security/validate-forti-token",
                         "/api/security/login-encrypt-password",
                         "/api/security/loginns",
-                        "/api/two-factor/register-user",
-                        "/api/two-factor/confirm-user",
                         "/api/two-factor/generate-secret-code",
                         "/api/two-factor/confirm-secret-code"
                 )

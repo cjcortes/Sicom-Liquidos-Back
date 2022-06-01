@@ -6,7 +6,6 @@ import com.google.firebase.cloud.FirestoreClient;
 import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,6 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final String COLLECTION_NAME = "two-factor-user";
     private static final String USER = "user";
-    private static final String STATUS = "status";
 
     @Override
     @SuppressWarnings({"unchecked", "Duplicates", "BlockingMethodInNonBlockingContext"})
@@ -69,25 +67,7 @@ public class TwoFactorUserGatewayAdapter implements TwoFactorUserGateway {
         } catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
         }
-        throw new ApplicationException("two.factor.error.invalid", "Error searching user");
+        return Mono.empty();
     }
 
-    @Override
-    @SuppressWarnings("BlockingMethodInNonBlockingContext")
-    public Mono<TwoFactorUser> findBy(String user, UserStatusEnum status) {
-        try {
-            adapter.fireBaseInstance();
-            final var db = FirestoreClient.getFirestore();
-            final var query = db.collection(COLLECTION_NAME).whereEqualTo(USER, user).whereEqualTo(STATUS, status.name());
-            final var future = query.get();
-            final var docList = future.get().getDocuments();
-            if (docList.size() > 0) {
-                final var result = docList.get(0).toObject(TwoFactorUser.class);
-                return Mono.just(result);
-            }
-        }catch (Exception cause) {
-            throw new ApplicationException("two.factor.error.invalid", "Error searching user", cause);
-        }
-        throw new ApplicationException("two.factor.error.invalid", "Error searching user");
-    }
 }

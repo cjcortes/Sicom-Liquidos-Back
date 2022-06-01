@@ -6,7 +6,7 @@ import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import reactor.core.publisher.Mono;
 
-public interface TwoFactorGetway {
+public interface TwoFactorGateway {
     Mono<GenerateSecretCodeResponse> generateSecretCode(GenerateSecretCodeRequest request);
 
     Mono<ConfirmSecretCodeResponse> confirmSecretCode(ConfirmSecretCodeRequest request);
