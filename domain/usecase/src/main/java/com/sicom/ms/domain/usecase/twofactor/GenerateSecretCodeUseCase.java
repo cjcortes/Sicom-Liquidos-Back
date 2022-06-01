@@ -4,7 +4,6 @@ import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.MailRequest;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.MailGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorSecretCodeGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
@@ -28,13 +27,15 @@ public class GenerateSecretCodeUseCase {
 
         //1- Buscar usuario para obtener uuid (semilla)
         return userGateway.findByUser(request.getUser())
-                //2- Generar codigo de seguridad
+                //2- Si no existe se guarda el usuario
+                .switchIfEmpty(twoFactorCommon.buildTwoFactorUser(request.getUser()).flatMap(userGateway::saveOrUpdate))
+                //3- Generar codigo de seguridad
                 .flatMap(user -> twoFactorCommon.generateCode()
-                        //3- Construir objecto two-factor-secret-code
+                        //4- Construir objecto two-factor-secret-code
                         .flatMap(code -> twoFactorCommon.buildTwoFactorSecretCode(user.getUuid(), user.getUser(), code, SecretCodeStatusEnum.SENDING)
-                                //4- Guardar o actualizar objecto two-factor-secret-code
+                                //5- Guardar o actualizar objecto two-factor-secret-code
                                 .flatMap(secretCodeGateway::saveOrUpdate)
-                                //5- Enviar codigo a traves de api
+                                //6- Enviar codigo a traves de api
                                 //ToDO pendiente implementacion sicom-internexa
                                 .flatMap(secretCode -> mailGateway.send(MailRequest.builder()
                                                 .email(request.getEmail())
@@ -42,7 +43,7 @@ public class GenerateSecretCodeUseCase {
                                                 .body(String.format(mailBody, code))
                                                 .build())
                                         .thenReturn(secretCode))))
-                //6- Contruir objecto respuesta
+                //7- Contruir objecto respuesta
                 .map(secretCode -> GenerateSecretCodeResponse.builder()
                         .user(secretCode.getUser())
                         .status(secretCode.getStatus())

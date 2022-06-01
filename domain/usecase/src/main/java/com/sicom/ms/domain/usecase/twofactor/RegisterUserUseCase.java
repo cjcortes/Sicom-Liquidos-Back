@@ -4,7 +4,6 @@ import com.sicom.ms.domain.model.twofactor.MailRequest;
 import com.sicom.ms.domain.model.twofactor.RegisterUserRequest;
 import com.sicom.ms.domain.model.twofactor.RegisterUserResponse;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.MailGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorSecretCodeGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
@@ -29,7 +28,7 @@ public class RegisterUserUseCase {
                 .throwBadRequestExceptionIfInvalid("RegisterUserUseCase");
 
         //1- Construir objecto two-factor-user
-        return twoFactorCommon.buildTwoFactorUser(request.getUser(), UserStatusEnum.PENDING)
+        return twoFactorCommon.buildTwoFactorUser(request.getUser())
                 //2- Guardar o actualizar objecto two-factor-user
                 .flatMap(userGateway::saveOrUpdate)
                 //3- Generar codigo de seguridad
@@ -49,7 +48,6 @@ public class RegisterUserUseCase {
                 //7- Contruir objecto respuesta
                 .map(user -> RegisterUserResponse.builder()
                         .user(user.getUser())
-                        .status(user.getStatus())
                         .date(user.getDate())
                         .build());
     }

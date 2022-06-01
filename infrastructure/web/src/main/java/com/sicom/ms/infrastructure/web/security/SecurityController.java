@@ -2,17 +2,23 @@ package com.sicom.ms.infrastructure.web.security;
 
 import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
-import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
-import com.sicom.ms.domain.model.users.*;
+import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
+import com.sicom.ms.domain.model.users.EncryptPasswordRequest;
+import com.sicom.ms.domain.model.users.EncryptedPasswordResponse;
+import com.sicom.ms.domain.model.users.LoginRequest;
+import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.AutenticacionNSUseCase;
 import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
-import com.sicom.ms.domain.usecase.users.LoginSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -30,7 +36,6 @@ public class SecurityController {
     private final FortiUseCase fortiUseCase;
     private final EncryptPasswordUseCase encryptPasswordUseCase;
     private final AutenticacionNSUseCase autenticacionNSUseCase;
-    private final LoginSecretCodeUseCase loginSecretCode;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
@@ -57,10 +62,9 @@ public class SecurityController {
         return autenticacionNSUseCase.login(request, twoFactorStatus);
     }
 
-    @PostMapping("/login-secret-Code/{code}")
-    public Mono<User> loginSecretCode(@RequestBody User request) {
-        return loginSecretCode.loginSecretCode(request);
+    @PostMapping("/login-two-factor")
+    public Mono<User> loginTwoFactor(@RequestBody User request,
+                                     @RequestParam String code) {
+        return autenticacionNSUseCase.loginTwoFactor(request, code);
     }
-
-
 }

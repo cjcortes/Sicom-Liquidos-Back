@@ -4,7 +4,7 @@ import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
-import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGetway;
+import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 import java.util.Collections;
 
 @Repository
-public class TwoFactorGetwayAdapter implements TwoFactorGetway {
+public class TwoFactorGatewayAdapter implements TwoFactorGateway {
     @Value("${api.two-factor.url}")
     private String baseUrl;
 

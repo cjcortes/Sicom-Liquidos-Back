@@ -3,7 +3,6 @@ package com.sicom.ms.infrastructure.firebase.twofactor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.Timestamp;
 import com.google.firebase.cloud.FirestoreClient;
-import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
 import com.sicom.ms.domain.model.twofactor.TwoFactorSecretCode;
@@ -15,7 +14,6 @@ import reactor.core.publisher.Mono;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
@@ -49,7 +47,7 @@ public class TwoFactorSecretCodeGatewayAdapter implements TwoFactorSecretCodeGat
                 docRef.set(collection);
             }
             return Mono.just(secretCode);
-        }catch (Exception cause) {
+        } catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error saving or updating secretCode", cause);
         }
     }
@@ -70,9 +68,9 @@ public class TwoFactorSecretCodeGatewayAdapter implements TwoFactorSecretCodeGat
                     return Mono.just(result);
                 }
             }
-        }catch (Exception cause) {
+        } catch (Exception cause) {
             throw new ApplicationException("two.factor.error.invalid", "Error looking for the secret", cause);
         }
-        throw new ApplicationException("two.factor.error.invalid", "Error looking for the secret", (Set<ApplicationErrorDetail>) null);
+        return Mono.empty();
     }
 }

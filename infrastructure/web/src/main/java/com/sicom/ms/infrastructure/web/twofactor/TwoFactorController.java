@@ -1,8 +1,12 @@
 package com.sicom.ms.infrastructure.web.twofactor;
 
-import com.sicom.ms.domain.model.twofactor.*;
+import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
+import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
+import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
+import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
+import com.sicom.ms.domain.model.twofactor.RegisterUserRequest;
+import com.sicom.ms.domain.model.twofactor.RegisterUserResponse;
 import com.sicom.ms.domain.usecase.twofactor.ConfirmSecretCodeUseCase;
-import com.sicom.ms.domain.usecase.twofactor.ConfirmUserUseCase;
 import com.sicom.ms.domain.usecase.twofactor.GenerateSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.twofactor.RegisterUserUseCase;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +22,6 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class TwoFactorController {
     private final RegisterUserUseCase registerUserUseCase;
-    private final ConfirmUserUseCase confirmUserUseCase;
     private final GenerateSecretCodeUseCase generateSecretCodeUseCase;
     private final ConfirmSecretCodeUseCase confirmSecretCodeUseCase;
 
@@ -31,11 +34,6 @@ public class TwoFactorController {
     @PostMapping("/register-user")
     public Mono<RegisterUserResponse> registerUser(@RequestBody RegisterUserRequest request) {
         return registerUserUseCase.registerUser(request, mailSubject, mailBody);
-    }
-
-    @PostMapping("/confirm-user")
-    public Mono<ConfirmUserResponse> confirmUser(@RequestBody ConfirmUserRequest request) {
-        return confirmUserUseCase.confirmUser(request);
     }
 
     @PostMapping("/generate-secret-code")

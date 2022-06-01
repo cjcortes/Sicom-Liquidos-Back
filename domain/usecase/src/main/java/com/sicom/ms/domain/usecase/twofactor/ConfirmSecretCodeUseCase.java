@@ -3,7 +3,6 @@ package com.sicom.ms.domain.usecase.twofactor;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorSecretCodeGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
 import com.sicom.ms.domain.usecase.validations.ObjectValidator;
@@ -27,7 +26,7 @@ public class ConfirmSecretCodeUseCase {
                 .throwBadRequestExceptionIfInvalid("ConfirmSecretCodeUseCase");
 
         //1- Buscar usuario para obtener uuid (semilla)
-        return userGateway.findBy(request.getUser(), UserStatusEnum.ACTIVE)
+        return userGateway.findByUser(request.getUser())
                 //2- Generar secret de los datos ingresados (request)
                 .flatMap(user -> twoFactorCommon.generateSecret(user.getUuid(), request.getUser(), request.getCode())
                         //3- Buscar two-factor-secret-code con el secret generado

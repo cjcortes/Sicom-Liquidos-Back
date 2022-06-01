@@ -6,7 +6,6 @@ import com.sicom.ms.domain.model.twofactor.RegisterUserResponse;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
 import com.sicom.ms.domain.model.twofactor.TwoFactorSecretCode;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
-import com.sicom.ms.domain.model.twofactor.UserStatusEnum;
 import com.sicom.ms.domain.model.twofactor.gateway.MailGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorSecretCodeGateway;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorUserGateway;
@@ -51,16 +50,15 @@ class RegisterUserUseCaseTest {
     void registerUserTest() {
         final var now = Date.from(Instant.now());
         final var request = RegisterUserRequest.builder().user("user").email("email").build();
-        final var response = RegisterUserResponse.builder().user("user").status(UserStatusEnum.PENDING.name()).date(now).build();
-        final var twoFactorUser = TwoFactorUser.builder().user("user").uuid("uuid")
-                .status(UserStatusEnum.PENDING.name()).date(now).build();
+        final var response = RegisterUserResponse.builder().user("user").date(now).build();
+        final var twoFactorUser = TwoFactorUser.builder().user("user").uuid("uuid").date(now).build();
         final var twoFactorSecretCode = TwoFactorSecretCode.builder().user("user").code("code").secret("secret")
                 .status(SecretCodeStatusEnum.VALID.name()).date(now).build();
 
         when(twoFactorCommon.generateCode()).thenReturn(Mono.just("code"));
         when(userGateway.saveOrUpdate(any(TwoFactorUser.class))).thenReturn(Mono.just(twoFactorUser));
         when(twoFactorCommon.buildTwoFactorSecretCode(any(String.class), any(String.class), any(String.class), any(SecretCodeStatusEnum.class))).thenReturn(Mono.just(twoFactorSecretCode));
-        when(twoFactorCommon.buildTwoFactorUser(any(String.class), any(UserStatusEnum.class))).thenReturn(Mono.just(twoFactorUser));
+        when(twoFactorCommon.buildTwoFactorUser(any(String.class))).thenReturn(Mono.just(twoFactorUser));
         when(secretCodeGateway.saveOrUpdate(any(TwoFactorSecretCode.class))).thenReturn(Mono.just(twoFactorSecretCode));
         when(mailGateway.send(any(MailRequest.class))).thenReturn(Mono.just("OK"));
 

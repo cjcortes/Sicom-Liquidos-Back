@@ -1,6 +1,9 @@
 package com.sicom.ms.domain.usecase.users;
 
-import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGetway;
+import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
+import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
+import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
+import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGateway;
 import com.sicom.ms.domain.model.users.AutenticacionNSGateway;
 import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
 import com.sicom.ms.domain.model.users.SecurityGateway;
@@ -17,7 +20,7 @@ public class AutenticacionNSUseCase {
     private final ObjectValidator objectValidator;
     private final AutenticacionNSGateway autenticacionNSGateway;
     private final SecurityGateway securityGateway;
-    private final TwoFactorGetway twoFactorGetway;
+    private final TwoFactorGateway twoFactorGetway;
 
     public Mono<User> login(AutenticacionNSRequest request, boolean twoFactorStatus) {
         objectValidator.validate(request, AUTENTICACION_NS_REQUEST_RULES)
@@ -25,16 +28,18 @@ public class AutenticacionNSUseCase {
 
         return autenticacionNSGateway.login(request)
                 .flatMap(user -> twoFactorStatus
-                        ? twoFactorGetway.generateSecretCode(null).thenReturn(user)
+                        ? twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
+                                .user(user.getUser()).email("email")
+                        .build()).thenReturn(user)
                         : securityGateway.generateToken(user))
-                .doOnNext(user-> user.toBuilder().twoFactorAuth(twoFactorStatus).build());
+                .doOnNext(user -> user.toBuilder().twoFactorAuth(twoFactorStatus).build());
     }
 
-//            return autenticacionNSGateway.login(request)
-//            .flatMap(user -> twoFactorGetway.confirmSecretCode(ConfirmSecretCodeRequest.builder().user(user.getUser())
-//            .code(request.getCode()).build())
-//            .flatMap(confirmSecretCodeResponse -> SecretCodeStatusEnum.VALID.name().equals(confirmSecretCodeResponse.getStatus())
-//            ? Mono.just(user)
-//            : Mono.empty()))
-//            .flatMap(securityGateway::generateToken);
+    public Mono<User> loginTwoFactor(User request, String code) {
+        return twoFactorGetway.confirmSecretCode(ConfirmSecretCodeRequest.builder().user(request.getUser()).code(code).build())
+                .flatMap(confirmSecretCodeResponse -> SecretCodeStatusEnum.VALID.name().equals(confirmSecretCodeResponse.getStatus())
+                        ? Mono.just(request)
+                        : Mono.empty())
+                .flatMap(securityGateway::generateToken);
+    }
 }
