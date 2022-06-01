@@ -8,6 +8,7 @@ import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.AutenticacionNSUseCase;
 import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
+import com.sicom.ms.domain.usecase.users.LoginSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.users.LoginUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,11 +22,15 @@ public class SecurityController {
     @Value("${app.forti.status}")
     private boolean fortiStatus;
 
+    @Value("${app.two-factor.status}")
+    private boolean twoFactorStatus;
+
     private final LoginUserUseCase loginUserUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
     private final FortiUseCase fortiUseCase;
     private final EncryptPasswordUseCase encryptPasswordUseCase;
     private final AutenticacionNSUseCase autenticacionNSUseCase;
+    private final LoginSecretCodeUseCase loginSecretCode;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
@@ -49,10 +54,13 @@ public class SecurityController {
 
     @PostMapping("/loginns")
     public Mono<User> autenticacionns(@RequestBody AutenticacionNSRequest request) {
-        return autenticacionNSUseCase.login(request);
+        return autenticacionNSUseCase.login(request, twoFactorStatus);
     }
-    @PostMapping("/login2")
-    public Mono<GenerateSecretCodeResponse> login(@RequestBody AutenticacionNSRequest request) {
-        return autenticacionNSUseCase.login2(request);
+
+    @PostMapping("/login-secret-Code/{code}")
+    public Mono<User> loginSecretCode(@RequestBody User request) {
+        return loginSecretCode.loginSecretCode(request);
     }
+
+
 }

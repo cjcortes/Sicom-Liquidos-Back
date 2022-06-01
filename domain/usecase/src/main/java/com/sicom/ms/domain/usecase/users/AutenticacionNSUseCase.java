@@ -1,9 +1,10 @@
 package com.sicom.ms.domain.usecase.users;
 
-import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
-import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGetway;
-import com.sicom.ms.domain.model.users.*;
+import com.sicom.ms.domain.model.users.AutenticacionNSGateway;
+import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
+import com.sicom.ms.domain.model.users.SecurityGateway;
+import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.validations.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -18,25 +19,22 @@ public class AutenticacionNSUseCase {
     private final SecurityGateway securityGateway;
     private final TwoFactorGetway twoFactorGetway;
 
-    public Mono<User> login(AutenticacionNSRequest request) {
+    public Mono<User> login(AutenticacionNSRequest request, boolean twoFactorStatus) {
         objectValidator.validate(request, AUTENTICACION_NS_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("encryptPassword");
 
         return autenticacionNSGateway.login(request)
-                .flatMap(securityGateway::generateToken);
-
+                .flatMap(user -> twoFactorStatus
+                        ? twoFactorGetway.generateSecretCode(null).thenReturn(user)
+                        : securityGateway.generateToken(user))
+                .doOnNext(user-> user.toBuilder().twoFactorAuth(twoFactorStatus).build());
     }
 
-    public Mono<GenerateSecretCodeResponse> login2(AutenticacionNSRequest request) {
-        objectValidator.validate(request, AUTENTICACION_NS_REQUEST_RULES)
-                .throwBadRequestExceptionIfInvalid("encryptPassword");
-
-       return autenticacionNSGateway.login(request)
-                .flatMap(user -> twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
-                        .user(user.getName())
-                        .email("email").build()));
-
-    }
-
-
+//            return autenticacionNSGateway.login(request)
+//            .flatMap(user -> twoFactorGetway.confirmSecretCode(ConfirmSecretCodeRequest.builder().user(user.getUser())
+//            .code(request.getCode()).build())
+//            .flatMap(confirmSecretCodeResponse -> SecretCodeStatusEnum.VALID.name().equals(confirmSecretCodeResponse.getStatus())
+//            ? Mono.just(user)
+//            : Mono.empty()))
+//            .flatMap(securityGateway::generateToken);
 }

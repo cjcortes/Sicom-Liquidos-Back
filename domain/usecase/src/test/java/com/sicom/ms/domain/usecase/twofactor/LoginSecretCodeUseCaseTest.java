@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class GenerateSecretCodeUseCaseTest {
+class LoginSecretCodeUseCaseTest {
 
     @Spy
     private final ObjectValidator objectValidator = new ObjectValidator();
