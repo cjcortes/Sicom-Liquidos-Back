@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .pathMatchers(
                         "/",
                         "/api/security/login",
+                        "/api/security/login2",
                         "/api/security/refresh-token",
                         "/api/fcm",
                         "/api/fcm/custom",

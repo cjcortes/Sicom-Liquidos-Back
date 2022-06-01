@@ -2,6 +2,7 @@ package com.sicom.ms.infrastructure.web.security;
 
 import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
+import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.model.users.*;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
@@ -49,5 +50,9 @@ public class SecurityController {
     @PostMapping("/loginns")
     public Mono<User> autenticacionns(@RequestBody AutenticacionNSRequest request) {
         return autenticacionNSUseCase.login(request);
+    }
+    @PostMapping("/login2")
+    public Mono<GenerateSecretCodeResponse> login(@RequestBody AutenticacionNSRequest request) {
+        return autenticacionNSUseCase.login2(request);
     }
 }
