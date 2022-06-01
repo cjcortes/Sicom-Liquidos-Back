@@ -5,9 +5,8 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class MailRequest {
-    String to;
-    String subject;
-    String body;
-    boolean html;
+public class MailResponse {
+    String message;
+    int status;
+    String code;
 }

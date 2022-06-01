@@ -38,7 +38,7 @@ public class GenerateSecretCodeUseCase {
                                 //6- Enviar codigo a traves de api
                                 //ToDO pendiente implementacion sicom-internexa
                                 .flatMap(secretCode -> mailGateway.send(MailRequest.builder()
-                                                .email(request.getEmail())
+                                                .to("juan.ortiz@sofka.com.co")
                                                 .subject(mailSubject)
                                                 .body(String.format(mailBody, code))
                                                 .build())

@@ -8,9 +8,8 @@ import reactor.core.publisher.Mono;
 //ToDo remover cuando se construya la implementacion api envio mail
 @Deprecated
 @Injectable
-public class MailGatewayImpl implements MailGateway {
+public class MailGatewayImpl {
 
-    @Override
     public Mono<String> send(MailRequest request) {
         return Mono.just("OK");
     }
