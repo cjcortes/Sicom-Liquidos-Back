@@ -3,6 +3,8 @@ package com.sicom.ms.domain.usecase.users;
 import com.sicom.ms.domain.model.di.Injectable;
 import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.BadRequestException;
+import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
+import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGateway;
@@ -60,6 +62,50 @@ class AutenticacionNSUseCaseTest {
     }
 
     @Test
+    void loginTwoFactor() {
+
+        var user = User.builder()
+                .code(123)
+                .user("456")
+                .name("name")
+                .userState("state")
+                .sicomAgent("agent")
+                .agentSate("agentSate")
+                .agentType("type")
+                .profile("profile")
+                .token("token")
+                .fortiUserId(123)
+                .fortiUserName("fortiUserName")
+                .fortiActiveAuth(false)
+                .twoFactorAuth(true)
+                .resultAuth(false)
+                .build();
+
+        var confirmSecretCodeResponse = ConfirmSecretCodeResponse.builder()
+                .user(user.getUser())
+                .status("status")
+                .date(new Date())
+                .build();
+
+        var code = "123456";
+
+        when(twoFactorGetway.confirmSecretCode(any(ConfirmSecretCodeRequest.class)))
+                .thenReturn(Mono.just(confirmSecretCodeResponse));
+/*
+        when(securityGateway.generateToken(any(User.class)))
+                .thenReturn(Mono.just(user));*/
+
+        /*StepVerifier.create(autenticacionNSUseCase.loginTwoFactor(user, code))
+                .expectNext(user)
+                .verifyComplete();*/
+        final Mono<User> userMono = autenticacionNSUseCase.loginTwoFactor(user, code);
+        assertThat(userMono).isNotNull();
+
+        verify(twoFactorGetway).confirmSecretCode(any(ConfirmSecretCodeRequest.class));
+       // verify(securityGateway).generateToken(user);
+    }
+
+    @Test
     void login() {
 
         var request = AutenticacionNSRequest.builder()
@@ -90,7 +136,7 @@ class AutenticacionNSUseCaseTest {
 
 
         verify(autenticacionNSGateway).login(request);
-      /*  verify(twoFactorGetway).generateSecretCode(generateSecretCode);*/
+        /*  verify(twoFactorGetway).generateSecretCode(generateSecretCode);*/
         verify(securityGateway).generateToken(expected);
     }
 
