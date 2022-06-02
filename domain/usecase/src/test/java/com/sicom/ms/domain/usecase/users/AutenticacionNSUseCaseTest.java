@@ -91,18 +91,12 @@ class AutenticacionNSUseCaseTest {
 
         when(twoFactorGetway.confirmSecretCode(any(ConfirmSecretCodeRequest.class)))
                 .thenReturn(Mono.just(confirmSecretCodeResponse));
-/*
-        when(securityGateway.generateToken(any(User.class)))
-                .thenReturn(Mono.just(user));*/
 
-        /*StepVerifier.create(autenticacionNSUseCase.loginTwoFactor(user, code))
-                .expectNext(user)
-                .verifyComplete();*/
         final Mono<User> userMono = autenticacionNSUseCase.loginTwoFactor(user, code);
         assertThat(userMono).isNotNull();
 
         verify(twoFactorGetway).confirmSecretCode(any(ConfirmSecretCodeRequest.class));
-       // verify(securityGateway).generateToken(user);
+
     }
 
     @Test
@@ -123,8 +117,7 @@ class AutenticacionNSUseCaseTest {
         when(autenticacionNSGateway.login(request))
                 .thenReturn(Mono.just(expected));
 
- /*      when(twoFactorGetway.generateSecretCode(generateSecretCode))
-                .thenReturn(Mono.just(generateSecretCodeResponse));*/
+
 
         when(securityGateway.generateToken(expected))
                 .thenReturn(Mono.just(expected));
@@ -136,7 +129,6 @@ class AutenticacionNSUseCaseTest {
 
 
         verify(autenticacionNSGateway).login(request);
-        /*  verify(twoFactorGetway).generateSecretCode(generateSecretCode);*/
         verify(securityGateway).generateToken(expected);
     }
 
