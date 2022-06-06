@@ -18,4 +18,6 @@ public class Agent {
     public String municipality;
     public String addressCorrespondence;
     public boolean isFrontierZone;
+    public String email;
+
 }

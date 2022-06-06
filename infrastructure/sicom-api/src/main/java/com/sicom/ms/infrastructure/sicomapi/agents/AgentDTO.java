@@ -22,4 +22,6 @@ public class AgentDTO {
     public String direccionCorrespondencia;
     @JsonProperty("Es_Zona_Frontera")
     public boolean zonaFrontera;
+    @JsonProperty("Correo_Electronico")
+    public String email;
 }
