@@ -4,11 +4,8 @@ import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
-import com.sicom.ms.domain.model.twofactor.RegisterUserRequest;
-import com.sicom.ms.domain.model.twofactor.RegisterUserResponse;
 import com.sicom.ms.domain.usecase.twofactor.ConfirmSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.twofactor.GenerateSecretCodeUseCase;
-import com.sicom.ms.domain.usecase.twofactor.RegisterUserUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,8 +31,7 @@ import static org.mockito.Mockito.when;
 @TestPropertySource(properties = {"app.two-factor.mail.subject=subject", "app.two-factor.mail.body=body"})
 class TwoFactorControllerTest {
 
-    @MockBean
-    private RegisterUserUseCase registerUserUseCase;
+
 
     @MockBean
     private GenerateSecretCodeUseCase generateSecretCodeUseCase;
@@ -51,25 +47,7 @@ class TwoFactorControllerTest {
         this.webTestClient = WebTestClientFactory.create(applicationContext, restDocumentation);
     }
 
-    @Test
-    void registerUserTest() {
-        final var request = RegisterUserRequest.builder().build();
-        final var response = RegisterUserResponse.builder().build();
 
-        when(registerUserUseCase.registerUser(any(RegisterUserRequest.class), any(String.class), any(String.class)))
-                .thenReturn(Mono.just(response));
-
-        webTestClient.post()
-                .uri("/api/two-factor/register-user")
-                .bodyValue(request)
-                .exchange()
-                .expectStatus()
-                .isOk()
-                .expectBody(RegisterUserResponse.class)
-                .isEqualTo(response);
-
-        verify(registerUserUseCase).registerUser(request, "subject", "body");
-    }
 
     @Test
     void generateSecretCodeTest() {

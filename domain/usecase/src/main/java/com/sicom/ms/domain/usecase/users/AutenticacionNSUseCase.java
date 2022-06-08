@@ -1,5 +1,7 @@
 package com.sicom.ms.domain.usecase.users;
 
+import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
+import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
@@ -11,6 +13,8 @@ import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.validations.ObjectValidator;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
+
+import java.util.Set;
 
 import static com.sicom.ms.domain.usecase.users.AutenticacionNSRules.AUTENTICACION_NS_REQUEST_RULES;
 
@@ -27,19 +31,19 @@ public class AutenticacionNSUseCase {
                 .throwBadRequestExceptionIfInvalid("encryptPassword");
 
         return autenticacionNSGateway.login(request)
+                .map(user -> user.toBuilder().twoFactorAuth(twoFactorStatus).build())
                 .flatMap(user -> twoFactorStatus
                         ? twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
-                                .user(user.getUser()).email("email")
+                        .user(user.getUser()).email("email")
                         .build()).thenReturn(user)
-                        : securityGateway.generateToken(user))
-                .doOnNext(user -> user.toBuilder().twoFactorAuth(twoFactorStatus).build());
+                        : securityGateway.generateToken(user));
     }
 
     public Mono<User> loginTwoFactor(User request, String code) {
         return twoFactorGetway.confirmSecretCode(ConfirmSecretCodeRequest.builder().user(request.getUser()).code(code).build())
                 .flatMap(confirmSecretCodeResponse -> SecretCodeStatusEnum.VALID.name().equals(confirmSecretCodeResponse.getStatus())
                         ? Mono.just(request)
-                        : Mono.empty())
+                        : Mono.error(new ApplicationException("error", "error", (Set<ApplicationErrorDetail>) null)))
                 .flatMap(securityGateway::generateToken);
     }
 }

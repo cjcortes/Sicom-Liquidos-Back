@@ -1,6 +1,7 @@
 package com.sicom.ms.infrastructure.web.security;
 
 import com.sicom.ms.domain.model.tokens.RefreshToken;
+import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
 import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
 import com.sicom.ms.domain.usecase.forti.FortiUseCase;
@@ -33,7 +34,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @WebFluxTest
 @ContextConfiguration(classes = {SecurityController.class})
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@TestPropertySource(properties = {"app.forti.status=false"})
+@TestPropertySource(properties = {"app.forti.status=false","app.two-factor.status=false"})
 public class SecurityControllerTest {
 
     private static final String USER_DESCRIPTION = "Codigo SICOM Cliente";
@@ -59,6 +60,7 @@ public class SecurityControllerTest {
     private static final String FORTI_USER_ID_DESCRIPTION = "id de usuario en forti";
     private static final String FORTI_USER_NAME_DESCRIPTION = "nombre de usuario en forti";
     private static final String FORTI_ACTIVE_AUTH = "estado de forti";
+    private static final String TWO_FACTOR_AUTH = "estado de factor doble autenticacion";
     private static final String RESULT_AUTH = "resultado de la autenticacion";
 
     private static final FieldDescriptor[] USER_DESCRIPTOR = new FieldDescriptor[]{
@@ -98,6 +100,9 @@ public class SecurityControllerTest {
             fieldWithPath("fortiActiveAuth")
                     .type(JsonFieldType.BOOLEAN)
                     .description(FORTI_ACTIVE_AUTH),
+            fieldWithPath("twoFactorAuth")
+                    .type(JsonFieldType.BOOLEAN)
+                    .description(TWO_FACTOR_AUTH),
             fieldWithPath("resultAuth")
                     .type(JsonFieldType.BOOLEAN)
                     .description(RESULT_AUTH)
@@ -141,6 +146,7 @@ public class SecurityControllerTest {
                 .fortiUserId(123)
                 .fortiUserName("fortiUserName")
                 .fortiActiveAuth(false)
+                .twoFactorAuth(false)
                 .resultAuth(false)
                 .build();
 
@@ -202,4 +208,86 @@ public class SecurityControllerTest {
 
         verify(refreshTokenUseCase).refresh(request);
     }
+
+    @Test
+    void loginTwoFactor() {
+        var user = User.builder()
+                .code(123)
+                .user("456")
+                .name("name")
+                .userState("state")
+                .sicomAgent("agent")
+                .agentSate("agentSate")
+                .agentType("type")
+                .profile("profile")
+                .token("token")
+                .fortiUserId(123)
+                .fortiUserName("fortiUserName")
+                .fortiActiveAuth(false)
+                .twoFactorAuth(false)
+                .resultAuth(false)
+                .build();
+
+        var code = "123456";
+
+
+        when(autenticacionNSUseCase.loginTwoFactor(user, code))
+                .thenReturn(Mono.just(user));
+
+        webTestClient.post()
+                .uri(uriBuilder -> uriBuilder.path("/api/security/login-two-factor")
+                .queryParam("code",code).build())
+                .bodyValue(user)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(User.class)
+                .isEqualTo(user);
+
+
+        verify(autenticacionNSUseCase).loginTwoFactor(user, code);
+    }
+
+
+    @Test
+    void autenticacionns() {
+        var autenticacionNSRequest = AutenticacionNSRequest.builder()
+                .credenciales("1234")
+                .build();
+
+        var user = User.builder()
+                .code(123)
+                .user("456")
+                .name("name")
+                .userState("state")
+                .sicomAgent("agent")
+                .agentSate("agentSate")
+                .agentType("type")
+                .profile("profile")
+                .token("token")
+                .fortiUserId(123)
+                .fortiUserName("fortiUserName")
+                .fortiActiveAuth(false)
+                .twoFactorAuth(false)
+                .resultAuth(false)
+                .build();
+
+
+
+        when(autenticacionNSUseCase.login(autenticacionNSRequest, false))
+                .thenReturn(Mono.just(user));
+
+        webTestClient.post()
+                .uri("/api/security/loginns")
+                .bodyValue(autenticacionNSRequest)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(User.class)
+                .isEqualTo(user);
+
+
+        verify(autenticacionNSUseCase).login(autenticacionNSRequest, false);
+    }
+
 }

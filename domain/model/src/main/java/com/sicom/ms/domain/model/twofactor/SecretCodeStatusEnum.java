@@ -6,5 +6,5 @@ import lombok.ToString;
 public enum SecretCodeStatusEnum {
     SENDING,
     VALID,
-    EXPIRED
+    INVALID
 }

@@ -40,6 +40,11 @@ public class ConfirmSecretCodeUseCase {
                         .user(secretCode.getUser())
                         .status(secretCode.getStatus())
                         .date(secretCode.getDate())
+                        .build())
+                .defaultIfEmpty(ConfirmSecretCodeResponse.builder()
+                        .user(request.getUser())
+                        .status(SecretCodeStatusEnum.INVALID.name())
+                        .date(Date.from(Instant.now()))
                         .build());
     }
 }

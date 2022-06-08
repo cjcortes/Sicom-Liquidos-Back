@@ -58,7 +58,8 @@ public class TwoFactorSecretCodeGatewayAdapter implements TwoFactorSecretCodeGat
         try {
             adapter.fireBaseInstance();
             final var db = FirestoreClient.getFirestore();
-            final var query = db.collection(COLLECTION_NAME).whereEqualTo(SECRET, secret).whereEqualTo(STATUS, SecretCodeStatusEnum.SENDING.name());
+            final var query = db.collection(COLLECTION_NAME).whereEqualTo(SECRET, secret)
+                    .whereEqualTo(STATUS, SecretCodeStatusEnum.SENDING.name());
             final var future = query.get();
             final var docList = future.get().getDocuments();
 

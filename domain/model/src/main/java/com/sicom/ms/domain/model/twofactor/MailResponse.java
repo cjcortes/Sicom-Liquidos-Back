@@ -5,7 +5,8 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class RegisterUserRequest {
-    String user;
-    String email;
+public class MailResponse {
+    String message;
+    int status;
+    String code;
 }
