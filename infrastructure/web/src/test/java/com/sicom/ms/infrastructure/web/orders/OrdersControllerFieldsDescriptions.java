@@ -109,6 +109,13 @@ public class OrdersControllerFieldsDescriptions {
     private static final String CAPACITY_DESCRIPTION = "Capacidad del vehículo";
     private static final String COMPARTMENT_DESCRIPTION = "Compartimiento del vehículo";
 
+    private static final String RECEIPT_PLANT_ID_DESCRIPTION = "Id de planta de recibo";
+    private static final String SUPPLY_PLANT_DESCRIPTION = "Id de planta de abastecimiento";
+    private static final String PROVIDES_TRANSPORT_DESCRIPTION = "Provee transporte";
+    private static final String RAD_NUMBER_DESCRIPTION = "Numero de radicado";
+    private static final String VEHICLE_AGENT_DESCRIPTION = "Tipo de agente de vehiculo";
+    private static final String VEHICLE_ID_DESCRIPTION = "Id de vehiculo";
+
 
     protected static final FieldDescriptor[] ORDER_DETAIL_DESCRIPTOR = new FieldDescriptor[]{
             // Order data
@@ -231,6 +238,24 @@ public class OrdersControllerFieldsDescriptions {
             fieldWithPath("vehicle.compartment")
                     .type(JsonFieldType.NUMBER)
                     .description(COMPARTMENT_DESCRIPTION),
+            fieldWithPath("orderInfo.receiptPlantId")
+                    .type(JsonFieldType.STRING)
+                    .description(RECEIPT_PLANT_ID_DESCRIPTION),
+            fieldWithPath("orderInfo.supplyPlantId")
+                    .type(JsonFieldType.STRING)
+                    .description(SUPPLY_PLANT_DESCRIPTION),
+            fieldWithPath("orderInfo.providesTransport")
+                    .type(JsonFieldType.STRING)
+                    .description(PROVIDES_TRANSPORT_DESCRIPTION),
+            fieldWithPath("orderInfo.radNumber")
+                    .type(JsonFieldType.STRING)
+                    .description(RAD_NUMBER_DESCRIPTION),
+            fieldWithPath("orderInfo.vehicleAgent")
+                    .type(JsonFieldType.STRING)
+                    .description(VEHICLE_AGENT_DESCRIPTION),
+            fieldWithPath("orderInfo.vehicleId")
+                    .type(JsonFieldType.STRING)
+                    .description(VEHICLE_ID_DESCRIPTION),
     };
 
     private static final String PRODUCT_NAME_DESCRIPTION = "Nombre del producto";

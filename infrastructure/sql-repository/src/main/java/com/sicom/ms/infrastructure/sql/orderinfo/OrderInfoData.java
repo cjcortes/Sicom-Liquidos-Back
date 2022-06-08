@@ -47,5 +47,16 @@ public class OrderInfoData {
     String nationalQuota;
     @Column(name = "OBSERVACION_ADICIONAL")
     String additionalObservation;
-
+    @Column(name = "IDPLANTA_RECIBO")
+    String receiptPlantId;
+    @Column(name = "IDPLANTA_ABASTECIMIENTO")
+    String supplyPlantId;
+    @Column(name = "SUMINISTRATRASNPORTE")
+    String providesTransport;
+    @Column(name = "RADNUMBER")
+    String radNumber;
+    @Column(name = "AGENTEVEHICULO")
+    String vehicleAgent;
+    @Column(name = "IDVEHICULO")
+    String vehicleId;
 }
