@@ -40,6 +40,7 @@ public class AgentsGatewayAdapter implements AgentsGateway {
                         .municipality(a.municipio)
                         .addressCorrespondence(a.direccionCorrespondencia)
                         .isFrontierZone(a.zonaFrontera)
+                        .email(a.email)
                         .build())
                 .onErrorResume(WebClientResponseException.class,
                         ex -> ex.getRawStatusCode() == 404 ? Flux.empty() : Mono.error(ex));
