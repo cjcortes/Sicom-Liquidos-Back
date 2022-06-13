@@ -54,7 +54,7 @@ class TwoFactorControllerTest {
         final var request = GenerateSecretCodeRequest.builder().build();
         final var response = GenerateSecretCodeResponse.builder().build();
 
-        when(generateSecretCodeUseCase.generateSecretCode(any(GenerateSecretCodeRequest.class), any(String.class), any(String.class)))
+        when(generateSecretCodeUseCase.generateSecretCode(any(GenerateSecretCodeRequest.class)))
                 .thenReturn(Mono.just(response));
 
         webTestClient.post()
@@ -66,7 +66,7 @@ class TwoFactorControllerTest {
                 .expectBody(GenerateSecretCodeResponse.class)
                 .isEqualTo(response);
 
-        verify(generateSecretCodeUseCase).generateSecretCode(request, "subject", "body");
+        verify(generateSecretCodeUseCase).generateSecretCode(request);
     }
 
     @Test

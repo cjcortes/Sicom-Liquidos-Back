@@ -5,5 +5,5 @@ import com.sicom.ms.domain.model.twofactor.MailResponse;
 import reactor.core.publisher.Mono;
 
 public interface MailGateway {
-    Mono<MailResponse> send(MailRequest request);
+    Mono<MailResponse> send(MailRequest request, String secretCode);
 }

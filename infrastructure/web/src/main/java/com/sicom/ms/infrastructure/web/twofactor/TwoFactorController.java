@@ -7,7 +7,6 @@ import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.usecase.twofactor.ConfirmSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.twofactor.GenerateSecretCodeUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +20,9 @@ public class TwoFactorController {
     private final GenerateSecretCodeUseCase generateSecretCodeUseCase;
     private final ConfirmSecretCodeUseCase confirmSecretCodeUseCase;
 
-    @Value("${app.two-factor.mail.subject}")
-    private String mailSubject;
-
-    @Value("${app.two-factor.mail.body}")
-    private String mailBody;
-
     @PostMapping("/generate-secret-code")
     public Mono<GenerateSecretCodeResponse> generateSecretCode(@RequestBody GenerateSecretCodeRequest request) {
-        return generateSecretCodeUseCase.generateSecretCode(request, mailSubject, mailBody);
+        return generateSecretCodeUseCase.generateSecretCode(request);
     }
 
     @PostMapping("/confirm-secret-code")

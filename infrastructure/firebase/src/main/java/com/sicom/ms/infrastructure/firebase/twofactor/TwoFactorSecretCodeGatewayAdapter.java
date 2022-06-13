@@ -8,6 +8,7 @@ import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
 import com.sicom.ms.domain.model.twofactor.TwoFactorSecretCode;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorSecretCodeGateway;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
@@ -24,6 +25,9 @@ public class TwoFactorSecretCodeGatewayAdapter implements TwoFactorSecretCodeGat
     private static final String COLLECTION_NAME = "two-factor-secret-code";
     private static final String SECRET = "secret";
     private static final String STATUS = "status";
+
+    @Value("${app.two-factor.secret-code.timeout}")
+    private Integer secretCodeTimeOut;
 
     @Override
     @SuppressWarnings({"unchecked", "Duplicates", "BlockingMethodInNonBlockingContext"})
@@ -65,7 +69,7 @@ public class TwoFactorSecretCodeGatewayAdapter implements TwoFactorSecretCodeGat
 
             if (docList.size() > 0) {
                 final var result = docList.get(0).toObject(TwoFactorSecretCode.class);
-                if (result.getDate().after(Date.from(Instant.now().minusSeconds(60)))) {
+                if (result.getDate().after(Date.from(Instant.now().minusSeconds(secretCodeTimeOut)))) {
                     return Mono.just(result);
                 }
             }

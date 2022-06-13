@@ -16,7 +16,7 @@ import java.util.Collections;
 
 @Repository
 public class TwoFactorGatewayAdapter implements TwoFactorGateway {
-    @Value("${api.two-factor.url}")
+    @Value("${app.two-factor.api.url}")
     private String baseUrl;
 
 

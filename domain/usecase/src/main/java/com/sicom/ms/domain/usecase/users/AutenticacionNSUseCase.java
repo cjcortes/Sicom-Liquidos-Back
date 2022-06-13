@@ -1,5 +1,6 @@
 package com.sicom.ms.domain.usecase.users;
 
+import com.sicom.ms.domain.model.agents.AgentsGateway;
 import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.ApplicationException;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
@@ -25,6 +26,7 @@ public class AutenticacionNSUseCase {
     private final AutenticacionNSGateway autenticacionNSGateway;
     private final SecurityGateway securityGateway;
     private final TwoFactorGateway twoFactorGetway;
+    private final AgentsGateway agentsGateway;
 
     public Mono<User> login(AutenticacionNSRequest request, boolean twoFactorStatus) {
         objectValidator.validate(request, AUTENTICACION_NS_REQUEST_RULES)
@@ -33,9 +35,11 @@ public class AutenticacionNSUseCase {
         return autenticacionNSGateway.login(request)
                 .map(user -> user.toBuilder().twoFactorAuth(twoFactorStatus).build())
                 .flatMap(user -> twoFactorStatus
-                        ? twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
-                        .user(user.getUser()).email("email")
-                        .build()).thenReturn(user)
+                        ? agentsGateway.getAgentById(String.valueOf(user.getCode()))
+                        .next()
+                        .flatMap(agent -> twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
+                                .user(user.getUser()).email(agent.getEmail())
+                                .build())).thenReturn(user)
                         : securityGateway.generateToken(user));
     }
 

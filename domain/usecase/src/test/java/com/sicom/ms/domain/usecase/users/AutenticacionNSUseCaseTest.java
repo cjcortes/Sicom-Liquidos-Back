@@ -1,5 +1,7 @@
 package com.sicom.ms.domain.usecase.users;
 
+import com.sicom.ms.domain.model.agents.Agent;
+import com.sicom.ms.domain.model.agents.AgentsGateway;
 import com.sicom.ms.domain.model.di.Injectable;
 import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.BadRequestException;
@@ -16,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -44,6 +47,9 @@ class AutenticacionNSUseCaseTest {
 
     @Mock
     private TwoFactorGateway twoFactorGetway;
+
+    @Mock
+    private AgentsGateway agentsGateway;
 
     @InjectMocks
     private AutenticacionNSUseCase autenticacionNSUseCase;
@@ -91,6 +97,7 @@ class AutenticacionNSUseCaseTest {
 
         when(twoFactorGetway.confirmSecretCode(any(ConfirmSecretCodeRequest.class)))
                 .thenReturn(Mono.just(confirmSecretCodeResponse));
+        when(agentsGateway.getAgentById(any(String.class))).thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
 
         final Mono<User> userMono = autenticacionNSUseCase.loginTwoFactor(user, code);
         assertThat(userMono).isNotNull();
@@ -117,10 +124,12 @@ class AutenticacionNSUseCaseTest {
         when(autenticacionNSGateway.login(request))
                 .thenReturn(Mono.just(expected));
 
-
-
         when(securityGateway.generateToken(expected))
                 .thenReturn(Mono.just(expected));
+
+        when(agentsGateway.getAgentById(any(String.class)))
+                .thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
+
 
         StepVerifier.create(autenticacionNSUseCase.login(request, false))
                 .expectNext(expected)

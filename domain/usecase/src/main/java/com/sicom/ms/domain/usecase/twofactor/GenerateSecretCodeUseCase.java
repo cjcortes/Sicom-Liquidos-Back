@@ -21,7 +21,7 @@ public class GenerateSecretCodeUseCase {
     private final TwoFactorSecretCodeGateway secretCodeGateway;
     private final MailGateway mailGateway;
 
-    public Mono<GenerateSecretCodeResponse> generateSecretCode(GenerateSecretCodeRequest request, String mailSubject, String mailBody) {
+    public Mono<GenerateSecretCodeResponse> generateSecretCode(GenerateSecretCodeRequest request) {
         objectValidator.validate(request, GENERATE_SECRET_CODE_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("GenerateSecretCodeUseCase");
 
@@ -37,11 +37,7 @@ public class GenerateSecretCodeUseCase {
                                 .flatMap(secretCodeGateway::saveOrUpdate)
                                 //6- Enviar codigo a traves de api
                                 //ToDO pendiente implementacion sicom-internexa
-                                .flatMap(secretCode -> mailGateway.send(MailRequest.builder()
-                                                .to("juan.ortiz@sofka.com.co")
-                                                .subject(mailSubject)
-                                                .body(String.format(mailBody, code))
-                                                .build())
+                                .flatMap(secretCode -> mailGateway.send(MailRequest.builder().to(request.getEmail()).build(), code)
                                         .thenReturn(secretCode))))
                 //7- Contruir objecto respuesta
                 .map(secretCode -> GenerateSecretCodeResponse.builder()
