@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sicomapi.users;
 
-import com.sicom.ms.domain.model.forti.FortiUser;
 import com.sicom.ms.domain.model.users.EncryptPasswordGateway;
 import com.sicom.ms.domain.model.users.EncryptPasswordRequest;
 import com.sicom.ms.domain.model.users.EncryptedPasswordResponse;

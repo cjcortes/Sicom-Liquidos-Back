@@ -80,9 +80,6 @@ class AutenticacionNSUseCaseTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
-                .fortiUserId(123)
-                .fortiUserName("fortiUserName")
-                .fortiActiveAuth(false)
                 .twoFactorAuth(true)
                 .resultAuth(false)
                 .build();

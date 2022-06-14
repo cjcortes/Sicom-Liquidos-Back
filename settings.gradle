@@ -8,7 +8,6 @@ include 'domain:model',
         'infrastructure:security',
         'infrastructure:firebase',
         'applications:api',
-        'infrastructure:forti'
         'infrastructure:sicom-api'
 include 'sicom'
 include 'infrastructure:sicom'

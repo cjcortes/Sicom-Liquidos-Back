@@ -40,7 +40,7 @@ public class LoginFortiUserUseCaseTest {
     void loginShouldThrowBadExceptionIfRequestIsInvalid() {
         var request = LoginRequest.builder().build();
 
-        assertThatThrownBy(() -> loginUserUseCase.login(request, false))
+        assertThatThrownBy(() -> loginUserUseCase.login(request))
                 .isInstanceOf(BadRequestException.class)
                 .hasMessage("login bad request")
                 .hasFieldOrPropertyWithValue("code", "login.error.badRequest")
@@ -65,7 +65,7 @@ public class LoginFortiUserUseCaseTest {
         when(securityGateway.generateToken(expected))
                 .thenReturn(Mono.just(expected));
 
-        StepVerifier.create(loginUserUseCase.login(request, false))
+        StepVerifier.create(loginUserUseCase.login(request))
                 .expectNext(expected)
                 .verifyComplete();
 

@@ -1,13 +1,11 @@
 package com.sicom.ms.infrastructure.web.security;
 
-import com.sicom.ms.domain.model.forti.ValidateTokenRequest;
 import com.sicom.ms.domain.model.tokens.RefreshToken;
 import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
 import com.sicom.ms.domain.model.users.EncryptPasswordRequest;
 import com.sicom.ms.domain.model.users.EncryptedPasswordResponse;
 import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
-import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.AutenticacionNSUseCase;
 import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
@@ -25,31 +23,23 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/security")
 @RequiredArgsConstructor
 public class SecurityController {
-    @Value("${app.forti.status}")
-    private boolean fortiStatus;
 
     @Value("${app.two-factor.status}")
     private boolean twoFactorStatus;
 
     private final LoginUserUseCase loginUserUseCase;
     private final RefreshTokenUseCase refreshTokenUseCase;
-    private final FortiUseCase fortiUseCase;
     private final EncryptPasswordUseCase encryptPasswordUseCase;
     private final AutenticacionNSUseCase autenticacionNSUseCase;
 
     @PostMapping("/login")
     public Mono<User> login(@RequestBody LoginRequest loginRequest) {
-        return loginUserUseCase.login(loginRequest, fortiStatus);
+        return loginUserUseCase.login(loginRequest);
     }
 
     @PostMapping("/refresh-token")
     public Mono<RefreshToken> refreshToken(@RequestBody RefreshToken refreshToken) {
         return refreshTokenUseCase.refresh(refreshToken);
-    }
-
-    @PostMapping("/validate-forti-token")
-    public Mono<String> validateFortiToken(@RequestBody ValidateTokenRequest validateTokenRequest) {
-        return fortiUseCase.validateToken(validateTokenRequest);
     }
 
     @PostMapping("/login-encrypt-password")

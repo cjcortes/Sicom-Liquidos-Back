@@ -4,7 +4,6 @@ import com.sicom.ms.domain.model.tokens.RefreshToken;
 import com.sicom.ms.domain.model.users.AutenticacionNSRequest;
 import com.sicom.ms.domain.model.users.LoginRequest;
 import com.sicom.ms.domain.model.users.User;
-import com.sicom.ms.domain.usecase.forti.FortiUseCase;
 import com.sicom.ms.domain.usecase.tokens.RefreshTokenUseCase;
 import com.sicom.ms.domain.usecase.users.EncryptPasswordUseCase;
 import com.sicom.ms.domain.usecase.users.AutenticacionNSUseCase;
@@ -57,9 +56,6 @@ public class SecurityControllerTest {
     private static final String AGENT_TYPE_DESCRIPTION = "Tipo de Agente";
     private static final String PROFILE_DESCRIPTION = "Perfil del usuario";
     private static final String TOKEN_DESCRIPTION = "Token de sesión";
-    private static final String FORTI_USER_ID_DESCRIPTION = "id de usuario en forti";
-    private static final String FORTI_USER_NAME_DESCRIPTION = "nombre de usuario en forti";
-    private static final String FORTI_ACTIVE_AUTH = "estado de forti";
     private static final String TWO_FACTOR_AUTH = "estado de factor doble autenticacion";
     private static final String RESULT_AUTH = "resultado de la autenticacion";
 
@@ -91,15 +87,6 @@ public class SecurityControllerTest {
             fieldWithPath("token")
                     .type(JsonFieldType.STRING)
                     .description(TOKEN_DESCRIPTION),
-            fieldWithPath("fortiUserId")
-                    .type(JsonFieldType.NUMBER)
-                    .description(FORTI_USER_ID_DESCRIPTION),
-            fieldWithPath("fortiUserName")
-                    .type(JsonFieldType.STRING)
-                    .description(FORTI_USER_NAME_DESCRIPTION),
-            fieldWithPath("fortiActiveAuth")
-                    .type(JsonFieldType.BOOLEAN)
-                    .description(FORTI_ACTIVE_AUTH),
             fieldWithPath("twoFactorAuth")
                     .type(JsonFieldType.BOOLEAN)
                     .description(TWO_FACTOR_AUTH),
@@ -113,9 +100,6 @@ public class SecurityControllerTest {
 
     @MockBean
     private RefreshTokenUseCase refreshTokenUseCase;
-
-    @MockBean
-    private FortiUseCase FortiUseCase;
 
     @MockBean
     private EncryptPasswordUseCase encryptPasswordUseCase;
@@ -143,9 +127,6 @@ public class SecurityControllerTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
-                .fortiUserId(123)
-                .fortiUserName("fortiUserName")
-                .fortiActiveAuth(false)
                 .twoFactorAuth(false)
                 .resultAuth(false)
                 .build();
@@ -155,7 +136,7 @@ public class SecurityControllerTest {
                 .password("password")
                 .build();
 
-        when(loginUserUseCase.login(request, false))
+        when(loginUserUseCase.login(request))
                 .thenReturn(Mono.just(user));
 
         webTestClient.post()
@@ -172,7 +153,7 @@ public class SecurityControllerTest {
                         responseFields(USER_DESCRIPTOR)
                 ));
 
-        verify(loginUserUseCase).login(request, false);
+        verify(loginUserUseCase).login(request);
     }
 
     @Test
@@ -221,9 +202,6 @@ public class SecurityControllerTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
-                .fortiUserId(123)
-                .fortiUserName("fortiUserName")
-                .fortiActiveAuth(false)
                 .twoFactorAuth(false)
                 .resultAuth(false)
                 .build();
@@ -265,9 +243,6 @@ public class SecurityControllerTest {
                 .agentType("type")
                 .profile("profile")
                 .token("token")
-                .fortiUserId(123)
-                .fortiUserName("fortiUserName")
-                .fortiActiveAuth(false)
                 .twoFactorAuth(false)
                 .resultAuth(false)
                 .build();

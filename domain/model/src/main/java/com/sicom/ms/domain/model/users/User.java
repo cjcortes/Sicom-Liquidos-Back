@@ -16,9 +16,6 @@ public class User {
     String agentType;
     String profile;
     String token;
-    int  fortiUserId;
-    String fortiUserName;
-    boolean fortiActiveAuth;
     boolean twoFactorAuth;
     boolean resultAuth;
 }

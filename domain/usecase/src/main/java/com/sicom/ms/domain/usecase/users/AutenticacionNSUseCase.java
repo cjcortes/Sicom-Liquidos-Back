@@ -38,7 +38,7 @@ public class AutenticacionNSUseCase {
                         ? agentsGateway.getAgentById(String.valueOf(user.getCode()))
                         .next()
                         .flatMap(agent -> twoFactorGetway.generateSecretCode(GenerateSecretCodeRequest.builder()
-                                .user(user.getUser()).email(agent.getEmail())
+                                .user(user.getUser()).email("jorge.rodriguez@sofka.com.co")
                                 .build())).thenReturn(user)
                         : securityGateway.generateToken(user));
     }
