@@ -11,6 +11,8 @@ import reactor.test.StepVerifier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 
@@ -61,12 +63,14 @@ public class OrdersGatewayAdapterTest {
                 .expectNextSequence(expected)
                 .verifyComplete();
 
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         verify(storedProcedureQuery).setParameter("p_vrc_codaut_ope", request.getAuthCode());
         verify(storedProcedureQuery).setParameter("p_vrc_sicom_age", request.getClientCode());
         verify(storedProcedureQuery).setParameter("p_vrc_sicom_agp", request.getProviderPlantCode());
         verify(storedProcedureQuery).setParameter("p_chr_tipped_ope", request.getOrderType());
-        verify(storedProcedureQuery).setParameter("p_fecha_inicio", new Date(request.getSuggestedDeliveryStartDate()));
-        verify(storedProcedureQuery).setParameter("p_fecha_fin", new Date(request.getSuggestedDeliveryEndDate()));
+        verify(storedProcedureQuery).setParameter("p_fecha_inicio",  dateFormat.format(new Date(request.getSuggestedDeliveryStartDate())));
+        verify(storedProcedureQuery).setParameter("p_fecha_fin",  dateFormat.format(new Date(request.getSuggestedDeliveryEndDate())));
         verify(storedProcedureQuery).setParameter("p_vrc_usuario", request.getSicomAgent());
         verify(storedProcedureQuery).setParameter("p_int_estado", request.getOrderState());
     }
