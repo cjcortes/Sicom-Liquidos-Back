@@ -94,7 +94,7 @@ class AutenticacionNSUseCaseTest {
 
         when(twoFactorGetway.confirmSecretCode(any(ConfirmSecretCodeRequest.class)))
                 .thenReturn(Mono.just(confirmSecretCodeResponse));
-        when(agentsGateway.getAgentById(any(String.class))).thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
+        //when(agentsGateway.getAgentById(any(String.class))).thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
 
         final Mono<User> userMono = autenticacionNSUseCase.loginTwoFactor(user, code);
         assertThat(userMono).isNotNull();
@@ -124,8 +124,8 @@ class AutenticacionNSUseCaseTest {
         when(securityGateway.generateToken(expected))
                 .thenReturn(Mono.just(expected));
 
-        when(agentsGateway.getAgentById(any(String.class)))
-                .thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
+       // when(agentsGateway.getAgentById(any(String.class)))
+         //       .thenReturn(Flux.just(Agent.builder().sicomCode("sicomCode").build()));
 
 
         StepVerifier.create(autenticacionNSUseCase.login(request, false))
