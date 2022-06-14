@@ -10,6 +10,8 @@ import reactor.core.publisher.Flux;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,14 +30,14 @@ public class DashboardTotalsGatewayAdapter extends BaseGatewayAdapter<DashboardT
 
         storedProcedureQuery.setParameter("codigo_sicom", dashboardTotalsFilters.getSicomAgent());
 
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         if(dashboardTotalsFilters.getStartDate() != -1) {
-            Date startDate = new Date(dashboardTotalsFilters.getStartDate());
-            storedProcedureQuery.setParameter("fecha_creacion", startDate);
+            storedProcedureQuery.setParameter("fecha_creacion", dateFormat.format(new Date(dashboardTotalsFilters.getStartDate())));
         }
 
         if(dashboardTotalsFilters.getEndDate() != -1) {
-            Date endDate = new Date(dashboardTotalsFilters.getEndDate());
-            storedProcedureQuery.setParameter("fecha_cierre", endDate);
+            storedProcedureQuery.setParameter("fecha_cierre", dateFormat.format(new Date(dashboardTotalsFilters.getEndDate())));
         }
 
         if(dashboardTotalsFilters.getProduct() != -1) {

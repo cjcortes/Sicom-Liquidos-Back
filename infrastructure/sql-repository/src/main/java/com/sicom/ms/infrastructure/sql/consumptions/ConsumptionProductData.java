@@ -13,8 +13,8 @@ import java.util.Date;
         resultClasses = ConsumptionProductData.class,
         parameters = {
                 @StoredProcedureParameter(name = "codigo_sicom", type = String.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "fecha_creacion", type = Date.class, mode = ParameterMode.IN),
-                @StoredProcedureParameter(name = "fecha_cierre", type = Date.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "fecha_creacion", type = String.class, mode = ParameterMode.IN),
+                @StoredProcedureParameter(name = "fecha_cierre", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "codigo_producto", type = Integer.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "tipo_orden", type = String.class, mode = ParameterMode.IN),
                 @StoredProcedureParameter(name = "cur", type = void.class, mode = ParameterMode.REF_CURSOR)

@@ -10,6 +10,8 @@ import reactor.core.publisher.Flux;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -31,14 +33,20 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
         storedProcedureQuery.setParameter("p_vrc_sicom_age", orderFilters.getClientCode());
         storedProcedureQuery.setParameter("p_vrc_sicom_agp", orderFilters.getProviderPlantCode());
         storedProcedureQuery.setParameter("p_chr_tipped_ope", orderFilters.getOrderType());
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         if (orderFilters.getSuggestedDeliveryStartDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_inicio", new Date(orderFilters.getSuggestedDeliveryStartDate()));
-        }
-        if (orderFilters.getSuggestedDeliveryEndDate() != -1) {
-            storedProcedureQuery.setParameter("p_fecha_fin", new Date(orderFilters.getSuggestedDeliveryEndDate()));
+            storedProcedureQuery.setParameter("p_fecha_inicio",
+                    dateFormat.format(new Date(orderFilters.getSuggestedDeliveryStartDate())));
         }
 
-        storedProcedureQuery.setParameter("p_vrc_usuario", orderFilters.getSicomAgent());
+        if (orderFilters.getSuggestedDeliveryEndDate() != -1) {
+           storedProcedureQuery.setParameter("p_fecha_fin",
+                   dateFormat.format(new Date(orderFilters.getSuggestedDeliveryEndDate())));
+        }
+
+        storedProcedureQuery.setParameter("p_vrc_usuario", "-1");
         storedProcedureQuery.setParameter("p_int_estado", orderFilters.getOrderState());
 
         List<OrderData> result = storedProcedureQuery.getResultList();
