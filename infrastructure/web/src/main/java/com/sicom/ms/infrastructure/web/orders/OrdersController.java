@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.security.Principal;
 
-import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
+import static com.sicom.ms.domain.model.common.Constants.*;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -43,7 +43,7 @@ public class OrdersController {
     ) {
         return authenticationGateway.getClaims(principal)
                 .map(claims -> OrderFilters.builder()
-                        .sicomAgent((String) claims.get(SICOM_AGENT))
+                        .sicomAgent((String) claims.get(SICOM_USER))
                         .authCode(authCode.trim())
                         .clientCode(clientCode.trim())
                         .providerPlantCode(providerPlantCode.trim())

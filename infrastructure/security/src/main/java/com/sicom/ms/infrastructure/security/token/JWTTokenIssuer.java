@@ -13,8 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.temporal.ChronoUnit;
 
-import static com.sicom.ms.domain.model.common.Constants.CODE;
-import static com.sicom.ms.domain.model.common.Constants.SICOM_AGENT;
+import static com.sicom.ms.domain.model.common.Constants.*;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
     public Mono<User> generateToken(User user) {
         return Mono.just(user).map(user1 -> user1.toBuilder()
                 .token(create(user1.getCode(),
-                        user1.getSicomAgent()))
+                        user1.getSicomAgent(), user1.getUser()))
                 .build());
     }
 
@@ -38,11 +37,12 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
         return jwtVerifier.verify(refreshToken.getToken())
                 .map(decodedJWT -> refreshToken.toBuilder()
                         .token(create(decodedJWT.getClaim(CODE).asInt(),
-                                decodedJWT.getClaim(SICOM_AGENT).asString()))
+                                decodedJWT.getClaim(SICOM_AGENT).asString(),
+                                decodedJWT.getClaim(SICOM_USER).asString()))
                         .build());
     }
 
-    private String create(int code, String sicomAgent) {
+    private String create(int code, String sicomAgent, String sicomUser) {
         return JWT.create()
                 .withJWTId(randomUUID())
                 .withIssuer(jwtProperties.getIssuer())
@@ -51,6 +51,7 @@ public class JWTTokenIssuer implements SecurityGateway, UUIDOperations {
                 .withExpiresAt(timeProvider.currentDatePlus(jwtProperties.getExpires(), ChronoUnit.HOURS))
                 .withClaim(CODE, code)
                 .withClaim(SICOM_AGENT, sicomAgent)
+                .withClaim(SICOM_USER, sicomUser)
                 .sign(jwtAlgorithm.getAlgorithm());
     }
 
