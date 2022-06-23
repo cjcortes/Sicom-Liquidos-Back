@@ -27,14 +27,13 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
 
     @Override
     public Flux<Order> getAllByFilters(OrderFilters orderFilters) {
-        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("ordersByFilters.procedure");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("ordersByFilters.procedure");
         storedProcedureQuery.setParameter("p_vrc_codaut_ope", orderFilters.getAuthCode());
         storedProcedureQuery.setParameter("p_vrc_sicom_age", orderFilters.getClientCode());
         storedProcedureQuery.setParameter("p_vrc_sicom_agp", orderFilters.getProviderPlantCode());
         storedProcedureQuery.setParameter("p_chr_tipped_ope", orderFilters.getOrderType());
-
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         if (orderFilters.getSuggestedDeliveryStartDate() != -1) {
             storedProcedureQuery.setParameter("p_fecha_inicio",
@@ -42,8 +41,8 @@ public class OrdersGatewayAdapter extends BaseGatewayAdapter<Order, OrderData, I
         }
 
         if (orderFilters.getSuggestedDeliveryEndDate() != -1) {
-           storedProcedureQuery.setParameter("p_fecha_fin",
-                   dateFormat.format(new Date(orderFilters.getSuggestedDeliveryEndDate())));
+            storedProcedureQuery.setParameter("p_fecha_fin",
+                    dateFormat.format(new Date(orderFilters.getSuggestedDeliveryEndDate())));
         }
 
         storedProcedureQuery.setParameter("p_vrc_usuario", orderFilters.getSicomAgent());
