@@ -77,9 +77,13 @@ public class TwoFactorNotificationGatewayAdapter implements TwoFactorNotificatio
             final var docList = future.get().getDocuments();
 
             if (docList.size() > 0) {
-                final var result = docList.get(0).toObject(TwoFactorNotification.class);
-                if (result.getDate().after(Date.from(Instant.now().minusSeconds(timeOut)))) {
-                    return Mono.just(result);
+                final var result =  docList.get(0);
+                final var object = result.toObject(TwoFactorNotification.class);
+                final var docRef = result.getReference();
+                docRef.delete();
+
+                if (object.getDate().after(Date.from(Instant.now().minusSeconds(timeOut)))) {
+                    return Mono.just(object);
                 }
             }
         } catch (Exception cause) {
