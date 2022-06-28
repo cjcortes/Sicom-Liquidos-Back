@@ -3,6 +3,7 @@ package com.sicom.ms.domain.usecase.users;
 import com.sicom.ms.domain.model.agents.AgentsGateway;
 import com.sicom.ms.domain.model.error.ApplicationErrorDetail;
 import com.sicom.ms.domain.model.error.ApplicationException;
+import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
@@ -47,7 +48,7 @@ public class AutenticacionNSUseCase {
         return twoFactorGetway.confirmSecretCode(ConfirmSecretCodeRequest.builder().user(request.getUser()).code(code).build())
                 .flatMap(confirmSecretCodeResponse -> SecretCodeStatusEnum.VALID.name().equals(confirmSecretCodeResponse.getStatus())
                         ? Mono.just(request)
-                        : Mono.error(new ApplicationException("error", "error", (Set<ApplicationErrorDetail>) null)))
+                        : Mono.error(new BadRequestException("400", "Error invalid secret-code", null)))
                 .flatMap(securityGateway::generateToken);
     }
 }

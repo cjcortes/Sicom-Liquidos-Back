@@ -36,7 +36,6 @@ public class GenerateSecretCodeUseCase {
                                 //5- Guardar o actualizar objecto two-factor-secret-code
                                 .flatMap(secretCodeGateway::saveOrUpdate)
                                 //6- Enviar codigo a traves de api
-                                //ToDO pendiente implementacion sicom-internexa
                                 .flatMap(secretCode -> mailGateway.send(MailRequest.builder().to(request.getEmail()).build(), code)
                                         .thenReturn(secretCode))))
                 //7- Contruir objecto respuesta

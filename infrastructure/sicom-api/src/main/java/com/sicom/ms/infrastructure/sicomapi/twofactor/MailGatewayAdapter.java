@@ -1,21 +1,17 @@
 package com.sicom.ms.infrastructure.sicomapi.twofactor;
 
+import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.twofactor.MailRequest;
 import com.sicom.ms.domain.model.twofactor.MailResponse;
 import com.sicom.ms.domain.model.twofactor.gateway.MailGateway;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 @Repository
@@ -50,6 +46,8 @@ public class MailGatewayAdapter implements MailGateway {
                 .uri("WEBSERVICE/liquidos/NotificacionCorreo")
                 .bodyValue(request)
                 .exchange()
-                .flatMap(response -> response.bodyToMono(MailResponse.class));
+                .flatMap(response -> response.statusCode() == HttpStatus.OK
+                        ? response.bodyToMono(MailResponse.class)
+                        : Mono.error(new BadRequestException("400", "Error sending mail notification", null)));
     }
 }

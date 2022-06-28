@@ -37,7 +37,9 @@ public class SecurityConfiguration {
                         "/api/security/login-encrypt-password",
                         "/api/security/loginns",
                         "/api/two-factor/generate-secret-code",
-                        "/api/two-factor/confirm-secret-code"
+                        "/api/two-factor/confirm-secret-code",
+                        "/api/two-factor/register-notification-oauth2-webapp",
+                        "/api/two-factor/register-oauth2-webapp"
                 )
                 .permitAll()
                 .anyExchange().authenticated()
