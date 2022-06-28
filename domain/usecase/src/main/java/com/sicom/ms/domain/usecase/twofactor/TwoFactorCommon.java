@@ -3,6 +3,7 @@ package com.sicom.ms.domain.usecase.twofactor;
 import com.sicom.ms.domain.model.common.UUIDOperations;
 import com.sicom.ms.domain.model.di.Injectable;
 import com.sicom.ms.domain.model.error.ApplicationException;
+import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.twofactor.SecretCodeStatusEnum;
 import com.sicom.ms.domain.model.twofactor.TwoFactorSecretCode;
 import com.sicom.ms.domain.model.twofactor.TwoFactorUser;
@@ -58,7 +59,8 @@ public class TwoFactorCommon implements UUIDOperations {
                                 byte[] encrypted = cipher.doFinal(data.getBytes());
                                 return new String(encrypted);
                             } catch (Exception cause) {
-                                throw new ApplicationException("two.factor.error.invalid", "Request payload is invalid", cause);
+                                cause.printStackTrace();
+                                throw new BadRequestException("400", "Error generating encrypt secret-code", null);
                             }
                         }));
     }

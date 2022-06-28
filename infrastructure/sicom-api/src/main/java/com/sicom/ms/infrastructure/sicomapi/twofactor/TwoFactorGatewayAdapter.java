@@ -1,5 +1,6 @@
 package com.sicom.ms.infrastructure.sicomapi.twofactor;
 
+import com.sicom.ms.domain.model.error.BadRequestException;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.ConfirmSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
@@ -7,6 +8,7 @@ import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.model.twofactor.gateway.TwoFactorGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -31,7 +33,9 @@ public class TwoFactorGatewayAdapter implements TwoFactorGateway {
                 .uri("api/two-factor/generate-secret-code")
                 .bodyValue(request)
                 .exchange()
-                .flatMap(response -> response.bodyToMono(GenerateSecretCodeResponse.class));
+                .flatMap(response -> response.statusCode() == HttpStatus.OK
+                        ? response.bodyToMono(GenerateSecretCodeResponse.class)
+                        : Mono.error(new BadRequestException("400", "Error sending generate secret-code", null)));
     }
 
     @Override
@@ -45,7 +49,8 @@ public class TwoFactorGatewayAdapter implements TwoFactorGateway {
                 .uri("api/two-factor/confirm-secret-code")
                 .bodyValue(request)
                 .exchange()
-                .flatMap(response -> response.bodyToMono(ConfirmSecretCodeResponse.class));
+                .flatMap(response -> response.statusCode() == HttpStatus.OK
+                        ? response.bodyToMono(ConfirmSecretCodeResponse.class)
+                        : Mono.error(new BadRequestException("400", "Error sending confirm secret-code", null)));
     }
-
 }

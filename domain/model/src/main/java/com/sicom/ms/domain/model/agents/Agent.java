@@ -1,6 +1,5 @@
 package com.sicom.ms.domain.model.agents;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Value;
 
