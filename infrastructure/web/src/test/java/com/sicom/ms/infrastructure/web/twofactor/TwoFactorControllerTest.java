@@ -6,6 +6,8 @@ import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeRequest;
 import com.sicom.ms.domain.model.twofactor.GenerateSecretCodeResponse;
 import com.sicom.ms.domain.usecase.twofactor.ConfirmSecretCodeUseCase;
 import com.sicom.ms.domain.usecase.twofactor.GenerateSecretCodeUseCase;
+import com.sicom.ms.domain.usecase.twofactor.RegisterNotificationOAuth2WebAppUseCase;
+import com.sicom.ms.domain.usecase.twofactor.RegisterOAuth2WebAppUseCase;
 import com.sicom.ms.infrastructure.web.WebTestClientFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -28,16 +29,19 @@ import static org.mockito.Mockito.when;
 @WebFluxTest
 @ContextConfiguration(classes = {TwoFactorController.class})
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@TestPropertySource(properties = {"app.two-factor.mail.subject=subject", "app.two-factor.mail.body=body"})
 class TwoFactorControllerTest {
-
-
 
     @MockBean
     private GenerateSecretCodeUseCase generateSecretCodeUseCase;
 
     @MockBean
     private ConfirmSecretCodeUseCase confirmSecretCodeUseCase;
+
+    @MockBean
+    private RegisterNotificationOAuth2WebAppUseCase registerNotificationOAuth2WebAppUseCase;
+
+    @MockBean
+    private RegisterOAuth2WebAppUseCase registerOAuth2WebAppUseCase;
 
     private WebTestClient webTestClient;
 
