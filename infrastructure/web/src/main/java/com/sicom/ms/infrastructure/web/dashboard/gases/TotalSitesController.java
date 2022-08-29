@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/total-sites")
+@RequestMapping("/api/dashboard-gases/visitor/total-sites")
 @RequiredArgsConstructor
 public class TotalSitesController {
 
@@ -28,12 +28,12 @@ public class TotalSitesController {
                                          @RequestParam(defaultValue = "-1") String conversionType,
                                          Principal principal) {
 
-        return authenticationGateway.getClaims(principal)
-                .map(claims -> TotalSiteFilters.builder()
-                        .departmentCode(departmentCode)
-                        .cityCode(cityCode)
-                        .conversionType(conversionType)
-                        .build())
-                .flatMapMany(getTotalSitesByFiltersUseCase::getByFilters);
+
+
+        return getTotalSitesByFiltersUseCase.getByFilters(TotalSiteFilters.builder()
+                .departmentCode(departmentCode)
+                .cityCode(cityCode)
+                .conversionType(conversionType)
+                .build());
     }
 }

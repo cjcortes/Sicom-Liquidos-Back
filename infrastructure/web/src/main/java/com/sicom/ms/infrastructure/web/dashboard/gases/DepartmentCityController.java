@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/department-city")
+@RequestMapping("/api/dashboard-gases/visitor/department-city")
 @RequiredArgsConstructor
 public class DepartmentCityController {
 
@@ -27,11 +27,9 @@ public class DepartmentCityController {
                                               @RequestParam(defaultValue = "-1") String cityCode,
                                               Principal principal) {
 
-        return authenticationGateway.getClaims(principal)
-                .map(claims -> DepartmentCityFilters.builder()
-                        .departmentCode(departmentCode)
-                        .cityCode(cityCode)
-                        .build())
-                .flatMapMany(getDepartmentCityByFiltersUseCase::getByFilters);
+        return getDepartmentCityByFiltersUseCase.getByFilters(DepartmentCityFilters.builder()
+                .departmentCode(departmentCode)
+                .cityCode(cityCode)
+                .build());
     }
 }

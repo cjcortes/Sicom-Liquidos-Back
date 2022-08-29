@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/agent-location")
+@RequestMapping("/api/dashboard-gases/visitor/agent-location")
 @RequiredArgsConstructor
 public class AgentLocationController {
 
@@ -28,12 +28,10 @@ public class AgentLocationController {
                                              @RequestParam(defaultValue = "-1") String gcvType,
                                              Principal principal) {
 
-        return authenticationGateway.getClaims(principal)
-                .map(claims -> AgentLocationFilters.builder()
-                        .departmentCode(departmentCode)
-                        .cityCode(cityCode)
-                        .gcvType(gcvType)
-                        .build())
-                .flatMapMany(getAgentLocationsByFiltersUseCase::getByFilters);
+        return getAgentLocationsByFiltersUseCase.getByFilters(AgentLocationFilters.builder()
+                .departmentCode(departmentCode)
+                .cityCode(cityCode)
+                .gcvType(gcvType)
+                .build());
     }
 }

@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/fuel-price")
+@RequestMapping("/api/dashboard-gases/visitor/fuel-price")
 @RequiredArgsConstructor
 public class GcvFuelPriceController {
 
@@ -28,12 +28,10 @@ public class GcvFuelPriceController {
                                               @RequestParam(defaultValue = "-1") String fuelType,
                                               Principal principal) {
 
-        return authenticationGateway.getClaims(principal)
-                .map(claims -> GcvFuelPriceFilters.builder()
-                        .departmentCode(departmentCode)
-                        .cityCode(cityCode)
-                        .fuelType(fuelType)
-                        .build())
-                .flatMapMany(getGCVFuelPricesByFiltersUseCase::getByFilters);
+        return getGCVFuelPricesByFiltersUseCase.getByFilters(GcvFuelPriceFilters.builder()
+                .departmentCode(departmentCode)
+                .cityCode(cityCode)
+                .fuelType(fuelType)
+                .build());
     }
 }

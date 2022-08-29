@@ -16,7 +16,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/fuel-type")
+@RequestMapping("/api/dashboard-gases/visitor/fuel-type")
 @RequiredArgsConstructor
 public class FuelTypeController {
 
