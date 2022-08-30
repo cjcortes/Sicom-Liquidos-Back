@@ -26,7 +26,7 @@ public class TotalGarageRevisionController {
     private final GetTotalGarageRevisionsByFilterUseCase getTotalGarageRevisionsByFilterUseCase;
 
     @GetMapping
-    public Flux<TotalGarageRevision> getTotalConvertVehicles(@RequestParam(defaultValue = "-1") String garageSicomCode,
+    public Flux<TotalGarageRevision> getTotalGarageRevisions(@RequestParam(defaultValue = "-1") String garageSicomCode,
                                                              @RequestParam(defaultValue = "-1") String startDate,
                                                              @RequestParam(defaultValue = "-1") String endDate,
                                                              Principal principal) {
