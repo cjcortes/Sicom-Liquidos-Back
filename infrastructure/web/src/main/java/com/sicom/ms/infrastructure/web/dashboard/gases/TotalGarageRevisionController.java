@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/garages-revisions")
+@RequestMapping("/api/dashboard-gases/garage")
 @RequiredArgsConstructor
 public class TotalGarageRevisionController {
 
@@ -25,7 +25,7 @@ public class TotalGarageRevisionController {
 
     private final GetTotalGarageRevisionsByFilterUseCase getTotalGarageRevisionsByFilterUseCase;
 
-    @GetMapping
+    @GetMapping(value = "/garages-revisions")
     public Flux<TotalGarageRevision> getTotalGarageRevisions(@RequestParam(defaultValue = "-1") String garageSicomCode,
                                                              @RequestParam(defaultValue = "-1") String startDate,
                                                              @RequestParam(defaultValue = "-1") String endDate,

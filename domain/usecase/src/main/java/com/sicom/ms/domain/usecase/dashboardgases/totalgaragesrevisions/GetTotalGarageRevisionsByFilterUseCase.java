@@ -17,7 +17,7 @@ public class GetTotalGarageRevisionsByFilterUseCase {
 
     public Flux<TotalGarageRevision> getByFilters(TotalGarageRevisionFilters totalGarageRevisionFilters){
         objectValidator.validate(totalGarageRevisionFilters, GET_GARAGE_REVISION_BY_FILTER_REQUEST_RULES)
-                .throwBadRequestExceptionIfInvalid("getTotalConvertVehicles");
+                .throwBadRequestExceptionIfInvalid("getTotalGarageRevisions");
         return totalConvertVehiclesGateway.getTotalGarageRevisionsByFilters(totalGarageRevisionFilters);
     }
 }

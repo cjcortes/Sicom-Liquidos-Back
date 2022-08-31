@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/converted-vehicles")
+@RequestMapping("/api/dashboard-gases/garage")
 @RequiredArgsConstructor
 public class TotalConvertVehiclesController {
 
@@ -22,7 +22,7 @@ public class TotalConvertVehiclesController {
 
     private final GetTotalConvertVehiclesByFiltersUseCase getTotalConvertVehiclesByFiltersUseCase;
 
-    @GetMapping
+    @GetMapping(value = "/converted-vehicles")
     public Flux<TotalConvertVehicle> getTotalConvertVehicles(@RequestParam(defaultValue = "-1") String garageSicomCode,
                                                              @RequestParam(defaultValue = "-1") String conversionType,
                                                              Principal principal) {
