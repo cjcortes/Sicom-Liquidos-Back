@@ -100,7 +100,7 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
     @Override
     public Mono<VehicleDetail> getVehicle(String param) {
         var client = WebClient.builder()
-                .baseUrl("http://eds.sicom.gov.co/eds/api/v1")
+                .baseUrl("http://192.168.76.151/WEBSERVICE/GCV_WS")
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
