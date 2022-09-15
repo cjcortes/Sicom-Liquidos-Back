@@ -40,9 +40,9 @@ public class AgentLocationData {
     @Column(name = "NOMBRE_COMERCIAL_AGENTE")
     String commercialNameAgent;
     @Column(name = "COORDENADA_X")
-    String xCoordinate;
+    String coordinateX;
     @Column(name = "COORDENADA_Y")
-    String yCoordinate;
+    String coordinateY;
     @Column(name = "DEPARTAMENTO")
     String department;
     @Column(name = "MUNICIPIO")

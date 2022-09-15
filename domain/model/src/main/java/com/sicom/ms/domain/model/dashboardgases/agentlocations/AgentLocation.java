@@ -18,8 +18,8 @@ public class AgentLocation {
     String conversionType;
     String comercializeProducts;
     String commercialNameAgent;
-    String xCoordinate;
-    String yCoordinate;
+    String coordinateX;
+    String coordinateY;
     String department;
     String city;
     String addressType;
