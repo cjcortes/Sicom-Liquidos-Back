@@ -32,6 +32,13 @@ public class GcvFuelPricesGatewayAdapter extends BaseGatewayAdapter<GcvFuelPrice
 
         List<GcvFuelPriceData> result = storedProcedureQuery.getResultList();
 
+        result.sort((d1,d2) -> {
+            String date1 = d1.name.split("-")[1] + "-" + (Integer.valueOf(d1.name.split("-")[2]) < 10? 0 + d1.name.split("-")[2]:d1.name.split("-")[2]);
+            String date2 = d2.name.split("-")[1] + "-" + (Integer.valueOf(d2.name.split("-")[2]) < 10? 0 + d2.name.split("-")[2]:d2.name.split("-")[2]);;
+
+            return date1.compareTo(date2);
+        });
+
         return Flux.fromIterable(result).map(this::toEntity);
     }
 }
