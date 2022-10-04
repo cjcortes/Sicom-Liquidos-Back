@@ -31,6 +31,12 @@ public class DepartmentsCitiesGatewayAdapter extends BaseGatewayAdapter<Departme
 
         List<DepartmentCityData> result = storedProcedureQuery.getResultList();
 
-        return Flux.fromIterable(result).map(this::toEntity);
+        Flux<DepartmentCity> response = Flux.fromIterable(result).map(this::toEntity);
+
+        if(!request.getDepartmentCode().equals("-1")){
+            response.filter(departmentCity -> departmentCity.getDepartmentCode().equals(request.getDepartmentCode()));
+        }
+
+        return response;
     }
 }
