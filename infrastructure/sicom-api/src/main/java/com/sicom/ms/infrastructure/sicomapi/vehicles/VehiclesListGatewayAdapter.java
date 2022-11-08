@@ -1,10 +1,7 @@
 package com.sicom.ms.infrastructure.sicomapi.vehicles;
 
 import com.sicom.ms.domain.model.orders.OPSimple;
-import com.sicom.ms.domain.model.vehicles.VehicleDetail;
-import com.sicom.ms.domain.model.vehicles.VehicleOpSimple;
-import com.sicom.ms.domain.model.vehicles.VehicleTypeOPS;
-import com.sicom.ms.domain.model.vehicles.VehiclesListGateway;
+import com.sicom.ms.domain.model.vehicles.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +13,7 @@ import reactor.core.publisher.Mono;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 @Repository
 public class VehiclesListGatewayAdapter implements VehiclesListGateway {
@@ -108,6 +106,5 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
         return client.get()
                 .uri("/detalleVehiculo/"+param)
                 .exchange().block().bodyToMono(VehicleDetail.class);
-
     }
 }
