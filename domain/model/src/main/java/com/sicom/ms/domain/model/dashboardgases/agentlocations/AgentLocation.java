@@ -1,6 +1,7 @@
 package com.sicom.ms.domain.model.dashboardgases.agentlocations;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
 
 import java.sql.Date;
@@ -11,8 +12,8 @@ public class AgentLocation {
 
     int agentId;
     String fuelType;
-    Date lastDateRegRate;
-    int lastRate;
+    String lastDateRegRate;//Date
+    String lastRate;//int
     int codeSicomAgent;
     String codeSubtypeAgent;
     String conversionType;
@@ -26,7 +27,5 @@ public class AgentLocation {
     String address;
     String complementaryAddress;
     String phone;
-
-
 
 }

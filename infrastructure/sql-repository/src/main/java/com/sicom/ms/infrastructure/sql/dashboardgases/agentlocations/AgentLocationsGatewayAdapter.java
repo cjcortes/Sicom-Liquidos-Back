@@ -10,7 +10,9 @@ import reactor.core.publisher.Flux;
 
 import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class AgentLocationsGatewayAdapter extends BaseGatewayAdapter<AgentLocation, AgentLocationData, Integer> implements AgentLocationsGateway {
@@ -32,6 +34,28 @@ public class AgentLocationsGatewayAdapter extends BaseGatewayAdapter<AgentLocati
 
         List<AgentLocationData> result = storedProcedureQuery.getResultList();
 
-        return Flux.fromIterable(result).map(this::toEntity);
+        List<AgentLocationData> resultConverted = new ArrayList<>();
+
+        for(int i = 0; i < result.size(); i++){
+            if((i+1) < result.size()){
+                if (result.get(i).getCodeSicomAgent() == result.get(i+1).getCodeSicomAgent()) {
+                    result.get(i).setFuelType(result.get(i).getFuelType() + "," + result.get(i+1).getFuelType());
+                    result.get(i).setLastDateRegRate(result.get(i).getLastDateRegRate() + "," + result.get(i+1).getLastDateRegRate());
+                    result.get(i).setLastRate(result.get(i).getLastRate() + "," + result.get(i+1).getLastRate());
+                    resultConverted.add(result.get(i));
+                } else {
+                    resultConverted.add(result.get(i));
+                }
+            }
+
+            if(i == (result.size()-1)) {
+                resultConverted.add(result.get(i));
+            }
+
+        }
+
+        resultConverted = resultConverted.stream().distinct().collect(Collectors.toList());
+
+        return Flux.fromIterable(resultConverted).map(this::toEntity);
     }
 }

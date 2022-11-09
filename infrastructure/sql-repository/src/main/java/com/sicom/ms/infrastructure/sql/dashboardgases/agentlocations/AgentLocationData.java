@@ -26,9 +26,9 @@ public class AgentLocationData {
     @Column(name = "TIPO_COMBUSTIBLE")
     String fuelType;
     @Column(name = "ULTIMA_FECHA_REG_TARIFA")
-    Date lastDateRegRate;
+    String lastDateRegRate;
     @Column(name = "ULTIMA_TARIFA")
-    int lastRate;
+    String lastRate;
     @Column(name = "CODIGO_SICOM_AGENTE")
     int codeSicomAgent;
     @Column(name = "CODIGO_SUBTIPO_AGENTE")
