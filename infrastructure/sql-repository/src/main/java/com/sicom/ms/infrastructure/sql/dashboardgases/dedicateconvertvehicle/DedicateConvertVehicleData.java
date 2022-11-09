@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.dedicateconvertvehicle;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.vehicleclass.VehicleClassData;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.totalsites;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.fueltypes.FuelTypeData;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -6,6 +6,6 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class EquipmentBrandFilters {
-    String EquipmentBrandId;
-    String EquipmentTypeId;
+    String equipmentBrandId;
+    String equipmentTypeId;
 }

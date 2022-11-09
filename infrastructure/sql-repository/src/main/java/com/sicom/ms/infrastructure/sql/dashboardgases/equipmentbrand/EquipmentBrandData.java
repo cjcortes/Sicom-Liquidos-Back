@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.equipmentbrand;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.lastcertificationstatus.LastCertificationStatusData;
 import lombok.Data;
 
 import javax.persistence.*;

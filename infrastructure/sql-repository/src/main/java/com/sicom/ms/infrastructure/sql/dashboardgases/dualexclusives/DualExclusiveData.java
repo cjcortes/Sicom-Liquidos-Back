@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.dualexclusives;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.dedicateconvertvehicle.DedicateConvertVehicleData;
 import lombok.Data;
 
 import javax.persistence.*;

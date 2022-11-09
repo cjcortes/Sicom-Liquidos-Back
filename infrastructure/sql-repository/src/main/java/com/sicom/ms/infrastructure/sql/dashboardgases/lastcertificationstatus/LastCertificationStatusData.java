@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.lastcertificationstatus;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.dualexclusives.DualExclusiveData;
 import lombok.Data;
 
 import javax.persistence.*;

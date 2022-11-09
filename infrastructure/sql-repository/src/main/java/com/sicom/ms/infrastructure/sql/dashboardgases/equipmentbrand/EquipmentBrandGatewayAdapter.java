@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
 import javax.persistence.EntityManager;
+import javax.persistence.StoredProcedureQuery;
+import java.util.List;
 
 @Repository
 public class EquipmentBrandGatewayAdapter extends BaseGatewayAdapter<EquipmentBrand, EquipmentBrandData, Integer> implements EquipmentBrandGateway {
@@ -22,6 +24,13 @@ public class EquipmentBrandGatewayAdapter extends BaseGatewayAdapter<EquipmentBr
 
     @Override
     public Flux<EquipmentBrand> getEquipmentBrandByFilters(EquipmentBrandFilters request) {
-        return null;
+        StoredProcedureQuery storedProcedureQuery = entityManager.createNamedStoredProcedureQuery("getEquipmentBrand.procedure");
+
+        storedProcedureQuery.setParameter("id_marca_equipo", request.getEquipmentBrandId());
+        storedProcedureQuery.setParameter("id_tipo_equipo", request.getEquipmentTypeId());
+
+        List<EquipmentBrandData> result = storedProcedureQuery.getResultList();
+
+        return Flux.fromIterable(result).map(this::toEntity);
     }
 }

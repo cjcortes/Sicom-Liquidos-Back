@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.participationgarages;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.totalcertifiers.TotalCertifierData;
 import lombok.Data;
 
 import javax.persistence.*;

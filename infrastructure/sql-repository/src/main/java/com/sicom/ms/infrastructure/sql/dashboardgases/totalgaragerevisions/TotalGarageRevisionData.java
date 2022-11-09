@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.totalgaragerevisions;
 
-import com.sicom.ms.infrastructure.sql.dashboardgases.totalconvertvehicles.TotalConvertVehicleData;
 import lombok.Data;
 
 import javax.persistence.*;

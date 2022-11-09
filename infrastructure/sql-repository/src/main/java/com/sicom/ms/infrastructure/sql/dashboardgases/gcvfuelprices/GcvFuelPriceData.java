@@ -1,6 +1,5 @@
 package com.sicom.ms.infrastructure.sql.dashboardgases.gcvfuelprices;
 
-import com.sicom.ms.domain.model.dashboardgases.gcvfuelprices.GcvFuelPrice;
 import lombok.Data;
 
 import javax.persistence.*;
