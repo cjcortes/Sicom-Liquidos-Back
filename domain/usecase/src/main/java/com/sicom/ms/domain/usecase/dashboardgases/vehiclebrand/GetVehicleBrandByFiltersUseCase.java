@@ -6,12 +6,12 @@ import com.sicom.ms.domain.model.dashboardgases.vehiclebrand.VehicleBrandGateway
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class GetVehicleBrandByFiltersUseCase {
 
-    /*private final VehicleBrandGateway vehicleBrandGateway;
+    private final VehicleBrandGateway vehicleBrandGateway;
 
     public Flux<VehicleBrand> getByFilters(VehicleBrandFilters filters){
         return vehicleBrandGateway.getVehicleBrandsByFilters(filters);
-    }*/
+    }
 }

@@ -1,9 +1,9 @@
 package com.sicom.ms.infrastructure.web.dashboard.gases;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
-import com.sicom.ms.domain.model.dashboardgases.equipmentbrand.EquipmentBrand;
-import com.sicom.ms.domain.model.dashboardgases.equipmentbrand.EquipmentBrandFilters;
-import com.sicom.ms.domain.usecase.dashboardgases.equipmentbrand.GetEquipmentBrandByFiltersUseCase;
+import com.sicom.ms.domain.model.dashboardgases.equipmentmodel.EquipmentModel;
+import com.sicom.ms.domain.model.dashboardgases.equipmentmodel.EquipmentModelFilters;
+import com.sicom.ms.domain.usecase.dashboardgases.equipmentmodel.GetEquipmentModelByFiltersUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,22 +16,22 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api/dashboard-gases/garage")
 @RequiredArgsConstructor
-public class EquipmentBrandController {
+public class EquipmentModelController {
 
     private final AuthenticationGateway authenticationGateway;
 
-    private final GetEquipmentBrandByFiltersUseCase getEquipmentBrandByFiltersUseCase;
+    private final GetEquipmentModelByFiltersUseCase getEquipmentModelByFiltersUseCase;
 
-    @GetMapping(value = "/equipment-brand")
-    public Flux<EquipmentBrand> getEquipmentBrand(@RequestParam(defaultValue = "-1") String equipmentBrandId,
-                                                     @RequestParam(defaultValue = "-1") String equipmentTypeId,
+    @GetMapping(value = "/equipment-model")
+    public Flux<EquipmentModel> getEquipmentModel(@RequestParam(defaultValue = "-1") String equipmentBrandId,
+                                                     @RequestParam(defaultValue = "-1") String equipmentModelId,
                                                      Principal principal) {
 
         return authenticationGateway.getClaims(principal)
-                .map(claims -> EquipmentBrandFilters.builder()
+                .map(claims -> EquipmentModelFilters.builder()
                         .equipmentBrandId(equipmentBrandId)
-                        .equipmentTypeId(equipmentTypeId)
+                        .equipmentModelId(equipmentModelId)
                         .build())
-                .flatMapMany(getEquipmentBrandByFiltersUseCase::getByFilters);
+                .flatMapMany(getEquipmentModelByFiltersUseCase::getByFilters);
     }
 }

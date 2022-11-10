@@ -25,7 +25,7 @@ public class VehicleDetail{
     public List<HistoricoRevisione> historicoRevisiones;
     @JsonProperty("ProxRevisionAnual")
     public String proxRevisionAnual;
-    public int idMaestraVehiculo;
+    public int id_maestra_vehiculo;
 }
 
 class DatosCilindro{
