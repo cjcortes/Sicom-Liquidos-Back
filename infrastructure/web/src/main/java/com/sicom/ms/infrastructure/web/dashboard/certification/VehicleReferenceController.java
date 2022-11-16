@@ -1,4 +1,4 @@
-package com.sicom.ms.infrastructure.web.dashboard.gases;
+package com.sicom.ms.infrastructure.web.dashboard.certification;
 
 import com.sicom.ms.domain.model.common.AuthenticationGateway;
 import com.sicom.ms.domain.model.dashboardgases.vehiclereference.VehicleReference;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Flux;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/dashboard-gases/garage")
+@RequestMapping("/api/dashboard-gases/certification")
 @RequiredArgsConstructor
 public class VehicleReferenceController {
 

@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.StoredProcedureQuery;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -31,6 +32,8 @@ public class AgentLocationsGatewayAdapter extends BaseGatewayAdapter<AgentLocati
         storedProcedureQuery.setParameter("cod_departamento", request.getDepartmentCode());
         storedProcedureQuery.setParameter("cod_municipio", request.getCityCode());
         storedProcedureQuery.setParameter("tipo_gcv", request.getGcvType());
+
+        List<Optional> result2 = storedProcedureQuery.getResultList();
 
         List<AgentLocationData> result = storedProcedureQuery.getResultList();
 

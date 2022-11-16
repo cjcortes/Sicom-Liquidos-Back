@@ -12,8 +12,8 @@ public class AgentLocation {
 
     int agentId;
     String fuelType;
-    String lastDateRegRate;//Date
-    String lastRate;//int
+    String lastDateRegRate;
+    String lastRate;
     int codeSicomAgent;
     String codeSubtypeAgent;
     String conversionType;
