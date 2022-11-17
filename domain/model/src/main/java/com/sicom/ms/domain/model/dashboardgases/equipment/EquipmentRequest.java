@@ -20,7 +20,7 @@ class Cilindro{
     public String marca;
     public String modelo;
     public int capacidad;
-    public String fechaProximoPH;
+    public String fechaProximaPH;
     public String fechaFabricacion;
     public String fechaVencimiento;
     public String estadoCilindro;
