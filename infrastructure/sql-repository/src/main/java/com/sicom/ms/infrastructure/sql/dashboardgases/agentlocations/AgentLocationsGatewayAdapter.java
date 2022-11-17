@@ -33,8 +33,6 @@ public class AgentLocationsGatewayAdapter extends BaseGatewayAdapter<AgentLocati
         storedProcedureQuery.setParameter("cod_municipio", request.getCityCode());
         storedProcedureQuery.setParameter("tipo_gcv", request.getGcvType());
 
-        List<Optional> result2 = storedProcedureQuery.getResultList();
-
         List<AgentLocationData> result = storedProcedureQuery.getResultList();
 
         List<AgentLocationData> resultConverted = new ArrayList<>();
