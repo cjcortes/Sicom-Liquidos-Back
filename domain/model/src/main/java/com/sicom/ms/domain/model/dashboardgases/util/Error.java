@@ -1,4 +1,4 @@
-package com.sicom.ms.domain.model.dashboardgases.garagecoordinates;
+package com.sicom.ms.domain.model.dashboardgases.util;
 
 import lombok.Builder;
 import lombok.Value;

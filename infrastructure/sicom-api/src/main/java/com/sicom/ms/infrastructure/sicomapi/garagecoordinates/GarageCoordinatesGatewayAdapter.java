@@ -1,9 +1,9 @@
 package com.sicom.ms.infrastructure.sicomapi.garagecoordinates;
 
-import com.sicom.ms.domain.model.dashboardgases.garagecoordinates.Error;
 import com.sicom.ms.domain.model.dashboardgases.garagecoordinates.GarageCoordinatesFilters;
 import com.sicom.ms.domain.model.dashboardgases.garagecoordinates.GarageCoordinatesGateway;
 import com.sicom.ms.domain.model.dashboardgases.garagecoordinates.GarageCoordinatesResponse;
+import com.sicom.ms.domain.model.dashboardgases.util.Error;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
