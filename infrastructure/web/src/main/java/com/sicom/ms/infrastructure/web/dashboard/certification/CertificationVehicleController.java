@@ -18,9 +18,9 @@ public class CertificationVehicleController {
     private final GetCertificationVehicleUseCase getCertificationVehicleUseCase;
 
     @GetMapping(value = "/certification-vehicle")
-    public Flux<CertificationVehicleResponse> getCertificationVehicle(@RequestParam(defaultValue = "") String placa,
-                                                                      @RequestParam(defaultValue = "") String chip,
-                                                                      @RequestParam(defaultValue = "") String VIN) {
+    public Flux<CertificationVehicleResponse> getCertificationVehicle(@RequestParam(defaultValue = "-1") String placa,
+                                                                      @RequestParam(defaultValue = "-1") String chip,
+                                                                      @RequestParam(defaultValue = "-1") String VIN) {
 
         return getCertificationVehicleUseCase.getByFilters(CertificationVehicleFilters.builder()
                         .chip(chip)

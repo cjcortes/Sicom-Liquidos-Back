@@ -18,10 +18,10 @@ public class IndividualRevisionInformationController {
     private final GetIndividualRevisionInformationUseCase getIndividualRevisionInformationUseCase;
 
     @GetMapping(value = "/individual-revision-information")
-    public Flux<IndividualRevisionInformationResponse> getIndividualRevisionInformation(@RequestParam(defaultValue = "") String placa,
-                                                                                        @RequestParam(defaultValue = "") String chip,
-                                                                                        @RequestParam(defaultValue = "") String VIN,
-                                                                                        @RequestParam(defaultValue = "") String numeroCaso) {
+    public Flux<IndividualRevisionInformationResponse> getIndividualRevisionInformation(@RequestParam(defaultValue = "-1") String placa,
+                                                                                        @RequestParam(defaultValue = "-1") String chip,
+                                                                                        @RequestParam(defaultValue = "-1") String VIN,
+                                                                                        @RequestParam(defaultValue = "-1") String numeroCaso) {
 
         return getIndividualRevisionInformationUseCase.getByFilters(IndividualRevisionInformationFilters.builder()
                 .chip(chip)

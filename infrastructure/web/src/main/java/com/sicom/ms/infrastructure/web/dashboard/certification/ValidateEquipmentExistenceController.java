@@ -18,8 +18,8 @@ public class ValidateEquipmentExistenceController {
     private final GetValidateEquipmentExistenceUseCase getValidateEquipmentExistenceUseCase;
 
     @GetMapping(value = "/validate-equipment-existence")
-    public Flux<ValidateEquipmentExistenceResponse> getValidateEquipmentExistence(@RequestParam(defaultValue = "") String serial,
-                                                                           @RequestParam(defaultValue = "") String idTipoEquipo) {
+    public Flux<ValidateEquipmentExistenceResponse> getValidateEquipmentExistence(@RequestParam(defaultValue = "-1") String serial,
+                                                                           @RequestParam(defaultValue = "-1") String idTipoEquipo) {
 
         return getValidateEquipmentExistenceUseCase.getByFilters(ValidateEquipmentExistenceFilters.builder()
                 .serial(serial)

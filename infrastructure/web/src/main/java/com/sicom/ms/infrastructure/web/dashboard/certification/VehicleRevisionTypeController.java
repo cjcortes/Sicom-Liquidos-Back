@@ -18,9 +18,9 @@ public class VehicleRevisionTypeController {
     private final GetVehicleRevisionTypeUseCase getVehicleRevisionTypeUseCase;
 
     @GetMapping(value = "/vehicle-revision-type")
-    public Flux<VehicleRevisionTypeResponse> getVehicleRevisionType(@RequestParam(defaultValue = "") String placa,
-                                                                    @RequestParam(defaultValue = "") String chip,
-                                                                    @RequestParam(defaultValue = "") String VIN) {
+    public Flux<VehicleRevisionTypeResponse> getVehicleRevisionType(@RequestParam(defaultValue = "-1") String placa,
+                                                                    @RequestParam(defaultValue = "-1") String chip,
+                                                                    @RequestParam(defaultValue = "-1") String VIN) {
 
         return getVehicleRevisionTypeUseCase.getByFilters(VehicleRevisionTypeFilters.builder()
                 .chip(chip)

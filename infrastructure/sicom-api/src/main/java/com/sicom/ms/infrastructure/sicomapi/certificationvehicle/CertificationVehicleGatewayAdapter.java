@@ -27,15 +27,15 @@ public class CertificationVehicleGatewayAdapter implements CertificationVehicleG
 
         String param = "";
 
-        if(!filters.getPlaca().equals(null) && !filters.getPlaca().equals("")){
+        if(!filters.getPlaca().equals(null) && !filters.getPlaca().equals("-1")){
             param = "placa=" + filters.getPlaca();
         }
 
-        if(!filters.getChip().equals(null) && !filters.getChip().equals("")){
+        if(!filters.getChip().equals(null) && !filters.getChip().equals("-1")){
             param = "chip=" + filters.getChip();
         }
 
-        if(!filters.getVin().equals(null) && !filters.getVin().equals("")){
+        if(!filters.getVin().equals(null) && !filters.getVin().equals("-1")){
             param = "VIN=" + filters.getVin();
         }
 
