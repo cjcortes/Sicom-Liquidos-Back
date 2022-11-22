@@ -43,6 +43,7 @@ public class AgentLocationsGatewayAdapter extends BaseGatewayAdapter<AgentLocati
                     result.get(i).setFuelType(result.get(i).getFuelType() + "," + result.get(i+1).getFuelType());
                     result.get(i).setLastDateRegRate(result.get(i).getLastDateRegRate() + "," + result.get(i+1).getLastDateRegRate());
                     result.get(i).setLastRate(result.get(i).getLastRate() + "," + result.get(i+1).getLastRate());
+                    result.remove(i+1);
                     resultConverted.add(result.get(i));
                 } else {
                     resultConverted.add(result.get(i));

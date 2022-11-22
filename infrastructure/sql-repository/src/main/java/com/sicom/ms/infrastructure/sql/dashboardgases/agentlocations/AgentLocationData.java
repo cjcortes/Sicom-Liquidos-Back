@@ -21,6 +21,8 @@ import java.sql.Date;
 public class AgentLocationData {
 
     @Id
+    @Column(name = "ID")
+    int id;
     @Column(name = "ID_AGENTE")
     int agentId;
     @Column(name = "TIPO_COMBUSTIBLE")

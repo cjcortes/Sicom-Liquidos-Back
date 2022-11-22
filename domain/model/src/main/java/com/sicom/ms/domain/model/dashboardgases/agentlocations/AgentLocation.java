@@ -10,6 +10,7 @@ import java.sql.Date;
 @Builder(toBuilder = true)
 public class AgentLocation {
 
+    int id;
     int agentId;
     String fuelType;
     String lastDateRegRate;
