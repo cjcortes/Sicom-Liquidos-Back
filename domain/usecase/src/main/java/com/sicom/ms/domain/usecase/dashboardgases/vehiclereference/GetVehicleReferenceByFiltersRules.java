@@ -15,10 +15,10 @@ public class GetVehicleReferenceByFiltersRules {
             cannotBeEmpty(VehicleReferenceFilters::getVehicleBrandId, "vehicleReferenceFilters", "vehicleBrandId"),
             Rule.of("vehicleReferenceFilters.vehicleBrandIdCanNotBeEmpty",
                     "you must send equipment brand id",
-                    object -> (!object.getVehicleReferenceId().equals("-1") || object.getVehicleBrandId().equals(null))),
+                    object -> (!object.getVehicleBrandId().equals("-1") || object.getVehicleBrandId().equals(null))),
             cannotBeEmpty(VehicleReferenceFilters::getVehicleClassId, "vehicleReferenceFilters", "vehicleClassId"),
             Rule.of("vehicleReferenceFilters.vehicleClassIdCanNotBeEmpty",
-                    "you must send equipment brand id",
-                    object -> (!object.getVehicleReferenceId().equals("-1") || object.getVehicleClassId().equals(null)))
+                    "you must send equipment class id",
+                    object -> (!object.getVehicleClassId().equals("-1") || object.getVehicleClassId().equals(null)))
     );
 }

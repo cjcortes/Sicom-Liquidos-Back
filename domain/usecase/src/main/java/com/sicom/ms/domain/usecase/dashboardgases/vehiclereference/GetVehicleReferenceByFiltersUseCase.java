@@ -17,10 +17,13 @@ public class GetVehicleReferenceByFiltersUseCase {
     private final VehicleReferenceGateway vehicleReferenceGateway;
 
     public Flux<VehicleReference> getByFilters(VehicleReferenceFilters filters){
-        objectValidator.validate(filters, GET_VEHICLE_REFERENCE_BY_FILTER_REQUEST_RULES)
-                .throwBadRequestExceptionIfInvalid("getVehicleBrandId");
-        objectValidator.validate(filters, GET_VEHICLE_REFERENCE_BY_FILTER_REQUEST_RULES)
-                .throwBadRequestExceptionIfInvalid("getVehicleClassId");
+        if(filters.getVehicleReferenceId().equals("-1")){
+            objectValidator.validate(filters, GET_VEHICLE_REFERENCE_BY_FILTER_REQUEST_RULES)
+                    .throwBadRequestExceptionIfInvalid("getVehicleBrandId");
+            objectValidator.validate(filters, GET_VEHICLE_REFERENCE_BY_FILTER_REQUEST_RULES)
+                    .throwBadRequestExceptionIfInvalid("getVehicleClassId");
+        }
+
         return vehicleReferenceGateway.getVehicleReferenceByFilters(filters);
     }
 }
