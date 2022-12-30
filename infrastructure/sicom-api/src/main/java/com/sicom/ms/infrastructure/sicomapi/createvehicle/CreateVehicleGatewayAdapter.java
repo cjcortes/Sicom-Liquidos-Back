@@ -29,15 +29,15 @@ public class CreateVehicleGatewayAdapter  implements CreateVehicleGateway {
 
         WebClient client = WebClient.builder()
                 .baseUrl(baseUrl)
-                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.ALL)))
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.ALL_VALUE)
+                .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .exchangeStrategies(ExchangeStrategies.builder().codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(25 * 1024 * 1024)).build())
                 .build();
 
         return client.post()
                 .uri("WEBSERVICE/GCV_WS/AvanzarConsultarCrearVehiculo")
-                .contentType(MediaType.ALL)
-                .accept(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(request)
                 .exchange()
                 .flatMap( clientResponse -> clientResponse.bodyToMono(CreateVehicleResponse.class).map(v -> CreateVehicleResponse.builder()

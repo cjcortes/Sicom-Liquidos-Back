@@ -17,8 +17,7 @@ public class CreateVehicleController {
 
     private final CreateVehicleUseCase createVehicleUseCase;
 
-    //@PostMapping(value = "/consult-create-vehicle")
-    @RequestMapping(path = "/consult-create-vehicle", method = POST, consumes = { MediaType.ALL_VALUE})
+    @PostMapping(value = "/consult-create-vehicle")
     public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestBody CreateVehicleRequest request) {
         return createVehicleUseCase.create(request);
     }
