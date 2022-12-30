@@ -30,7 +30,7 @@ public class CreateVehicleGatewayAdapter  implements CreateVehicleGateway {
         WebClient client = WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.ALL)))
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_MIXED_VALUE)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.ALL_VALUE)
                 .exchangeStrategies(ExchangeStrategies.builder().codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(25 * 1024 * 1024)).build())
                 .build();
 
