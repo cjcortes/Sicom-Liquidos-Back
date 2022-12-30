@@ -4,10 +4,7 @@ import com.sicom.ms.domain.model.dashboardgases.createvehicle.CreateVehicleReque
 import com.sicom.ms.domain.model.dashboardgases.createvehicle.CreateVehicleResponse;
 import com.sicom.ms.domain.usecase.dashboardgases.createvehicle.CreateVehicleUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -18,7 +15,7 @@ public class CreateVehicleController {
     private final CreateVehicleUseCase createVehicleUseCase;
 
     @PostMapping(value = "/consult-create-vehicle")
-    public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestBody CreateVehicleRequest request) {
+    public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestPart CreateVehicleRequest request) {
         return createVehicleUseCase.create(request);
     }
 }
