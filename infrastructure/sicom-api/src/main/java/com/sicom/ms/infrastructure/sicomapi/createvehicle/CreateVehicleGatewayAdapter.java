@@ -3,18 +3,13 @@ package com.sicom.ms.infrastructure.sicomapi.createvehicle;
 import com.sicom.ms.domain.model.dashboardgases.createvehicle.CreateVehicleGateway;
 import com.sicom.ms.domain.model.dashboardgases.createvehicle.CreateVehicleRequest;
 import com.sicom.ms.domain.model.dashboardgases.createvehicle.CreateVehicleResponse;
-import io.netty.channel.ChannelOption;
-import io.netty.handler.timeout.ReadTimeoutHandler;
-import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import reactor.netty.http.client.HttpClient;
 
 import java.util.Collections;
 
