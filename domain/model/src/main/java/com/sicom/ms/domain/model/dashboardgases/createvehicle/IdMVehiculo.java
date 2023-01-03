@@ -41,7 +41,7 @@ public class IdMVehiculo {
 @Value
 class UTarjetaPropiedad {
     String fileName;
-    //String fileData;
+    String fileData;
 }
 
 @Value
