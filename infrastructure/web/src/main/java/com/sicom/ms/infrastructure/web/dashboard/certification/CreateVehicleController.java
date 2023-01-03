@@ -24,8 +24,8 @@ public class CreateVehicleController {
         return createVehicleUseCase.create(request);
     }*/
 
-    @RequestMapping(value = "/consult-create-vehicle", method = POST)
-    public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestPart("json") @Validated CreateVehicleRequest request, @RequestPart("fileData")MultipartFile fileData) {
+    @PostMapping(value = "/consult-create-vehicle", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestPart("request") CreateVehicleRequest request, @RequestPart("fileData")MultipartFile fileData) {
         System.out.println("Recibido");
         return createVehicleUseCase.create(request);
     }
