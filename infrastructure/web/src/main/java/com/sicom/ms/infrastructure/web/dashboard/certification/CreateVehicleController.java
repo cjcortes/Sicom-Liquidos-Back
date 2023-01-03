@@ -19,14 +19,14 @@ public class CreateVehicleController {
 
     private final CreateVehicleUseCase createVehicleUseCase;
 
-    /*@RequestMapping(value = "/consult-create-vehicle", method = POST)
+    @RequestMapping(value = "/consult-create-vehicle", method = POST)
     public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestBody CreateVehicleRequest request) {
         return createVehicleUseCase.create(request);
-    }*/
+    }
 
-    @PostMapping(value = "/consult-create-vehicle", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    /*@PostMapping(value = "/consult-create-vehicle", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public Mono<CreateVehicleResponse> consultCreateVehicle(@RequestPart("request") CreateVehicleRequest request, @RequestPart("fileData")MultipartFile fileData) {
         System.out.println("Recibido");
         return createVehicleUseCase.create(request);
-    }
+    }*/
 }
