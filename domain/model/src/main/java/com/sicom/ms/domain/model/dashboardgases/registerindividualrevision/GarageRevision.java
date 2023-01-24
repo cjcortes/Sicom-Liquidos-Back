@@ -9,6 +9,7 @@ public class GarageRevision {
     int idTipoRevision;
     String sChip;
     String sPlaca;
+    String sVIN;
     String sNumeroCertificadoSICERCO;
     int idTallerRevision;
     AtestacionPrimeraParte fileAtestacionPrimeraParte;
