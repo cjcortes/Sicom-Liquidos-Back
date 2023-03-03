@@ -19,7 +19,7 @@ class Cilindro{
     public String serial;
     public String marca;
     public String modelo;
-    public int capacidad;
+    public float capacidad;
     public String fechaProximaPH;
     public String fechaFabricacion;
     public String fechaVencimiento;

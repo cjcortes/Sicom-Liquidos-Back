@@ -16,7 +16,7 @@ public class ConfirmEquipment {
     int idTipoCilindro;
     int idEstadoEquipo;
     int idTipoCombustible;
-    int capacidadEquipo;
+    float capacidadEquipo;
     int idUnidadMedida;
     int intervaloRevision;
     String fechaFabricacion;
