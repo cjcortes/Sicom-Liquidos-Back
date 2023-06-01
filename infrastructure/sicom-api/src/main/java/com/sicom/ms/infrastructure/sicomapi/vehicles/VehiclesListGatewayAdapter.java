@@ -98,13 +98,13 @@ public class VehiclesListGatewayAdapter implements VehiclesListGateway {
     @Override
     public Mono<VehicleDetail> getVehicle(String param) {
         var client = WebClient.builder()
-                .baseUrl("http://192.168.76.151/WEBSERVICE/GCV_WS")
+                .baseUrl(baseUrl)
                 .defaultHeaders(header -> header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)))
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
         return client.get()
-                .uri("/detalleVehiculo/"+param)
+                .uri("WEBSERVICE/GCV_WS/detalleVehiculo/"+param)
                 .exchange().block().bodyToMono(VehicleDetail.class);
     }
 }
