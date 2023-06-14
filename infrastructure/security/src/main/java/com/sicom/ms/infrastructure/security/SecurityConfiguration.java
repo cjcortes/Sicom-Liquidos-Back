@@ -11,7 +11,10 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> release
 @EnableWebFluxSecurity
 @EnableConfigurationProperties({
         JWTProperties.class
@@ -30,9 +33,24 @@ public class SecurityConfiguration {
                 .authorizeExchange()
                 .pathMatchers(
                         "/",
+<<<<<<< HEAD
                         "/security/login",
                         "/security/refresh-token"
                         )
+=======
+                        "/api/security/login",
+                        "/api/security/login-two-factor",
+                        "/api/security/refresh-token",
+                        "/api/fcm",
+                        "/api/fcm/custom",
+                        "/api/security/login-encrypt-password",
+                        "/api/security/loginns",
+                        "/api/two-factor/generate-secret-code",
+                        "/api/two-factor/confirm-secret-code",
+                        "/api/two-factor/register-notification-oauth2-webapp",
+                        "/api/dashboard-gases/visitor/**"
+                )
+>>>>>>> release
                 .permitAll()
                 .anyExchange().authenticated()
                 .and()

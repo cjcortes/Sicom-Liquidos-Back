@@ -16,7 +16,11 @@ public class RefreshTokenUseCase {
 
     public Mono<RefreshToken> refresh(RefreshToken refreshToken) {
         objectValidator.validate(refreshToken, REFRESH_TOKEN_RULES)
+<<<<<<< HEAD
                 .throwBadRequestExceptionIfInvalid("login");
+=======
+                .throwBadRequestExceptionIfInvalid("refresh");
+>>>>>>> release
 
         return Mono.just(refreshToken).flatMap(securityGateway::refreshToken);
     }

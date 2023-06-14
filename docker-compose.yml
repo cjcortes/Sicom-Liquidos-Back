@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    restart: always
+    container_name: app-sicom
+    image: "app-sicom:${CI_PIPELINE_ID}"
+    build: .
+    network_mode: "host"
+    dns: 192.168.76.254
+    dns_search: sicom.loc

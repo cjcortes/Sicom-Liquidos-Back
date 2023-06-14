@@ -14,6 +14,10 @@ public class NumberRulesFactory {
     }
 
     private NumberRulesFactory() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> release
     }
 
 }

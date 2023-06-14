@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class BaseGatewayAdapter<E, D, I> {
 
+<<<<<<< HEAD
 //    private final JpaRepository<D, I> repository;
     private final ObjectConverter<E, D> converter;
 
@@ -32,6 +33,10 @@ public class BaseGatewayAdapter<E, D, I> {
 //        return repository.deleteById(id);
 //    }
 
+=======
+    private final ObjectConverter<E, D> converter;
+
+>>>>>>> release
     protected E toEntity(D data) {
         return converter.toEntity(data);
     }

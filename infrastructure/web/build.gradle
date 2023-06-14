@@ -9,6 +9,10 @@ configurations {
 dependencies {
     implementation project(':domain:model')
     implementation project(':domain:usecase')
+<<<<<<< HEAD
+=======
+    implementation project(':infrastructure:firebase')
+>>>>>>> release
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'

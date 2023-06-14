@@ -12,7 +12,10 @@ import static com.sicom.ms.domain.usecase.users.LoginUserRules.LOGIN_REQUEST_RUL
 
 @RequiredArgsConstructor
 public class LoginUserUseCase {
+<<<<<<< HEAD
 
+=======
+>>>>>>> release
     private final ObjectValidator objectValidator;
     private final UsersGateway usersGateway;
     private final SecurityGateway securityGateway;
@@ -20,6 +23,12 @@ public class LoginUserUseCase {
     public Mono<User> login(LoginRequest request) {
         objectValidator.validate(request, LOGIN_REQUEST_RULES)
                 .throwBadRequestExceptionIfInvalid("login");
+<<<<<<< HEAD
         return usersGateway.login(request).flatMap(securityGateway::generateToken);
+=======
+        return usersGateway.login(request)
+                .flatMap(securityGateway::generateToken)
+                .flatMap(Mono::just);
+>>>>>>> release
     }
 }

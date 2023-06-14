@@ -1,0 +1,89 @@
+= Referencia del API de SICOM
+:operation-http-request-title: Ejemplo de petición
+:operation-http-response-title: Ejemplo de respuesta
+:operation-request-fields-title: Campos de la petición
+:operation-response-fields-title: Campos de la respuesta
+:operation-request-parameters-title: Campos querystring de la petición
+:operation-path-parameters-title: Campos de la petición
+
+[[resources]]
+[[resources_security]]
+== Seguridad
+
+Se puede hacer login y refrescar token.
+
+[[resources_login]]
+=== Login
+
+Se hace una petición `POST` para iniciar sesión.
+
+operation::login[snippets='request-fields,http-request,response-fields,http-response']
+
+[[resources_refresh_token]]
+=== Refrescar token
+
+Se hace una petición `POST` para refrescar un token.
+
+operation::refresh-token[snippets='request-fields,http-request,response-fields,http-response']
+
+[[resources_order_types]]
+== Tipos de ordenes
+
+Se pueden consultar los tipos de ordenes.
+
+[[resources_get_order_types]]
+=== Obeter Tipos de ordenes
+
+Se hace una petición `GET` para obtener los tipos de ordenes.
+
+operation::order-types[snippets='http-request,response-fields,http-response']
+
+[[resources_orders]]
+== Ordenes
+
+Se pueden consultar las ordenes con filtros.
+
+[[resources_get_orders_by_filters]]
+=== Obeter ordenes por filtros
+
+Se hace una petición `GET` para obtener los ordenes por filtros.
+
+operation::orders[snippets='request-parameters,http-request,response-fields,http-response']
+
+[[resources_get_order_by_id]]
+=== Obtener orden por codigo de autorizacion
+
+Se hace una petición `GET` para obtener las ordenes.
+
+operation::order-by-id[snippets='path-parameters,http-request,response-fields,http-response']
+
+[[resources_get_products_by_order]]
+=== Obtener productos por codigo de autorizacion de la orden
+
+Se hace una petición `GET` para obtener los productos.
+
+operation::order-products[snippets='path-parameters,http-request,response-fields,http-response']
+
+[[resources_consumptions]]
+== Consumos
+
+Se pueden consultar los consumos de un agente.
+
+[[resources_get_consumptions]]
+=== Obeter consumo del mes de un agente
+
+Se hace una petición `GET` para obtener el consumo del mes de un agente.
+
+operation::consumptions[snippets='http-request,response-fields,http-response']
+
+[[resources_fcm]]
+== Notificaciones push
+
+Se pueden enviar notificaciones push.
+
+[[resources_fcm_send]]
+=== Obeter ordenes por filtros
+
+Se hace una petición `POST` para enviar la notificación push.
+
+operation::fcm-send[snippets='request-fields,http-request,http-response']

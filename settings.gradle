@@ -6,4 +6,16 @@ include 'domain:model',
         'infrastructure:web',
         'infrastructure:sql-repository',
         'infrastructure:security',
+<<<<<<< HEAD
         'applications:api'
+=======
+        'infrastructure:firebase',
+        'applications:api',
+        'infrastructure:sicom-api'
+include 'sicom'
+include 'infrastructure:sicom'
+findProject(':infrastructure:sicom')?.name = 'sicom'
+include 'infrastructure:sicom-api'
+findProject(':infrastructure:sicom-api')?.name = 'sicom-api'
+
+>>>>>>> release

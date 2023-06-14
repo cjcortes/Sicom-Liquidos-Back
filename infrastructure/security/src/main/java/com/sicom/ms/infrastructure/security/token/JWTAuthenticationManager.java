@@ -6,7 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> release
 @Service
 @RequiredArgsConstructor
 public class JWTAuthenticationManager implements ReactiveAuthenticationManager {

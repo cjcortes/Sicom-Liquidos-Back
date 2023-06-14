@@ -1,7 +1,10 @@
 package com.sicom.ms.infrastructure.security.token;
 
 import com.auth0.jwt.JWT;
+<<<<<<< HEAD
 import com.auth0.jwt.exceptions.JWTDecodeException;
+=======
+>>>>>>> release
 import com.sicom.ms.domain.model.error.UnauthorizedException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;

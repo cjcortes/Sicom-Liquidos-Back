@@ -19,4 +19,12 @@ public class TimeProvider {
                 .plus(amountToAdd, chronoUnit));
     }
 
+<<<<<<< HEAD
+=======
+    public Date currentDateMinus(int amountToSubtract, ChronoUnit chronoUnit) {
+        return Date.from(Instant.now()
+                .minus(amountToSubtract, chronoUnit));
+    }
+
+>>>>>>> release
 }

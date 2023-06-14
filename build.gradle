@@ -1,6 +1,9 @@
 buildscript {
     ext {
+<<<<<<< HEAD
         set('springCloudVersion', 'Hoxton.SR5')
+=======
+>>>>>>> release
         set('springBootVersion', '2.3.1.RELEASE')
         set('springDependencyManagementVersion', '1.0.9.RELEASE')
         set('gradleDependencyUpdatesVersion', '0.28.0')
@@ -60,12 +63,21 @@ subprojects {
     dependencies {
         implementation 'io.projectreactor:reactor-core'
         implementation 'org.slf4j:slf4j-api'
+<<<<<<< HEAD
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+=======
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+>>>>>>> release
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation 'io.projectreactor:reactor-test'
+<<<<<<< HEAD
+=======
+        implementation('com.fasterxml.jackson.core:jackson-annotations')
+>>>>>>> release
     }
 
     dependencyManagement {

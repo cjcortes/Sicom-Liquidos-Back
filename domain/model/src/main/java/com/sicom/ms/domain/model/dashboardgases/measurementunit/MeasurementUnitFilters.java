@@ -1,0 +1,10 @@
+package com.sicom.ms.domain.model.dashboardgases.measurementunit;
+
+import lombok.Builder;
+import lombok.Value;
+
+@Value
+@Builder(toBuilder = true)
+public class MeasurementUnitFilters {
+    String measurementUnitId;
+}
