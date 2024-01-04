@@ -27,3 +27,8 @@ stages:
         configMode: 'manual'
         cliProjectKey: 'SICOM_Sicom-Gases-Mobile_AYzUz7XZ74t2SLEyIA5i'
         cliSources: '.'
+    
+    - script: |
+        flutter pub get
+        flutter analyze
+      displayName: 'Run Flutter analysis'
